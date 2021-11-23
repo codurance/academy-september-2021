@@ -1,6 +1,6 @@
 import type { AWS } from '@serverless/typescript';
 
-import hello from 'infrastructure/src/functions/hello';
+import hello from '@functions/hello';
 
 const serverlessConfiguration: AWS = {
   service: 'infrastructure',
