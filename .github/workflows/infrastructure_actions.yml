@@ -55,7 +55,8 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
       - run: npm install
       - run: npm install -g serverless
-      - run: serverless deploy --stage staging --region us-east-1 #${{ env.AWS_REGION }}
+      - run: serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY
+      - run: serverless deploy --stage staging --region $AWS_REGION
 
 #      - name: serverless deploy
 #        uses: serverless/github-action@v1.53.0
