@@ -17,10 +17,10 @@ jobs:
       - name: Checkout from GH repository
         uses: actions/checkout@v2
 
-      - name: Setup Node.js 14
+      - name: Setup Node.js ${{ secrets.NODE_VERSION }}
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: ${{ secrets.NODE_VERSION }}
           cache: 'npm'
           cache-dependency-path: ./infrastructure/package-lock.json
 
@@ -39,14 +39,14 @@ jobs:
       - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
-          node-version: '14'
+          node-version: ${{ secrets.NODE_VERSION }}
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          aws-region: ${{ secrets.AWS_DEV_REGION }}
       - run: npm install
       - run: npm install -g serverless
       - run: serverless deploy --stage staging --region us-east-1
