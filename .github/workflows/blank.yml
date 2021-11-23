@@ -45,11 +45,11 @@ jobs:
           cache-dependency-path: ./infrastructure/package-lock.json
 
       - name: install dependencies
-      working-directory: ./infrastructure
-      run: npm ci
+        working-directory: ./infrastructure
+        run: npm ci
 
       - name: deploy serverless
-        uses: serverless/github-action@v1
+      uses: serverless/github-action@v1
         with:
           args: deploy
         env:
