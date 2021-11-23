@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: build backend
+    name: build and test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,26 +16,11 @@ jobs:
         with:
           node-version: '14'
       - run: npm install
-
-  unit_tests:
-    needs: build
-    name: run the tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - run: npm install
-      - uses: actions/checkout@v2
-      - name: Run Jest
-        uses: stefanoeb/jest-action@1.0.3
-
-#      - run: npm run test
+      - run: npm test
 
 #  deploy:
 #    needs:
 #      - build
-#      - unit_tests
 #    name: deploy lambdas
 #    runs-on: ubuntu-latest
 #    strategy:
