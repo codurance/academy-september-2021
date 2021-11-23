@@ -5,14 +5,14 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+defaults:
+  run:
+    working-directory: ./infrastructure
 
 jobs:
   build_infrastructure:
     name: build and test
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./infrastructure
     strategy:
       matrix:
         node-version: [ 14.x ]
@@ -37,9 +37,9 @@ jobs:
      - build_infrastructure
     name: deploy
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./infrastructure
+#    defaults:
+#      run:
+#        working-directory: ./infrastructure
     strategy:
       matrix:
         node-version: [14.x]
@@ -50,7 +50,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: echo $HOME
       - name: serverless deploy
         uses: serverless/github-action@v1
         with:
