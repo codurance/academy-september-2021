@@ -10,58 +10,31 @@ jobs:
   build_infrastructure:
     name: build and test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./infrastructure
+    strategy:
+      matrix:
+        node-version: [ 14.x ]
     steps:
       - name: Checkout from GH repository
         uses: actions/checkout@v2
 
-      - name: Setup Node.js
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: ${{ matrix.node-version }}
           cache: 'npm'
           cache-dependency-path: ./infrastructure/package-lock.json
 
       - name: Build and test
-        working-directory: ./infrastructure
         run: |
           npm install
           npm test
 
-#  deploy:
-#    needs:
-#      - build_infrastructure
-#    name: deploy lambdas
-#    runs-on: ubuntu-latest
-#    defaults:
-#      run:
-#        working-directory: ./infrastructure
-#    steps:
-#      - name: Checkout from GH repository
-#      - uses: actions/checkout@v2
-#
-#      - name: Setup Node.js
-#        uses: actions/setup-node@v2
-#        with:
-#          node-version: '14'
-#          cache: 'npm'
-#          cache-dependency-path: ./infrastructure/package-lock.json
-#
-#      - name: install dependencies
-#        working-directory: ./infrastructure
-#        run: npm ci
-#
-#      - name: deploy serverless
-#        uses: serverless/github-action@v1
-#        with:
-#          args: deploy
-#        env:
-#          SERVERLESS_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#        # or
-#        # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#        # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-
   deploy:
+    needs:
+     - build_infrastructure
     name: deploy
     runs-on: ubuntu-latest
     defaults:
@@ -77,6 +50,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
+      - run: echo $HOME
       - name: serverless deploy
         uses: serverless/github-action@v1
         with:
