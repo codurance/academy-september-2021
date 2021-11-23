@@ -32,18 +32,21 @@ jobs:
       - build_infrastructure
     name: deploy lambdas
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 14.x ]
+
     steps:
-    - uses: actions/checkout@v2
-#    - name: Use Node.js ${{ matrix.node-version }}
-#      uses: actions/setup-node@v1
-#      with:
-#        node-version: ${{ matrix.node-version }}
-#    - run: npm ci
-    - name: serverless deploy
-      uses: serverless/github-action@master
+    - name: Checkout from GH repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+        cache: 'npm'
+        cache-dependency-path: ./infrastructure/package-lock.json
+    - run: npm ci
+
+    - name: deploy serverless
+      uses: serverless/github-action@v1
       with:
         args: deploy
       env:
