@@ -37,9 +37,6 @@ jobs:
      - build_infrastructure
     name: deploy
     runs-on: ubuntu-latest
-#    defaults:
-#      run:
-#        working-directory: ./infrastructure
     strategy:
       matrix:
         node-version: [14.x]
@@ -58,21 +55,3 @@ jobs:
       - run: npm install
       - run: npm install -g serverless
       - run: serverless deploy --stage staging --region us-east-1
-
-#        env:
-#          AWS_REGION: us-east-1
-#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          AWS_SECRET_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
-
-
-#      - name: serverless deploy
-#        uses: serverless/github-action@v1.53.0
-#        with:
-#          args: deploy --package ./infrastructure
-#        env:
-#          SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
-          # or if using AWS credentials directly
-          # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-#          deploy --package path-to-folder
