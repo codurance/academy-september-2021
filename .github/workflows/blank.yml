@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build_infrastructure:
     name: build and test
     runs-on: ubuntu-latest
     steps:
@@ -15,12 +15,15 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
+
+      - name: build and test
+      working-directory: ./infrastructure
       - run: npm install
       - run: npm test
 
 #  deploy:
 #    needs:
-#      - build
+#      - build_infrastructure
 #    name: deploy lambdas
 #    runs-on: ubuntu-latest
 #    strategy:
