@@ -29,8 +29,8 @@ terraform {
 }
 
 provider "aws" {
-  region              = "us-east-1"
-  allowed_account_ids = ["300563897675"]
+  region              = var.AWS_DEV_REGION
+  allowed_account_ids = [var.PLAYGROUND_ACCOUNT_ID]
 
   default_tags {
     tags = {
