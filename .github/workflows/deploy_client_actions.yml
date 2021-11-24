@@ -68,5 +68,5 @@ jobs:
         uses: unfor19/install-aws-cli-action@master
         with:
           version: '2.2.45'
-      - run: aws s3 sync build/ $AWS_STAGING_DOMAIN
+      - run: aws s3 sync build/ s3://$AWS_STAGING_DOMAIN
         shell: bash
