@@ -28,6 +28,7 @@ jobs:
         run: |
           npm install
           npm test
+          yarn build
 
   deploy_client:
     needs:
@@ -46,6 +47,18 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+
+      - name: S3 Deploy
+        uses: Reggionick/s3-deploy@v3.1.1
+        with:
+          folder: build
+          bucket: ${{ secrets.S3_BUCKET }}
+          bucket-region: ${{ secrets.AWS_DEV_REGION }}
+#          dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+          invalidation: /
+          delete-removed: true
+          no-cache: true
+          private: true
 
 #      - name: Terraform fmt
 #        id: fmt
