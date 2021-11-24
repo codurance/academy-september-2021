@@ -16,7 +16,7 @@ jobs:
       TF_VAR_AWS_DEV_REGION: ${{ secrets.AWS_DEV_REGION }}
       TF_VAR_PLAYGROUND_ACCOUNT_ID: ${{ secrets.PLAYGROUND_ACCOUNT_ID }}
       TF_VAR_AWS_STAGING_DOMAIN: ${{secrets.S3_STAGING_DOMAIN_NAME}}
-      AWS_STAGING_DOMAIN: ${{secrets.S3_STAGING_DOMAIN_NAME}}
+      S3_BUCKET_COMMAND: ${{secrets.AWS_S3_BUCKET_COMMAND}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -68,5 +68,5 @@ jobs:
         uses: unfor19/install-aws-cli-action@master
         with:
           version: '2.2.45'
-      - run: aws s3 sync build/ s3://$AWS_STAGING_DOMAIN
+      - run: aws s3 sync build/ $S3_BUCKET_COMMAND
         shell: bash
