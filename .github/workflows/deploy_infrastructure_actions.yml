@@ -1,6 +1,10 @@
-name: SkillSet
+name: Deploy_Infrastructure
 
 on:
+  workflow_run:
+    workflows: [ "Build_SkillSet" ]
+    types:
+      - completed
   push:
     branches: [ main ]
   pull_request:
@@ -11,8 +15,6 @@ defaults:
 
 jobs:
   deploy_infrastructure:
-#    needs:
-#     - build
     name: Deploy Infrastructure
     runs-on: ubuntu-latest
     steps:

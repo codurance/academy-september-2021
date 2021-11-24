@@ -1,4 +1,4 @@
-name: SkillSet
+name: Build_SkillSet
 
 on:
   push:
