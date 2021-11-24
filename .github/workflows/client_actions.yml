@@ -36,15 +36,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      - name: Build
-      uses: actions/setup-node@v2
-        run: |
-          yarn build
-
       - uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.7
+
+      - name: Build
+        uses: actions/setup-node@v2
+        run: yarn build
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
