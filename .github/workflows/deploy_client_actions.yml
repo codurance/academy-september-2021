@@ -11,8 +11,8 @@ defaults:
 
 jobs:
   deploy_client:
-    needs:
-      - build
+#    needs:
+#      - build
     name: Deploy Client
     runs-on: ubuntu-latest
     steps:

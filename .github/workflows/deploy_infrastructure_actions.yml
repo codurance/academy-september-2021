@@ -11,8 +11,8 @@ defaults:
 
 jobs:
   deploy_infrastructure:
-    needs:
-     - build
+#    needs:
+#     - build
     name: Deploy Infrastructure
     runs-on: ubuntu-latest
     steps:
