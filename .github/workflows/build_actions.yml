@@ -1,0 +1,36 @@
+name: SkillSet
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout from GH repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'npm'
+          cache-dependency-path: |
+            ./client/package-lock.json
+            ./infrastructure/package-lock.json
+
+      - name: Build and Test Infrastructure
+        working-directory: ./infrastructure
+        run: |
+          npm install
+          npm test
+
+      - name: Build and Test Client
+        working-directory: ./client
+        run: |
+          npm install
+          npm test

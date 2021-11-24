@@ -10,28 +10,9 @@ defaults:
     working-directory: ./client
 
 jobs:
-  build_client:
-    name: Build and Test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout from GH repository
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js 14
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: 'npm'
-          cache-dependency-path: ./client/package-lock.json
-
-      - name: Build and Test
-        run: |
-          npm install
-          npm test
-
   deploy_client:
     needs:
-      - build_client
+      - build
     name: Deploy Client
     runs-on: ubuntu-latest
     steps:
