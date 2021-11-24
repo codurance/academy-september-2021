@@ -1,0 +1,52 @@
+name: SkillSet
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+defaults:
+  run:
+    working-directory: ./infrastructure
+
+jobs:
+  build_infrastructure:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout from GH repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'npm'
+          cache-dependency-path: ./infrastructure/package-lock.json
+
+      - name: Build and Test
+        run: |
+          npm install
+          npm test
+
+  deploy_infrastructure:
+    needs:
+     - build_infrastructure
+    name: Deploy Infrastructure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - run: npm install
+      - run: npm install -g serverless
+      - run: serverless deploy --stage staging --region us-east-1
