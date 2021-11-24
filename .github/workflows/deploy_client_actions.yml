@@ -41,7 +41,7 @@ jobs:
         uses: unfor19/install-aws-cli-action@master
         with:
           version: '2.2.45'
-      - run: aws s3 sync build/ s3://skillset.codurance.io
+      - run: aws s3 sync build/ s3://skillset.staging.codurance.io
         shell: bash
 
       - name: Cache Terraform

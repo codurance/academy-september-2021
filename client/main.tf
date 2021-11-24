@@ -4,8 +4,8 @@ module "website_with_cname" {
   # version = "x.x.x"
   namespace      = "skillset"
   stage          = "staging"
-  name           = "skillset-app"
-  hostname       = "skillset.codurance.io"
+  name           = "skillset-staging-app"
+  hostname       = "skillset.staging.codurance.io"
   parent_zone_id = "Z2P3IWUGUFUUGE"
 }
 
