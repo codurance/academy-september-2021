@@ -17,3 +17,8 @@ variable "PLAYGROUND_ACCOUNT_ID" {
     error_message = "AWS account ID must contain 12 digits."
   }
 }
+
+variable "AWS_STAGING_DOMAIN" {
+  type        = string
+  description = "AWS staging domain"
+}

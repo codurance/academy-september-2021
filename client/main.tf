@@ -5,7 +5,7 @@ module "website_with_cname" {
   namespace      = "skillset"
   stage          = "staging"
   name           = "skillset-staging-app"
-  hostname       = "skillset.staging.codurance.io"
+  hostname       = var.AWS_STAGING_DOMAIN
   parent_zone_id = "Z2P3IWUGUFUUGE"
 }
 

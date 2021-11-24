@@ -15,6 +15,7 @@ jobs:
     env:
       TF_VAR_AWS_DEV_REGION: ${{ secrets.AWS_DEV_REGION }}
       TF_VAR_PLAYGROUND_ACCOUNT_ID: ${{ secrets.PLAYGROUND_ACCOUNT_ID }}
+      TF_VAR_AWS_STAGING_DOMAIN: ${{secrets.S3_STAGING_DOMAIN_NAME}}
       AWS_STAGING_DOMAIN: ${{secrets.S3_STAGING_DOMAIN_NAME}}
     runs-on: ubuntu-latest
     steps:
