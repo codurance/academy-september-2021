@@ -12,24 +12,11 @@ defaults:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    container: cypress/included:9.1.0
     steps:
       - name: Checkout from GH repository
         uses: actions/checkout@v2
 
       - name: Run Acceptance Test
-        run: cypress run
-
-#      - name: Install Dependencies
-#        run: npm install
-#
-#      - name: Cypress run
-#        uses: cypress-io/github-action@v2
-#        with:
-#          browser: chrome
-#          install: true
-#          headless: true
-
-#      run: |
-#        npm install
-#        npm run headless-mode
+        run: |
+          npm install
+          npm run headless-mode
