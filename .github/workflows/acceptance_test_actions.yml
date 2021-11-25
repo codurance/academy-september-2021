@@ -16,6 +16,13 @@ jobs:
       - name: Checkout from GH repository
         uses: actions/checkout@v2
 
+      - name: Create env file
+        run: |
+          touch .env
+          echo GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} >> .env
+          echo GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} >> .env
+          echo GOOGLE_REFRESH_TOKEN=${{ secrets.GOOGLE_REFRESH_TOKEN }} >> .env
+
       - name: Run Acceptance Test
         run: |
           npm install
