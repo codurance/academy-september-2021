@@ -25,7 +25,8 @@ jobs:
 
       - name: Build
         uses: actions/setup-node@v2
-      working-directory: ./client
+        with:
+          path: ./client
       - run: |
           npm install
           yarn build
