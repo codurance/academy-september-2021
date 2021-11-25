@@ -1,0 +1,23 @@
+name: Acceptance_Test
+
+on:
+  workflow_run:
+    workflows: [ "Deploy_Client", "Deploy_Infrastructure" ]
+    types:
+      - completed
+defaults:
+  run:
+    working-directory: ./client
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout from GH repository
+        uses: actions/checkout@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
+          build: npm run build
+          start: npm start
