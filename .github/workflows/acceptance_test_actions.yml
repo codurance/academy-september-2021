@@ -5,9 +5,9 @@ on:
     workflows: [ "Deploy_Client" ]
     types:
       - completed
-#defaults:
-#  run:
-#    working-directory: ./acceptance
+defaults:
+  run:
+    working-directory: ./acceptance
 
 jobs:
   cypress-run:
@@ -19,7 +19,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          spec: ./acceptance/*
+          spec: ./*
           browser: chrome
           install: true
           headless: true
