@@ -29,15 +29,15 @@ jobs:
 #          npm install
 #          npm run headless-mode --browser chrome
 
-      - name: Cypress run
-      - uses: actions/checkout@v2
-      - uses: cypress-io/github-action@v2
-        with:
-          browser: chrome
-          install: true
-          headless: true
-#          build: npm run build
-#          start: npm start
+    - name: Cypress run
+    - uses: actions/checkout@v2
+    - uses: cypress-io/github-action@v2
+      with:
+        browser: chrome
+        install: true
+        headless: true
+#        build: npm run build
+#        start: npm start
 
 
     # let's make sure our tests pass on Chrome browser
