@@ -12,7 +12,7 @@ defaults:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    container: cypress/included:latest
+    container: cypress/included:9.1.0
     steps:
       - name: Checkout from GH repository
         uses: actions/checkout@v2
