@@ -18,8 +18,21 @@ const loginToGoogleAccount = () => {
             refresh_token: Cypress.env('googleRefreshToken'),
         },
     }).then(({body}) => {
-        const {id_token} = body
-        window.localStorage.setItem('proof-of-concept-access-token', id_token)
+        const {access_token, id_token} = body
+        cy.request({
+            method: 'GET',
+            url: 'https://www.googleapis.com/oauth2/v3/userinfo',
+            headers: { Authorization: `Bearer ${access_token}` },
+        }).then(({ body }) => {
+            const user = {
+                accessToken: id_token,
+                name: body.name,
+                email: body.email,
+                profileImageUrl: body.picture,
+            }
+
+            window.localStorage.setItem('skillset-authenticated-user', JSON.stringify(user));
+        });
     });
 };
 

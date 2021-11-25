@@ -4,17 +4,6 @@
 /node_modules
 /.pnp
 .pnp.js
-**/.terraform/*
-*.tfstate
-*.tfstate.*
-crash.log
-*.tfvars
-override.tf
-override.tf.json
-*_override.tf
-*_override.tf.json
-.terraformrc
-terraform.rc
 
 # testing
 /coverage
@@ -32,3 +21,16 @@ terraform.rc
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
