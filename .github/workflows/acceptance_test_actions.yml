@@ -19,5 +19,5 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           browser: chrome
-          build: npm run build
-          start: npm start
+          install: true
+          start: npm run headless-mode
