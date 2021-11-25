@@ -15,7 +15,7 @@ describe('on login rendered', () => {
     it('show no login error from successful login attempt on login button clicked', async () => {
         when(loginService.login()).thenResolve();
 
-        screen.getByText('Login HELLO WORLD!!', {selector: 'button'}).click();
+        screen.getByText('Login', {selector: 'button'}).click();
 
         expect(await screen.queryByText("Login attempt was unsuccessful, please check the following:")).not.toBeInTheDocument();
     });
