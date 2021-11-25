@@ -30,7 +30,7 @@ describe('check access control to protected views', () => {
     });
 
     protectedPages.forEach(page => {
-        it('prevent users who have attempted unauthentic login from accessing ${page}', () => {
+        xit('prevent users who have attempted unauthentic login from accessing ${page}', () => {
             const unauthenticToken = jwt.sign({data: 'foobar'}, 'secret', {expiresIn: '1h'});
             persistFakeUserWithToken(unauthenticToken);
 
