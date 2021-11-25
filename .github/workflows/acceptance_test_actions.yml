@@ -19,7 +19,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          path: ./acceptance
+          spec: ./acceptance/*
           browser: chrome
           install: true
           start: npm run headless-mode
