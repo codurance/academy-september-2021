@@ -24,17 +24,27 @@ jobs:
 #              ./client/package-lock.json
 #              ./infrastructure/package-lock.json
 
-      - name: Install npm package
-        run: |
-          npm install
-          npm run headless-mode
+#      - name: Run Cypress Tests
+#        run: |
+#          npm install
+#          npm run headless-mode --browser chrome
 
-#      - name: Cypress run
-#        uses: cypress-io/github-action@v2
-#        with:
-#          spec: ./*
-#          browser: chrome
-#          install: true
-#          headless: true
+      - name: Cypress run
+      - uses: actions/checkout@v2
+      - uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
+          install: true
+          headless: true
 #          build: npm run build
 #          start: npm start
+
+
+    # let's make sure our tests pass on Chrome browser
+#      - name: E2E on Chrome
+#      - uses: actions/checkout@v2
+#      - uses: cypress-io/github-action@v2.9.7
+#        with:
+#          install: true
+#          headless: true
+#          browser: chrome
