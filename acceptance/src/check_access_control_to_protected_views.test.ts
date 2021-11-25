@@ -1,7 +1,7 @@
 import * as jwt from "jsonwebtoken";
 
 describe('check access control to protected views', () => {
-    const protectedPages = ['/home', '/home'];
+    const protectedPages = ['/'];
 
     before(() => {
         cy.clearLocalStorage();
