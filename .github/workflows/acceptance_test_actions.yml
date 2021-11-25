@@ -16,7 +16,7 @@ jobs:
       - name: Checkout from GH repository
         uses: actions/checkout@v2
 
-      - name: Setup npm package
+      - name: Install npm package
         run: npm install
 
       - name: Cypress run
