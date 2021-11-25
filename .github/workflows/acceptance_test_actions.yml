@@ -15,16 +15,26 @@ jobs:
     steps:
       - name: Checkout from GH repository
         uses: actions/checkout@v2
+#      - name: Setup Node.js 14
+#          uses: actions/setup-node@v2
+#          with:
+#            node-version: '14'
+#            cache: 'npm'
+#            cache-dependency-path: |
+#              ./client/package-lock.json
+#              ./infrastructure/package-lock.json
 
       - name: Install npm package
-        run: npm install
+        run: |
+          npm install
+          npm run headless-mode
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          spec: ./*
-          browser: chrome
-          install: true
-          headless: true
-          build: npm run build
-          start: npm start
+#      - name: Cypress run
+#        uses: cypress-io/github-action@v2
+#        with:
+#          spec: ./*
+#          browser: chrome
+#          install: true
+#          headless: true
+#          build: npm run build
+#          start: npm start
