@@ -22,4 +22,6 @@ jobs:
           spec: ./acceptance/*
           browser: chrome
           install: true
-          start: npm run headless-mode
+          headless: true
+          build: npm run build
+          start: npm start
