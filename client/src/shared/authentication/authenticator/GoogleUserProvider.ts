@@ -10,7 +10,7 @@ export class GoogleUserProvider {
     }
 
     private async loadGoogleAuthenticationLibrary() {
-        const clientId = "771128432913-tsa08p8ihoibd4vbbsd6c059caelp1ni.apps.googleusercontent.com";
+        const clientId = "203459804808-h52d919upt0fj3qo6l192b67imotjhfl.apps.googleusercontent.com";
         await new Promise((resolve) => gapi.load('client:auth2', resolve));
         await new Promise((resolve) => gapi.auth2.init({client_id: clientId}).then(resolve));
     }
