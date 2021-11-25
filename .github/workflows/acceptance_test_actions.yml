@@ -12,24 +12,18 @@ defaults:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    container: cypress/included:9.1.0
     steps:
       - name: Checkout from GH repository
         uses: actions/checkout@v2
 
+      - name: Create env file
+        run: |
+          touch .env
+          echo GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} >> .env
+          echo GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} >> .env
+          echo GOOGLE_REFRESH_TOKEN=${{ secrets.GOOGLE_REFRESH_TOKEN }} >> .env
+
       - name: Run Acceptance Test
-        run: cypress run
-
-#      - name: Install Dependencies
-#        run: npm install
-#
-#      - name: Cypress run
-#        uses: cypress-io/github-action@v2
-#        with:
-#          browser: chrome
-#          install: true
-#          headless: true
-
-#      run: |
-#        npm install
-#        npm run headless-mode
+        run: |
+          npm install
+          npm run headless-mode

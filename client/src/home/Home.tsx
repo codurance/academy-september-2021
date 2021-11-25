@@ -7,7 +7,7 @@ export const Home = ({authenticatedUserStore}: {authenticatedUserStore: Authenti
     return (
         <div>
             <p>Logged in as: {authenticatedUser?.name}</p>
-            <img alt="Display Picture" src={authenticatedUser?.profileImageUrl} />
+            <img alt="User Profile" src={authenticatedUser?.profileImageUrl} />
         </div>
     )
 }
