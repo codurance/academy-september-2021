@@ -7,7 +7,7 @@ on:
       - completed
 defaults:
   run:
-    working-directory: ./client
+    working-directory: ./acceptance
 
 jobs:
   cypress-run:
