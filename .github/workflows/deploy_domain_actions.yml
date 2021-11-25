@@ -7,7 +7,7 @@ on:
       - completed
 defaults:
   run:
-    working-directory: ./client
+    working-directory: ./client/deployment
 
 jobs:
   deploy_client:
@@ -25,6 +25,7 @@ jobs:
 
       - name: Build
         uses: actions/setup-node@v2
+      working-directory: ./client
       - run: |
           npm install
           yarn build
