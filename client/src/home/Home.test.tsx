@@ -16,6 +16,6 @@ describe('on Home rendered', () => {
         render(<Home authenticatedUserStore={instance(authenticatedUserStore)}/>);
 
         expect(screen.getByText(`Logged in as: ${authenticatedUser.name}`)).toBeInTheDocument();
-        expect(screen.getByAltText('Display Picture')).toHaveAttribute('src', authenticatedUser.profileImageUrl);
+        expect(screen.getByAltText('User Profile')).toHaveAttribute('src', authenticatedUser.profileImageUrl);
     });
 });
