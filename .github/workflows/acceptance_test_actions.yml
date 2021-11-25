@@ -2,12 +2,12 @@ name: Acceptance_Test
 
 on:
   workflow_run:
-    workflows: [ "Deploy_Client", "Deploy_Infrastructure" ]
+    workflows: [ "Deploy_Client" ]
     types:
       - completed
-defaults:
-  run:
-    working-directory: ./acceptance
+#defaults:
+#  run:
+#    working-directory: ./acceptance
 
 jobs:
   cypress-run:
@@ -15,9 +15,11 @@ jobs:
     steps:
       - name: Checkout from GH repository
         uses: actions/checkout@v2
+
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
+          path: ./acceptance
           browser: chrome
           install: true
           start: npm run headless-mode
