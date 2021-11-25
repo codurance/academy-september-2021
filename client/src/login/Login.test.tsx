@@ -11,7 +11,7 @@ describe('on login rendered', () => {
 
         render(<Login loginService={instance(loginService)}/>, {wrapper: BrowserRouter})
 
-        screen.getByText('Login', {selector: 'button'}).click();
+        screen.getByText('Login HELLO WORLD!!', {selector: 'button'}).click();
 
         verify(loginService.login()).called()
     });
