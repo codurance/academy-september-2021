@@ -39,8 +39,7 @@ describe('authorisation middleware should', () => {
                 authorisedUser: {
                     name: 'Best User',
                     email: "best.user@codurance.com",
-                    profileImageUrl: "http://codurance.com/best-user/profile-image.png",
-                    domain: 'codurance.com'
+                    profileImageUrl: "http://codurance.com/best-user/profile-image.png"
                 }
             }
         });
