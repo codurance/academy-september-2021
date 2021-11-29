@@ -15,16 +15,16 @@ describe('on login rendered', () => {
     it('show no login error from successful login attempt on login button clicked', async () => {
         when(loginService.login()).thenResolve();
 
-        screen.getByText('Login', {selector: 'button'}).click();
+        screen.getByAltText('Sign in with Google').click();
 
-        expect(await screen.queryByText("Login attempt was unsuccessful, please check the following:")).not.toBeInTheDocument();
+        expect(await screen.queryByText("Login attempt was unsuccessful:")).not.toBeInTheDocument();
     });
 
     it('should show an login error message after unsuccessful login attempt', async () => {
         when(loginService.login()).thenReject();
 
-        screen.getByText('Login', {selector: 'button'}).click();
+        screen.getByAltText('Sign in with Google').click();
 
-        expect(await screen.findByText("Login attempt was unsuccessful, please check the following:")).toBeInTheDocument();
+        expect(await screen.findByText("Login attempt was unsuccessful:")).toBeInTheDocument();
     })
 })
