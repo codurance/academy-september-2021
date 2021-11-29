@@ -18,8 +18,7 @@ describe('authorisation middleware should', () => {
         const authorisedUser: AuthorisedUser = {
             name: 'Best User',
             email: "best.user@codurance.com",
-            profileImageUrl: "http://codurance.com/best-user/profile-image.png",
-            domain: 'codurance.com'
+            profileImageUrl: "http://codurance.com/best-user/profile-image.png"
         };
         when(authoriser.getAuthorisedUser('access-token')).thenResolve(authorisedUser);
 
