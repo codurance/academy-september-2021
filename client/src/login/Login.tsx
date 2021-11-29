@@ -5,18 +5,18 @@ import logo from '../shared/ui/logo.svg';
 import googleButton from './google-sign-in-button.png';
 
 export const Login = ({loginService}: { loginService: LoginService }) => {
-
     const [hasLoginError, setHasLoginError] = useState(false);
 
     async function attemptLogin() {
-        await loginService.login()
+        await loginService
+            .login()
             .catch(() => setHasLoginError(true));
     }
 
     return (
         <Grid textAlign='center' style={{height: '100vh'}} verticalAlign='middle'>
             <Grid.Column style={{maxWidth: 450}}>
-                <Image src={logo} centered style={{height: '25vh', width: '15vh'}}/>
+                <Image src={logo} centered height={200} width={100}/>
                 <Header as='h1' textAlign='center' style={{fontFamily: 'Orbitron', fontSize: '4em'}}>SkillSet</Header>
 
                 {hasLoginError &&
@@ -29,8 +29,8 @@ export const Login = ({loginService}: { loginService: LoginService }) => {
                 </Message>
                 }
 
-                <Button basic size={"small"} onClick={attemptLogin} style={{padding: 0, boxShadow: 'none'}}>
-                    <Image src={googleButton}/>
+                <Button basic onClick={attemptLogin} style={{padding: 0, boxShadow: 'none'}}>
+                    <Image src={googleButton} alt="Sign in with Google" />
                 </Button>
             </Grid.Column>
         </Grid>
