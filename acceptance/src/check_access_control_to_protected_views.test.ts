@@ -3,10 +3,6 @@ import * as jwt from "jsonwebtoken";
 describe('check access control to protected views', () => {
     const protectedPages = ['/'];
 
-    before(() => {
-        cy.clearLocalStorage();
-    });
-
     protectedPages.forEach(page => {
         it('prevent users who have not logged in yet from accessing ${page}', () => {
             cy.visit(page);

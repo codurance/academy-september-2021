@@ -1,34 +1,14 @@
 describe('perform simple search queries', () => {
     it('display all results when user selects to view all results', () => {
         cy.loginToGoogleAccount();
-
         cy.visit('/');
 
         cy
-            .contains('View all')
-            .click();
-
-        cy
-            .contains('Jordan Colgan')
-            .should('exist');
-
-        cy
-            .get('[data-cy=submit]')
-            .type('Steele')
-            .submit();
-
-        cy
-            .contains('Sam Steele')
-            .should('exist');
-
-        cy
-            .contains('Jordan Colgan')
-            .should('not.exist');
-
-        cy
-            .get('[data-cy=submit]')
+            .contains('Java, TypeScript, React...')
             .type('Java')
             .submit();
+
+        //put in listen request to wait for API response
 
         cy
             .contains('Jordan Colgan')
