@@ -34,7 +34,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      Project = "Academy September 2021"
+      Project = "Skillset-Academy-September-2021"
     }
   }
 }
