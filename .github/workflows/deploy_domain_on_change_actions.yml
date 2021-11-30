@@ -1,10 +1,12 @@
 name: Deploy_Domain
 
 on:
-  workflow_run:
-    workflows: [ "Build_SkillSet" ]
-    types:
-      - completed
+  push:
+    paths:
+      - './client/deployment'
+  pull_request:
+    paths:
+      - './client/deployment'
 defaults:
   run:
     working-directory: ./client/deployment
