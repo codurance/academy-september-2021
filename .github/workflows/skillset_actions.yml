@@ -24,20 +24,16 @@ jobs:
             ./infrastructure/package-lock.json
 
       - name: Build and Test Infrastructure
-        uses: actions/setup-node@v2
         working-directory: ./infrastructure
         run: |
           npm install
           npm test
-          yarn build
 
       - name: Build and Test Client
-        uses: actions/setup-node@v2
         working-directory: ./client
         run: |
           npm install
           npm test
-          yarn build
 
   deploy_infrastructure:
     name: Deploy Infrastructure
