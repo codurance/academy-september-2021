@@ -3,6 +3,8 @@ import {ApplicationNavigator} from "../../shared/navigation";
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 import {Profile, ProfileSearchQuery} from "../shared/domain";
+import logo from "../../shared/ui/logo.svg";
+import {Grid, GridColumn, GridRow, Image} from "semantic-ui-react";
 
 type Props = {
     applicationNavigator: ApplicationNavigator,
@@ -24,7 +26,16 @@ export const ProfileSearchResults = ({applicationNavigator, profileSearchService
 
     return (
         <>
-            <ProfileSearch profileSearchService={profileSearchService} query={query}/>
+            <Grid verticalAlign='middle'>
+                <GridRow>
+                    <GridColumn width={2}>
+                        <Image src={logo} centered height={125} width={75}/>
+                    </GridColumn>
+                    <GridColumn width={12}>
+                        <ProfileSearch profileSearchService={profileSearchService} query={query}/>
+                    </GridColumn>
+                </GridRow>
+            </Grid>
 
             {!results?.length &&
             <p>No results found</p>
