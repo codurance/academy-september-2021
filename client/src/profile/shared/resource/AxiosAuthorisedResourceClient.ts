@@ -1,7 +1,7 @@
 import {AuthorisedResourceClient} from "./AuthorisedResourceClient";
 import axios from "axios";
-import {AuthenticatedUserStore} from "../authentication/persistence";
-import {ApplicationNavigator} from "../navigation";
+import {AuthenticatedUserStore} from "../../../shared/authentication/persistence";
+import {ApplicationNavigator} from "../../../shared/navigation";
 import querystring from "qs";
 
 export class AxiosAuthorisedResourceClient implements AuthorisedResourceClient {

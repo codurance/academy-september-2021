@@ -1,5 +1,5 @@
 import {Profile} from "../domain/Profile";
-import {AuthorisedResourceClient} from "../../../shared/resource/AuthorisedResourceClient";
+import {AuthorisedResourceClient} from "./AuthorisedResourceClient";
 import {ProfileSearchQuery} from "../domain/ProfileSearchQuery";
 
 export class ProfileClient {

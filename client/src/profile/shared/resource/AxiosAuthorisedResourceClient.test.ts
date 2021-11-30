@@ -1,10 +1,10 @@
 import {setupServer} from "msw/node";
 import {rest} from "msw";
 import {AxiosAuthorisedResourceClient} from "./AxiosAuthorisedResourceClient";
-import {AuthenticatedUser, AuthenticatedUserStore} from "../authentication/persistence";
+import {AuthenticatedUser, AuthenticatedUserStore} from "../../../shared/authentication/persistence";
 import {instance, mock, verify, when} from "ts-mockito";
 import {act, waitFor} from "@testing-library/react";
-import {ApplicationNavigator} from "../navigation";
+import {ApplicationNavigator} from "../../../shared/navigation";
 
 describe('axios request client', () => {
     const server = setupServer();
