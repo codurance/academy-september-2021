@@ -70,7 +70,7 @@ jobs:
     env:
       S3_BUCKET_COMMAND: ${{secrets.AWS_S3_BUCKET_COMMAND_PRODUCTION}}
     runs-on: ubuntu-latest
-    needs: [deploy_infrastructure]
+    # needs: [deploy_infrastructure]
     steps:
       - uses: actions/checkout@v2
       - name: Build
@@ -80,12 +80,12 @@ jobs:
           npm install
           yarn build
 
-      # - name: Configure AWS Credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: us-west-1
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-1
 
       - name: S3 Deploy
         id: install-aws-cli
