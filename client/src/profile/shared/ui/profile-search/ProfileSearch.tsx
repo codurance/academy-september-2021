@@ -1,7 +1,7 @@
 import {Form, Icon, Input, Message} from "semantic-ui-react";
 import {useEffect, useState} from "react";
 import {ProfileSearchService} from "./ProfileSearchService";
-import {ProfileSearchQuery} from "../../domain/ProfileSearchQuery";
+import {ProfileSearchQuery} from "../../domain";
 
 type Props = {
     profileSearchService: ProfileSearchService;

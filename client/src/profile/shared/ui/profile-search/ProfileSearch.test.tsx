@@ -2,7 +2,6 @@ import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {anything, capture, instance, mock, when} from "ts-mockito";
 import {ProfileSearchService} from "./ProfileSearchService";
-import React from "react";
 import {ProfileSearch} from './ProfileSearch';
 import {ProfileSearchQuery} from "../../domain";
 

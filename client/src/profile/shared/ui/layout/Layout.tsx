@@ -1,4 +1,4 @@
-import {Container, Grid, Image, Menu} from "semantic-ui-react";
+import {Grid, Image} from "semantic-ui-react";
 import React from "react";
 import {AuthenticatedUserStore} from "../../../../shared/authentication/persistence";
 import {Outlet} from "react-router-dom";
