@@ -26,13 +26,13 @@ jobs:
         working-directory: ./infrastructure
         run: |
           npm install
-          yarn build
+          npm run build
           npm test
       - name: Build and Test Client
         working-directory: ./client
         run: |
           npm install
-          yarn build
+          npm run build
           npm test
   deploy_infrastructure:
     name: Deploy Infrastructure
