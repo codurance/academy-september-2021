@@ -1,5 +1,3 @@
-
-
 export const ProfileCard = (props) => {
 
     return (
