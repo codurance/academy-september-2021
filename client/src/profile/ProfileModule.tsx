@@ -3,7 +3,7 @@ import {BrowserHistoryProfileFeatureNavigator} from "./shared/navigation/Browser
 import {ProfileSearchService} from "./shared/ui/profile-search/ProfileSearchService";
 import {History} from "history";
 import {ApplicationNavigator, AuthenticatedRouteGuard, BrowserHistoryNavigator} from "../shared/navigation";
-import {Home} from "./search/Home";
+import {ProfileSearchLanding} from "./search/ProfileSearchLanding";
 import {ProfileSearchResults} from "./results/ProfileSearchResults";
 import React from "react";
 import {Authenticator} from "../shared/authentication/authenticator";
@@ -35,8 +35,8 @@ export const ProfileModule = ({
                 <Route path={BrowserHistoryNavigator.HOME_ROUTE} element={
                     <AuthenticatedRouteGuard authenticator={authenticator}
                                              authenticatedUserStore={authenticatedUserStore}>
-                        <Home authenticatedUserStore={authenticatedUserStore}
-                              profileSearchService={profileSearchService}/>
+                        <ProfileSearchLanding authenticatedUserStore={authenticatedUserStore}
+                                              profileSearchService={profileSearchService}/>
                     </AuthenticatedRouteGuard>
                 }/>
                 <Route path={BrowserHistoryProfileFeatureNavigator.PROFILE_SEARCH_RESULTS_ROUTE} element={

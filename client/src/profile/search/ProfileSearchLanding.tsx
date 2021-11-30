@@ -7,7 +7,7 @@ type Props = {
     profileSearchService: ProfileSearchService
 }
 
-export const Home = ({authenticatedUserStore, profileSearchService}: Props) => {
+export const ProfileSearchLanding = ({authenticatedUserStore, profileSearchService}: Props) => {
     const authenticatedUser = authenticatedUserStore.get();
 
     return (
