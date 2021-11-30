@@ -1,5 +1,5 @@
 {
-  "baseUrl":"https://skillset.staging.codurance.io",
+  "baseUrl":"https://skillset-staging.codurance.io",
   "integrationFolder": "src",
   "testFiles": "**/*.test.ts",
   "ignoreTestFiles": ".js",
