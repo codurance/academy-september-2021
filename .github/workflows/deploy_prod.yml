@@ -1,5 +1,4 @@
-name: Deploy_production
-
+name: Deploy_Production
 on:
   workflow_dispatch:
     inputs: 
@@ -56,6 +55,8 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-1
+          
+      - name: Deploy Lambda    
         working-directory: ./infrastructure  
         run: |
          npm install
