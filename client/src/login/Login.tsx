@@ -3,6 +3,7 @@ import {useState} from 'react';
 import {Button, Grid, Header, Image, Message} from "semantic-ui-react";
 import logo from '../shared/ui/logo.svg';
 import googleButton from './google-sign-in-button.png';
+import {Logo} from "../shared/ui/Logo";
 
 export const Login = ({loginService}: { loginService: LoginService }) => {
     const [hasLoginError, setHasLoginError] = useState(false);
@@ -14,10 +15,9 @@ export const Login = ({loginService}: { loginService: LoginService }) => {
     }
 
     return (
-        <Grid textAlign='center' style={{height: '100vh'}} verticalAlign='middle'>
+        <Grid textAlign='center' style={{height: '80vh'}} verticalAlign='middle'>
             <Grid.Column style={{maxWidth: 450}}>
-                <Image src={logo} centered height={200} width={100}/>
-                <Header as='h1' textAlign='center' style={{fontFamily: 'Orbitron', fontSize: '4em'}}>SkillSet</Header>
+                <Logo />
 
                 {hasLoginError &&
                 <Message error>

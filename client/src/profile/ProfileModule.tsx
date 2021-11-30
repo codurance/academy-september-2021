@@ -9,6 +9,7 @@ import {Authenticator} from "../shared/authentication/authenticator";
 import {AuthenticatedUserStore} from "../shared/authentication/persistence";
 import {Route, Routes} from "react-router-dom";
 import {AxiosAuthorisedResourceClient, ProfileClient} from "./shared/resource";
+import {Layout} from "./shared/ui/layout/Layout";
 
 type Props = {
     history: History;
@@ -31,20 +32,21 @@ export const ProfileModule = ({
     return (
         <div>
             <Routes>
-                <Route path={BrowserHistoryNavigator.HOME_ROUTE} element={
-                    <AuthenticatedRouteGuard authenticator={authenticator}
-                                             authenticatedUserStore={authenticatedUserStore}>
-                        <ProfileSearchLanding authenticatedUserStore={authenticatedUserStore}
-                                              profileSearchService={profileSearchService}/>
-                    </AuthenticatedRouteGuard>
-                }/>
-                <Route path={BrowserHistoryProfileFeatureNavigator.PROFILE_SEARCH_RESULTS_ROUTE} element={
-                    <AuthenticatedRouteGuard authenticator={authenticator}
-                                             authenticatedUserStore={authenticatedUserStore}>
-                        <ProfileSearchResults applicationNavigator={applicationNavigator}
-                                              profileSearchService={profileSearchService}/>
-                    </AuthenticatedRouteGuard>
-                }/>
+                <Route path="/" element={<Layout authenticatedUserStore={authenticatedUserStore}/>}>
+                    <Route path={BrowserHistoryNavigator.HOME_ROUTE} element={
+                        <AuthenticatedRouteGuard authenticator={authenticator}
+                                                 authenticatedUserStore={authenticatedUserStore}>
+                            <ProfileSearchLanding profileSearchService={profileSearchService}/>
+                        </AuthenticatedRouteGuard>
+                    }/>
+                    <Route path={BrowserHistoryProfileFeatureNavigator.PROFILE_SEARCH_RESULTS_ROUTE} element={
+                        <AuthenticatedRouteGuard authenticator={authenticator}
+                                                 authenticatedUserStore={authenticatedUserStore}>
+                            <ProfileSearchResults applicationNavigator={applicationNavigator}
+                                                  profileSearchService={profileSearchService}/>
+                        </AuthenticatedRouteGuard>
+                    }/>
+                </Route>
             </Routes>
         </div>
     );
