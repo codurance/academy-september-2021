@@ -9,6 +9,6 @@ describe('Profile card', () => {
 
         expect(screen.getByText('Alex Howson')).toBeInTheDocument();
         expect(screen.getByText('Principal Craftsperson')).toBeInTheDocument();
-        expect(screen.getByAltText('User profile')).toBeInTheDocument();
+        expect(screen.getByAltText('User profile: Alex Howson')).toBeInTheDocument();
     });
 })
