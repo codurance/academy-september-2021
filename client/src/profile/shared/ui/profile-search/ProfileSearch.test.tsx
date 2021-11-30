@@ -4,7 +4,7 @@ import {anything, capture, instance, mock, when} from "ts-mockito";
 import {ProfileSearchService} from "./ProfileSearchService";
 import React from "react";
 import {ProfileSearch} from './ProfileSearch';
-import {ProfileSearchQuery} from "../../domain/ProfileSearchQuery";
+import {ProfileSearchQuery} from "../../domain";
 
 describe('profile search', () => {
 

@@ -2,9 +2,8 @@ import React from 'react';
 import {Route, Routes} from "react-router-dom";
 import {GoogleAuthenticator, GoogleUserProvider} from "./shared/authentication/authenticator";
 import {LocalStorageAuthenticatedUserStore} from "./shared/authentication/persistence";
-import {BrowserHistoryNavigator} from "./shared/navigation";
+import {BrowserHistoryNavigator, BrowserRouter} from "./shared/navigation";
 import {createBrowserHistory} from "history";
-import {BrowserRouter} from "./shared/navigation/BrowserRouter";
 import {ProfileModule} from "./profile/ProfileModule";
 import {LoginModule} from "./login/LoginModule";
 

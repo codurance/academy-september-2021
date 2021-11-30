@@ -1,6 +1,5 @@
-import {ProfileClient} from "./shared/resource/ProfileClient";
-import {BrowserHistoryProfileFeatureNavigator} from "./shared/navigation/BrowserHistoryProfileFeatureNavigator";
-import {ProfileSearchService} from "./shared/ui/profile-search/ProfileSearchService";
+import {BrowserHistoryProfileFeatureNavigator} from "./shared/navigation";
+import {ProfileSearchService} from "./shared/ui/profile-search";
 import {History} from "history";
 import {ApplicationNavigator, AuthenticatedRouteGuard, BrowserHistoryNavigator} from "../shared/navigation";
 import {ProfileSearchLanding} from "./search/ProfileSearchLanding";
@@ -9,7 +8,7 @@ import React from "react";
 import {Authenticator} from "../shared/authentication/authenticator";
 import {AuthenticatedUserStore} from "../shared/authentication/persistence";
 import {Route, Routes} from "react-router-dom";
-import {AxiosAuthorisedResourceClient} from "./shared/resource/AxiosAuthorisedResourceClient";
+import {AxiosAuthorisedResourceClient, ProfileClient} from "./shared/resource";
 
 type Props = {
     history: History;

@@ -1,10 +1,7 @@
-import {renderHook} from "@testing-library/react-hooks";
-import {BrowserRouter, useLocation} from "react-router-dom";
 import {act, waitFor} from "@testing-library/react";
-import {ProfileSearchQuery} from "../domain/ProfileSearchQuery";
-import {Profile} from "../domain/Profile";
+import {Profile, ProfileSearchQuery} from "../domain";
 import {BrowserHistoryProfileFeatureNavigator} from "./BrowserHistoryProfileFeatureNavigator";
-import {createBrowserHistory, Location} from "history";
+import {createBrowserHistory} from "history";
 
 describe('react router profile feature navigator', () => {
     const history = createBrowserHistory();

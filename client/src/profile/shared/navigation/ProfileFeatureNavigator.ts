@@ -1,5 +1,4 @@
-import {Profile} from "../domain/Profile";
-import {ProfileSearchQuery} from "../domain/ProfileSearchQuery";
+import {Profile, ProfileSearchQuery} from "../domain";
 
 export interface ProfileFeatureNavigator {
 

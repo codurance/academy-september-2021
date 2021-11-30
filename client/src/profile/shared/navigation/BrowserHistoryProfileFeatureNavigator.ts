@@ -1,6 +1,5 @@
 import {ProfileFeatureNavigator} from "./ProfileFeatureNavigator";
-import {ProfileSearchQuery} from "../domain/ProfileSearchQuery";
-import {Profile} from "../domain/Profile";
+import {Profile, ProfileSearchQuery} from "../domain";
 import {History} from "history";
 
 export class BrowserHistoryProfileFeatureNavigator implements ProfileFeatureNavigator {

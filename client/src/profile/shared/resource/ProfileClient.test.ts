@@ -1,7 +1,7 @@
 import {instance, mock, when} from "ts-mockito";
 import {ProfileClient} from "./ProfileClient";
 import {AuthorisedResourceClient} from "./AuthorisedResourceClient";
-import {Profile} from "../domain/Profile";
+import {Profile} from "../domain";
 
 describe('ProfileRequestClient', () => {
     const authorisedResourceClient = mock<AuthorisedResourceClient>();

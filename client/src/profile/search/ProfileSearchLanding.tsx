@@ -1,6 +1,5 @@
 import {AuthenticatedUserStore} from "../../shared/authentication/persistence";
-import {ProfileSearchService} from "../shared/ui/profile-search/ProfileSearchService";
-import {ProfileSearch} from "../shared/ui/profile-search/ProfileSearch";
+import {ProfileSearch, ProfileSearchService} from "../shared/ui/profile-search";
 
 type Props = {
     authenticatedUserStore: AuthenticatedUserStore;

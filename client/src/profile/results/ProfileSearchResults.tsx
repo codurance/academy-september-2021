@@ -1,10 +1,8 @@
-import {ProfileSearchService} from "../shared/ui/profile-search/ProfileSearchService";
-import {ProfileSearch} from "../shared/ui/profile-search/ProfileSearch";
+import {ProfileSearch, ProfileSearchService} from "../shared/ui/profile-search";
 import {ApplicationNavigator} from "../../shared/navigation";
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
-import {Profile} from "../shared/domain/Profile";
-import {ProfileSearchQuery} from "../shared/domain/ProfileSearchQuery";
+import {Profile, ProfileSearchQuery} from "../shared/domain";
 
 type Props = {
     applicationNavigator: ApplicationNavigator,
