@@ -20,17 +20,23 @@ The application supports the following browsers
 
 ### Testing SkillSet
 
->cd ~/academy-september-2021/client
->npm install
->npm test
+> cd ~/academy-september-2021/client
+> 
+> npm install
+> 
+> npm test
 
->cd ~/academy-september-2021/infrastructure
->npm install
->npm test
+> cd ~/academy-september-2021/infrastructure
+> 
+> npm install
+> 
+> npm test
 
->cd ~/academy-september-2021/acceptance
->npm install
->npm run headless-mode
+> cd ~/academy-september-2021/acceptance
+> 
+> npm install
+> 
+> npm run headless-mode
 
 ### Dependencies
 
