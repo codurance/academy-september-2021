@@ -2,9 +2,9 @@ name: SkillSet_Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, cicd-pipeline-fixes ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, cicd-pipeline-fixes ]
 
 jobs:
   build:
