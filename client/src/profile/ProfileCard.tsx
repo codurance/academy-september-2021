@@ -1,14 +1,14 @@
-export const ProfileCard = (props) => {
+export const ProfileCard = ({name, role}: { name:string, role:string }) => {
 
     return (
         <div className="ui card">
             <div className="image">
-                <img src="../shared/ui/logo.svg" alt={`User profile: ${props.name}`}/>
+                <img src="../shared/ui/logo.svg" alt={`User profile: ${name}`}/>
             </div>
             <div className="content">
-                <a className="header">{props.name}</a>
+                <a className="header">{name}</a>
                 <div className="meta">
-                    <span className="role">{props.role}</span>
+                    <span className="role">{role}</span>
                 </div>
             </div>
         </div>
