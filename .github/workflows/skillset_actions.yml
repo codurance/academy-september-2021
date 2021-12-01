@@ -74,9 +74,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        uses: actions/setup-node@v2
-      - run: export REACT_APP_BASE_URL=${{secrets.STAGING_URL}}  
-      - run: |
+        run: |
           npm install
           npm run build
           
