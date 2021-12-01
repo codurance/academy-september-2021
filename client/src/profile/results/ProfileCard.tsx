@@ -1,26 +1,26 @@
 import {Profile} from "skillset";
-import {Icon} from "semantic-ui-react";
+import {Icon, Card, Image, Rating} from "semantic-ui-react";
 
 export const ProfileCard = ({profile}: { profile: Profile }) => {
-    let statusIcon = <Icon className={"minus circle red"}/>
-
-    if (profile.isAvailable) statusIcon = <Icon className={"check circle green"}/>
-
     return (
-        <div className="ui card">
-            <div className="image">
-                <img src={profile.imageUrl} alt={`User profile: ${profile.name}`}/>
-            </div>
-            <div className="content">
-                <h2 className="header">{profile.name}</h2>
-                <div className="meta">
-                    <span className="role">{profile.role}</span>
-                </div>
-                <div className="meta">
-                    {statusIcon}
-                    <span className="status">{profile.currentClient}</span>
-                </div>
-            </div>
-        </div>
+        <Card>
+            <Image src={profile.imageUrl} alt={`User profile: ${profile.name}`}/>
+            <Card.Content>
+                <Card.Header>{profile.name}</Card.Header>
+                <Card.Meta>
+                    <span>{profile.role}</span>
+                </Card.Meta>
+                <Card.Meta>
+                    <p>{profile.skills[0]}</p>
+                    <Rating data-rating="4" data-max-rating="5" disabled></Rating>
+                </Card.Meta>
+                <Card.Meta>
+                    {profile.isAvailable
+                        ? <Icon className={"check circle green"}/>
+                        : <Icon className={"minus circle red"}/>}
+                    <span>{profile.currentClient}</span>
+                </Card.Meta>
+            </Card.Content>
+        </Card>
     )
 }
