@@ -45,7 +45,7 @@ export class StaticProfileRepository implements ProfileRepository {
             currentClient: 'Academy'
         },
         {
-            name: 'Samuel Steel',
+            name: 'Samuel Steele',
             role: 'Software Craftsperson in Training',
             skills: ['React', 'Javascript', 'Java'],
             imageUrl: 'https://www.codurance.com/hubfs/Sam.jpeg',
