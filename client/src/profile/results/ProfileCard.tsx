@@ -1,4 +1,4 @@
-import {Profile} from "../shared/domain";
+import {Profile} from "skillset";
 
 export const ProfileCard = ({profile}: { profile: Profile }) => {
     return (

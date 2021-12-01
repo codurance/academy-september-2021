@@ -1,4 +1,4 @@
-import {Profile, ProfileSearchQuery} from "../domain";
+import {Profile, ProfileSearchQuery} from "skillset";
 
 export interface ProfileFeatureNavigator {
 

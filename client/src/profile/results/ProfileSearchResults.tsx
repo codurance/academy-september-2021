@@ -2,7 +2,7 @@ import {ProfileSearch, ProfileSearchService} from "../shared/ui/profile-search";
 import {ApplicationNavigator} from "../../shared/navigation";
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
-import {Profile, ProfileSearchQuery} from "../shared/domain";
+import {Profile, ProfileSearchQuery} from "skillset";
 import logo from "../../shared/ui/logo.svg";
 import {Grid, GridColumn, GridRow, Image} from "semantic-ui-react";
 import {ProfileCard} from "./ProfileCard";
