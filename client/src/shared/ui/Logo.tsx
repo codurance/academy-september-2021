@@ -1,7 +1,8 @@
 import {Header, Image} from "semantic-ui-react";
 import logo from "./logo.svg";
+import React from "react";
 
-export const Logo = () => {
+export const Logo: React.FC = () => {
     return (
         <>
             <Image src={logo} centered height={200} width={100}/>

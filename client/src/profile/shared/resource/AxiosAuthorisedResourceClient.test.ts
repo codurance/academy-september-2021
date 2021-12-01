@@ -66,7 +66,7 @@ describe('axios request client', () => {
     });
 
     it('performs get request with query parameters', async () => {
-        let queryParameters: any | null; // eslint-disable-line @typescript-eslint/no-explicit-any
+        let queryParameters: unknown;
         server.use(
             rest.get(requestUrl, (request, response) => {
                 queryParameters = request.url.search;

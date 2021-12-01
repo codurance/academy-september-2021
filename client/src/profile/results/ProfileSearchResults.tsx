@@ -1,6 +1,6 @@
 import {ProfileSearch, ProfileSearchService} from "../shared/ui/profile-search";
 import {ApplicationNavigator} from "../../shared/navigation";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 import {Profile, ProfileSearchQuery} from "skillset";
 import logo from "../../shared/ui/logo.svg";
@@ -12,7 +12,7 @@ type Props = {
     profileSearchService: ProfileSearchService
 };
 
-export const ProfileSearchResults = ({applicationNavigator, profileSearchService}: Props) => {
+export const ProfileSearchResults: React.FC<Props> = ({applicationNavigator, profileSearchService}: Props) => {
     const location = useLocation();
     const [query, setQuery] = useState<ProfileSearchQuery>();
     const [results, setResults] = useState<Profile[]>();
@@ -39,7 +39,7 @@ export const ProfileSearchResults = ({applicationNavigator, profileSearchService
             </Grid>
 
             {!results?.length &&
-                <p>No results found</p>
+            <p>No results found</p>
             }
 
             <Grid>

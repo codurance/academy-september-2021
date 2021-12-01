@@ -1,5 +1,5 @@
 import {Form, Icon, Input, Message} from "semantic-ui-react";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ProfileSearchService} from "./ProfileSearchService";
 import {ProfileSearchQuery} from "skillset";
 
@@ -8,7 +8,7 @@ type Props = {
     query?: ProfileSearchQuery;
 };
 
-export const ProfileSearch = ({profileSearchService, query}: Props) => {
+export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Props) => {
     const [hasSearchError, setHasSearchError] = useState(false);
     const [skills, setSkills] = useState('');
 

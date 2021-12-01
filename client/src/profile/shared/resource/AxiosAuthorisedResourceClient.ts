@@ -21,7 +21,7 @@ export class AxiosAuthorisedResourceClient implements AuthorisedResourceClient {
         this.handleUnauthorisedResponses();
     }
 
-    async get<T>(path: string, query?: any): Promise<T> { // eslint-disable-line @typescript-eslint/no-explicit-any
+    async get<T>(path: string, query?: unknown): Promise<T> {
         return this.axiosClient
             .get(path, {params: query, paramsSerializer: params => querystring.stringify(params)})
             .then(response => response.data as T);

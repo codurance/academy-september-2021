@@ -7,7 +7,7 @@ import {createBrowserHistory} from "history";
 import {ProfileModule} from "./profile/ProfileModule";
 import {LoginModule} from "./login/LoginModule";
 
-function App() {
+const App: React.FC = () => {
     const history = createBrowserHistory();
     const googleUserProvider = new GoogleUserProvider();
     const authenticator = new GoogleAuthenticator(googleUserProvider);
@@ -30,6 +30,6 @@ function App() {
             </BrowserRouter>
         </div>
     );
-}
+};
 
 export default App;

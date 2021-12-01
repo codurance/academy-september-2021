@@ -89,7 +89,7 @@ describe('profile search results', () => {
         );
     };
 
-    const navigateToResults = (state: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
+    const navigateToResults = (state: unknown) => {
         act(() => {
             history.push('/results', state);
         });

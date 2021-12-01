@@ -18,12 +18,12 @@ type Props = {
     applicationNavigator: ApplicationNavigator;
 };
 
-export const ProfileModule = ({
-                                  history,
-                                  authenticator,
-                                  authenticatedUserStore,
-                                  applicationNavigator
-                              }: Props) => {
+export const ProfileModule: React.FC<Props> = ({
+                                                   history,
+                                                   authenticator,
+                                                   authenticatedUserStore,
+                                                   applicationNavigator
+                                               }: Props) => {
     const authorisedResourceClient = new AxiosAuthorisedResourceClient(authenticatedUserStore, applicationNavigator);
     const profileClient = new ProfileClient(authorisedResourceClient);
     const profileFeatureNavigator = new BrowserHistoryProfileFeatureNavigator(history);

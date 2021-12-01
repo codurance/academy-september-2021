@@ -1,7 +1,12 @@
 import {Profile} from "skillset";
-import {Icon, Card, Image} from "semantic-ui-react";
+import {Card, Icon, Image} from "semantic-ui-react";
+import React from "react";
 
-export const ProfileCard = ({profile}: { profile: Profile }) => {
+type Props = {
+    profile: Profile
+};
+
+export const ProfileCard: React.FC<Props> = ({profile}: Props) => {
     return (
         <Card>
             <Image src={profile.imageUrl} alt={`User profile: ${profile.name}`}/>

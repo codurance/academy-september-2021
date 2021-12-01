@@ -11,7 +11,7 @@ type Props = {
     applicationNavigator: ApplicationNavigator;
 };
 
-export const LoginModule = ({authenticator, authenticatedUserStore, applicationNavigator}: Props) => {
+export const LoginModule: React.FC<Props> = ({authenticator, authenticatedUserStore, applicationNavigator}: Props) => {
     const loginService = new LoginService(authenticator, authenticatedUserStore, applicationNavigator);
 
     return <Login loginService={loginService}/>;

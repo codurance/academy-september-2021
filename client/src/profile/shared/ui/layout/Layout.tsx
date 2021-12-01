@@ -7,7 +7,7 @@ type Props = {
     authenticatedUserStore: AuthenticatedUserStore;
 };
 
-export const Layout = ({authenticatedUserStore}: Props) => {
+export const Layout: React.FC<Props> = ({authenticatedUserStore}: Props) => {
     const authenticatedUser = authenticatedUserStore.get();
 
     return (
