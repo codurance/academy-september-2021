@@ -12,7 +12,7 @@ describe('ProfileRequestClient', () => {
 
     it('should perform get request on search', async () => {
         const query = {skills: ['React']};
-        const results: Profile[] = [{name: 'Jordan Steele'}, {name: 'Sam Colgan'}];
+        const results: Profile[] = [{name: 'Jordan Steele', role: 'Software Craftsperson'}, {name: 'Sam Colgan', role: 'Software Craftsperson'}];
         when(authorisedResourceClient.get('/profile/all', query)).thenResolve(results);
 
         const searchResults = await profileRequestClient.search(query);

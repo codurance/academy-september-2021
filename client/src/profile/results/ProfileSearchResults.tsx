@@ -5,6 +5,7 @@ import {useLocation} from "react-router-dom";
 import {Profile, ProfileSearchQuery} from "../shared/domain";
 import logo from "../../shared/ui/logo.svg";
 import {Grid, GridColumn, GridRow, Image} from "semantic-ui-react";
+import {ProfileCard} from "./ProfileCard";
 
 type Props = {
     applicationNavigator: ApplicationNavigator,
@@ -38,12 +39,16 @@ export const ProfileSearchResults = ({applicationNavigator, profileSearchService
             </Grid>
 
             {!results?.length &&
-            <p>No results found</p>
+                <p>No results found</p>
             }
 
-            {results?.map(profile => {
-                return <p key="{profile}">{profile.name}</p>
-            })}
+            <Grid columns={4}>
+                {results?.map(profile => (
+                    <GridColumn key="{profile}">
+                        <ProfileCard profile = {profile}/>
+                    </GridColumn>
+                ))}
+            </Grid>
         </>
     );
 }

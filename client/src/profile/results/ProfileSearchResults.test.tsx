@@ -53,13 +53,14 @@ describe('profile search results', () => {
                 skills: ['Java']
             },
             results: [
-                {name: 'Jordan Steele'}
+                {name: 'Jordan Steele', role: 'Software Craftsperson'}
             ]
         };
 
         navigateToResults(state);
 
         expect(await screen.findByText('Jordan Steele')).toBeInTheDocument();
+        expect(await screen.findByText('Software Craftsperson')).toBeInTheDocument();
     });
 
     it('should show no results when no search results found', async () => {

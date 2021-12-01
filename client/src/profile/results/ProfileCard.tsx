@@ -1,14 +1,16 @@
-export const ProfileCard = ({name, role}: { name:string, role:string }) => {
+import {Profile} from "../shared/domain";
+
+export const ProfileCard = ({profile}: { profile: Profile }) => {
 
     return (
         <div className="ui card">
             <div className="image">
-                <img src="../../shared/ui/logo.svg" alt={`User profile: ${name}`}/>
+                <img src="../../shared/ui/logo.svg" alt={`User profile: ${profile.name}`}/>
             </div>
             <div className="content">
-                <a className="header">{name}</a>
+                <a className="header">{profile.name}</a>
                 <div className="meta">
-                    <span className="role">{role}</span>
+                    <span className="role">{profile.role}</span>
                 </div>
             </div>
         </div>
