@@ -1,10 +1,10 @@
-import {Profile} from "skillset";
-import {Icon} from "semantic-ui-react";
+import {Profile} from "../shared/domain";
+import {Icon, Rating} from "semantic-ui-react";
 
 export const ProfileCard = ({profile}: { profile: Profile }) => {
     let statusIcon = <Icon className={"minus circle red"}/>
 
-    if (profile.isAvailable) statusIcon = <Icon className={"check circle green"}/>
+    if(profile.isAvailable) statusIcon = <Icon className={"check circle green"}/>
 
     return (
         <div className="ui card">
@@ -15,6 +15,10 @@ export const ProfileCard = ({profile}: { profile: Profile }) => {
                 <h2 className="header">{profile.name}</h2>
                 <div className="meta">
                     <span className="role">{profile.role}</span>
+                </div>
+                <div>
+                    <div>{profile.skill.searchedSkill}</div>
+                    <Rating className="ui circle rating black" data-rating={profile.skill.searchedSkillRating} data-max-rating="5"></Rating>
                 </div>
                 <div className="meta">
                     {statusIcon}
