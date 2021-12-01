@@ -5,7 +5,7 @@ on:
     branches: [ main, env_pipline_fixes ]
   pull_request:
     branches: [ main, env_pipline_fixes ]
-    
+
 env: 
   REACT_APP_BASE_URL: ${{secrets.STAGING_URL}}
 
@@ -75,12 +75,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build
         uses: actions/setup-node@v2
-        env: 
-          REACT_APP_BASE_URL: ${{secrets.STAGING_URL}}
-
-      - run: |
+        run: |
+          export REACT_APP_BASE_URL=${{secrets.STAGING_URL}}
           npm install
-          yarn build
+          npm run build
           
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
