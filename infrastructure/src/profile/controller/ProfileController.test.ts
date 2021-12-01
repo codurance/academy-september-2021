@@ -36,7 +36,13 @@ describe('profile controller should', () => {
 
       const response = await profileController.search(event);
 
-      expect(response.statusCode).toBe(200);
-      expect(response.body).toBe('[{"name":"Person One"}]');
+      expect(response).toEqual({
+         statusCode: 200,
+         headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': true,
+         },
+         body: '[{"name":"Person One"}]'
+      });
    });
 });
