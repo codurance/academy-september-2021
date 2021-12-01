@@ -1,4 +1,4 @@
-import {Profile, ProfileSearchQuery} from "../domain";
+import {Profile, ProfileSearchQuery} from "skillset";
 import {AuthorisedResourceClient} from "./AuthorisedResourceClient";
 
 export class ProfileClient {

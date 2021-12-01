@@ -2,7 +2,7 @@ import {instance, mock, verify, when} from "ts-mockito";
 import {ProfileSearchService} from "./ProfileSearchService";
 import {ProfileFeatureNavigator} from "../../navigation";
 import {ProfileClient} from "../../resource";
-import {Profile} from "../../domain";
+import {Profile} from "skillset";
 
 describe('profile search service', () => {
     const profileFeatureNavigator = mock<ProfileFeatureNavigator>();

@@ -1,10 +1,10 @@
-import {Profile} from "../shared/domain";
+import {Profile} from "skillset";
 import {Icon} from "semantic-ui-react";
 
 export const ProfileCard = ({profile}: { profile: Profile }) => {
     let statusIcon = <Icon className={"minus circle red"}/>
 
-    if(profile.isAvailable) statusIcon = <Icon className={"check circle green"}/>
+    if (profile.isAvailable) statusIcon = <Icon className={"check circle green"}/>
 
     return (
         <div className="ui card">

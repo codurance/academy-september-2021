@@ -1,6 +1,6 @@
 import {ProfileFeatureNavigator} from "../../navigation";
 import {ProfileClient} from "../../resource";
-import {ProfileSearchQuery} from "../../domain";
+import {ProfileSearchQuery} from "skillset";
 
 export class ProfileSearchService {
 

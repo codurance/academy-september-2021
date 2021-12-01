@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import {anything, capture, instance, mock, when} from "ts-mockito";
 import {ProfileSearchService} from "./ProfileSearchService";
 import {ProfileSearch} from './ProfileSearch';
-import {ProfileSearchQuery} from "../../domain";
+import {ProfileSearchQuery} from "skillset";
 
 describe('profile search', () => {
 

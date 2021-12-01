@@ -1,5 +1,5 @@
 import {act, waitFor} from "@testing-library/react";
-import {Profile, ProfileSearchQuery} from "../domain";
+import {Profile, ProfileSearchQuery} from "skillset";
 import {BrowserHistoryProfileFeatureNavigator} from "./BrowserHistoryProfileFeatureNavigator";
 import {createBrowserHistory} from "history";
 

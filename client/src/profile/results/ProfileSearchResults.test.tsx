@@ -1,11 +1,11 @@
 import {act, render, screen, waitFor} from "@testing-library/react";
 import {ProfileSearchResults} from "./ProfileSearchResults";
 import {instance, mock, verify} from "ts-mockito";
-import {ProfileSearchService} from "../shared/ui/profile-search/ProfileSearchService";
+import {ProfileSearchService} from "../shared/ui/profile-search";
 import {ApplicationNavigator} from "../../shared/navigation";
 import {Route, Routes} from "react-router-dom";
 import React from "react";
-import {BrowserRouter} from "../../shared/navigation/BrowserRouter";
+import {BrowserRouter} from "../../shared/navigation";
 import {createBrowserHistory} from "history";
 
 describe('profile search results', () => {
