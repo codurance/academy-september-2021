@@ -1,4 +1,4 @@
-describe('perform simple search queries', () => {
+xdescribe('perform simple search queries', () => {
     it('display all results when user selects to view all results', () => {
         cy.loginToGoogleAccount();
         cy.visit('/');
@@ -18,5 +18,4 @@ describe('perform simple search queries', () => {
             .contains('Sam Steele')
             .should('not.exist');
     });
-
 });

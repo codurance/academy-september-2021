@@ -4,6 +4,6 @@ describe('view logged in user home', () => {
 
         cy.visit('/');
 
-        cy.contains('Logged in as: Sam Steele');
+        cy.contains('Sam Steele');
     });
 });
