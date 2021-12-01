@@ -13,7 +13,8 @@ function App() {
     const authenticator = new GoogleAuthenticator(googleUserProvider);
     const authenticatedUserStore = new LocalStorageAuthenticatedUserStore();
     const applicationNavigator = new BrowserHistoryNavigator(history);
-
+    console.warn(process.env.REACT_APP_BASE_URL || 'http://localhost:3004/dev');
+    
     return (
         <div className="App">
             <BrowserRouter history={history}>

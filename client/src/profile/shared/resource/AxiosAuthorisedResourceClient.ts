@@ -10,6 +10,9 @@ export class AxiosAuthorisedResourceClient implements AuthorisedResourceClient {
         baseURL: process.env.REACT_APP_BASE_URL || 'http://localhost:3004/dev',
     });
 
+    
+    
+    
     private authenticatedUserStore: AuthenticatedUserStore;
     private readonly applicationNavigator: ApplicationNavigator;
 
