@@ -7,7 +7,7 @@ export const ProfileCard = ({profile}: { profile: Profile }) => {
                 <img src={profile.imageUrl} alt={`User profile: ${profile.name}`}/>
             </div>
             <div className="content">
-                <a className="header">{profile.name}</a>
+                <h2 className="header">{profile.name}</h2>
                 <div className="meta">
                     <span className="role">{profile.role}</span>
                 </div>
