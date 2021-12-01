@@ -77,7 +77,7 @@ jobs:
           REACT_APP_BASE_URL: ${{secrets.STAGING_URL}}
       - run: |
           npm install
-          yarn build
+          REACT_APP_BASE_URL=${{secrets.STAGING_URL}} yarn build
           
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
