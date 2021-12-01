@@ -66,7 +66,12 @@ export class StaticProfileRepository implements ProfileRepository {
         let matchingProfiles: Profile[] = [];
 
         query.skills.forEach(skill => {
-            const profilesWithSkill = this.profiles.filter(profile => profile.skills.includes(skill));
+            const formattedSkill = skill.toLowerCase();
+            const profilesWithSkill = this.profiles.filter(profile => {
+                    const formattedSkills = profile.skills.map(skill => skill.toLowerCase());
+                    return formattedSkills.includes(formattedSkill);
+                }
+            );
             matchingProfiles = [...new Set([...matchingProfiles, ...profilesWithSkill])]
         });
 

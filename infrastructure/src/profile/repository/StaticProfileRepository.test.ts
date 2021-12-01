@@ -6,7 +6,7 @@ describe('static profile repository', () => {
 
    test('find matching profiles with skills', () => {
        const query: ProfileSearchQuery = {
-           skills: ['Typescript', 'Serverless', 'Kotlin']
+           skills: ['TYPESCRIPT', 'ServerLess', 'kotlin']
        };
 
        const result = staticProfileRepository.search(query);
