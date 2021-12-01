@@ -67,7 +67,7 @@ jobs:
     needs: [build]
     env:
       S3_BUCKET_COMMAND: ${{secrets.AWS_S3_BUCKET_COMMAND}}
-      REACT_APP_LAMBDA_URL: ${{secrets.STAGING_URL}}
+      REACT_APP_BASE_URL: ${{secrets.STAGING_URL}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

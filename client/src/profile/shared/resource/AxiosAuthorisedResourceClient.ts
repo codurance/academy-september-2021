@@ -7,7 +7,7 @@ import querystring from "qs";
 export class AxiosAuthorisedResourceClient implements AuthorisedResourceClient {
 
     private readonly axiosClient = axios.create({
-        baseURL: 'http://localhost:3004',
+        baseURL: process.env.REACT_APP_BASE_URL || 'http://localhost:3004',
     });
 
     private authenticatedUserStore: AuthenticatedUserStore;
