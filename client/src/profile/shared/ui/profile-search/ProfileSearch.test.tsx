@@ -18,14 +18,13 @@ describe('profile search', () => {
 
     it('should prefill search when query provided', () => {
         const query: ProfileSearchQuery = {
-            skills: ['TypeScript']
-
+            skills: ['TypeScript', 'Python']
         };
 
         render(<ProfileSearch profileSearchService={instance(profileSearchService)} query={query}/>);
 
         const search = screen.getByPlaceholderText('Java, TypeScript, React...');
-        expect(search).toHaveValue('TypeScript');
+        expect(search).toHaveValue('TypeScript, Python');
     });
 
     it('should perform search with provided skill', async () => {
@@ -33,10 +32,11 @@ describe('profile search', () => {
 
         renderProfileSearch();
 
-        submitSearch('React');
+        submitSearch('React, Typecript, Serverless');
 
-        const expectedQuery = {skills: ['React']};
-        expect(capture(profileSearchService.search).last()).toEqual([expectedQuery]);
+        const expectedQuery = {skills: ['React', 'Typecript', 'Serverless']};
+        const capturedQuery = capture(profileSearchService.search).last()[0];
+        expect(capturedQuery).toEqual(expectedQuery);
     });
 
     it('should show error when unable to search', async () => {
