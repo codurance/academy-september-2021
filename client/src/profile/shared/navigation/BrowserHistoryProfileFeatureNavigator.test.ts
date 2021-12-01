@@ -13,7 +13,7 @@ describe('react router profile feature navigator', () => {
             skills: ['Java']
         };
         const results: Profile[] = [
-            {name: 'Jordan Steele', role: 'Software Craftsperson'}
+            {name: 'Jordan Steele'} as Profile
         ];
 
         act(() => {

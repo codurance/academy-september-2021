@@ -42,10 +42,10 @@ export const ProfileSearchResults = ({applicationNavigator, profileSearchService
                 <p>No results found</p>
             }
 
-            <Grid columns={4}>
+            <Grid>
                 {results?.map(profile => (
-                    <GridColumn key="{profile}">
-                        <ProfileCard profile = {profile}/>
+                    <GridColumn mobile={16} tablet={8} computer={4} key="{profile}">
+                        <ProfileCard profile={profile}/>
                     </GridColumn>
                 ))}
             </Grid>
