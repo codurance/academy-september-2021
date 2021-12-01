@@ -17,11 +17,13 @@ export class GoogleAuthoriser implements Authoriser {
         const payload = tokenVerification.getPayload();
         if (!payload) throw Error('Unable to verify Google id token');
 
+        /* eslint-disable @typescript-eslint/no-non-null-assertion */
         return {
-            name: payload.name!!,
-            email: payload.email!!,
-            profileImageUrl: payload.picture!!
-        }
+            name: payload.name!,
+            email: payload.email!,
+            profileImageUrl: payload.picture!
+        };
+        /* eslint-enable @typescript-eslint/no-non-null-assertion */
     }
 
 }

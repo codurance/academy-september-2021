@@ -1,5 +1,5 @@
 import {LoginTicket, OAuth2Client, TokenPayload} from "google-auth-library";
-import {anything, capture, instance, mock, verify, when} from "ts-mockito";
+import {anything, capture, instance, mock, when} from "ts-mockito";
 import {GoogleAuthoriser} from "./GoogleAuthoriser";
 
 describe('google authoriser should', () => {

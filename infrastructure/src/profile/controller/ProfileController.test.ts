@@ -7,7 +7,7 @@ import {Profile, ProfileSearchQuery} from "skillset";
 describe('profile controller should', () => {
 
    const profileSearchQueryParser = new ProfileSearchQueryParser();
-   const profileRepository = mock<ProfileRepository>()
+   const profileRepository = mock<ProfileRepository>();
 
    const profileController = new ProfileController(profileSearchQueryParser, instance(profileRepository));
 
@@ -39,8 +39,7 @@ describe('profile controller should', () => {
       expect(response).toEqual({
          statusCode: 200,
          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': true,
+            'Access-Control-Allow-Origin': '*'
          },
          body: '[{"name":"Person One"}]'
       });

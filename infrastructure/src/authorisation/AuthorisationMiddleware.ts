@@ -1,4 +1,5 @@
 import {Authoriser} from "./Authoriser";
+import {AuthoriseEvent} from "./AuthoriseEvent";
 
 export class AuthorisationMiddleware {
 
@@ -8,7 +9,7 @@ export class AuthorisationMiddleware {
         this.authoriser = authoriser;
     }
 
-    public async generatePolicy(event: any) {
+    public async generatePolicy(event: AuthoriseEvent) {
         const token = event.authorizationToken.split('Bearer ')[1];
         const authorisedUser = await this.authoriser.getAuthorisedUser(token);
 
