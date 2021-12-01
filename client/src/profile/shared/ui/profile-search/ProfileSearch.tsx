@@ -10,22 +10,24 @@ type Props = {
 
 export const ProfileSearch = ({profileSearchService, query}: Props) => {
     const [hasSearchError, setHasSearchError] = useState(false);
-    const [skill, setSkill] = useState('');
+    const [skills, setSkills] = useState('');
 
     useEffect(() => {
-        const requestedSkill = query?.skills[0] ?? '';
-        setSkill(requestedSkill)
+        const requestedSkills = query?.skills.join(', ') ?? '';
+        setSkills(requestedSkills)
     }, [query])
 
-    async function search() {
-        const query: ProfileSearchQuery = {
-            skills: [skill]
-        };
+    async function search(): Promise<void> {
+        const query: ProfileSearchQuery = {skills: parseSkills()};
 
         await profileSearchService
             .search(query)
             .catch(() => setHasSearchError(true));
     }
+
+    const parseSkills = () => skills
+        .replace(/\s/g, '')
+        .split(',');
 
     return (
         <>
@@ -38,7 +40,7 @@ export const ProfileSearch = ({profileSearchService, query}: Props) => {
             <Form onSubmit={search}>
                 <Form.Field>
                     <Input icon placeholder='Java, TypeScript, React...'>
-                        <input type='text' required value={skill} onChange={e => setSkill(e.target.value)}/>
+                        <input type='text' required value={skills} onChange={e => setSkills(e.target.value)}/>
                         <Icon name='search' aria-label='Search' onClick={search} link/>
                     </Input>
                 </Form.Field>
