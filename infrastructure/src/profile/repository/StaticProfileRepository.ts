@@ -8,38 +8,58 @@ export class StaticProfileRepository implements ProfileRepository {
             name: 'Alexander Howson',
             role: 'Software Craftsperson in Training',
             skills: ['C#', 'Java', 'Rust'],
-            imageUrl: 'https://www.codurance.com/hubfs/Picture.jpg'
+            imageUrl: 'https://www.codurance.com/hubfs/Picture.jpg',
+            isAvailable: false,
+            currentClient: 'Academy'
         },
         {
             name: 'Amandeep Panesar',
             role: 'Software Craftsperson in Training',
             skills: ['Docker', 'Serverless', 'React', 'Java'],
-            imageUrl: 'https://www.codurance.com/hubfs/IMG_5435-2.jpg'
+            imageUrl: 'https://www.codurance.com/hubfs/IMG_5435-2.jpg',
+            isAvailable: false,
+            currentClient: 'Academy'
         },
         {
             name: 'Darío Fernández',
             role: 'Software Craftsperson in Training',
             skills: ['Javascript', 'React', 'Design'],
-            imageUrl: 'https://www.codurance.com/hubfs/Dario_Fernandez.png'
+            imageUrl: 'https://www.codurance.com/hubfs/Dario_Fernandez.png',
+            isAvailable: false,
+            currentClient: 'Academy'
         },
         {
             name: 'Jordan Colgan',
             role: 'Software Craftsperson in Training',
             skills: ['Angular', 'Kotlin', 'Typescript', 'React', 'Java'],
-            imageUrl: 'https://www.codurance.com/hubfs/jordan-colgan-photo.jpg'
+            imageUrl: 'https://www.codurance.com/hubfs/jordan-colgan-photo.jpg',
+            isAvailable: false,
+            currentClient: 'Academy'
         },
         {
             name: 'Simon Rosenberg',
             role: 'Software Craftsperson in Training',
             skills: ['React', 'Typescript', 'Java'],
-            imageUrl: 'https://www.codurance.com/hubfs/picture%20(1).jpg'
+            imageUrl: 'https://www.codurance.com/hubfs/picture%20(1).jpg',
+            isAvailable: false,
+            currentClient: 'Academy'
         },
         {
             name: 'Samuel Steel',
             role: 'Software Craftsperson in Training',
             skills: ['React', 'Javascript', 'Java'],
-            imageUrl: 'https://www.codurance.com/hubfs/Sam.jpeg'
-        }
+            imageUrl: 'https://www.codurance.com/hubfs/Sam.jpeg',
+            isAvailable: false,
+            currentClient: 'Academy'
+        },
+        {
+            name: 'Niall Bambury',
+            role: ' Software Craftsperson ',
+            skills: ['Java', 'Sprint', 'Javascript', 'React'],
+            imageUrl: 'https://www.codurance.com/hubfs/niall.jpg',
+            isAvailable: true,
+            currentClient: 'On the bench'
+        },
     ];
 
     search(query: ProfileSearchQuery): Profile[] {
