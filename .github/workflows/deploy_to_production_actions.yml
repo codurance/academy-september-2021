@@ -64,19 +64,17 @@ jobs:
         working-directory: ./client    
     env:
       S3_BUCKET_COMMAND: ${{secrets.AWS_S3_BUCKET_COMMAND_PRODUCTION}}
-      
+      REACT_APP_BASE_URL: ${{secrets.PRODUCTION_URL}}
     runs-on: ubuntu-latest
     needs: [test]
     steps:
       - uses: actions/checkout@v2
       - name: Build
         uses: actions/setup-node@v2  
-        run: |
+      - run: |
           npm install
           yarn build
-        env: 
-          REACT_APP_BASE_URL: ${{secrets.PRODUCTION_URL}}
-          
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -89,5 +87,5 @@ jobs:
         uses: unfor19/install-aws-cli-action@master
         with:
           version: '2.2.45'
-        run: aws s3 sync build/ $S3_BUCKET_COMMAND
+      - run: aws s3 sync build/ $S3_BUCKET_COMMAND
         shell: bash
