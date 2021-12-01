@@ -1,6 +1,6 @@
 import {AuthenticatedUserStore} from "../authentication/persistence";
 import {Navigate} from "react-router-dom";
-import {ReactRouterNavigator} from "./ReactRouterNavigator";
+import {BrowserHistoryNavigator} from "./BrowserHistoryNavigator";
 import {Authenticator} from "../authentication/authenticator";
 
 type Props = {
@@ -10,11 +10,10 @@ type Props = {
 }
 
 export const AuthenticatedRouteGuard = ({authenticatedUserStore, authenticator, children }: Props) => {
-
     const authenticatedUser = authenticatedUserStore.get();
     const accessToken = authenticatedUser?.accessToken;
 
     if(accessToken && authenticator.isValidToken(accessToken)) return children;
 
-    return <Navigate to={ReactRouterNavigator.LOGIN_ROUTE} />
+    return <Navigate to={BrowserHistoryNavigator.LOGIN_ROUTE} />
 };

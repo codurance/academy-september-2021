@@ -22,18 +22,19 @@ jobs:
           cache-dependency-path: |
             ./client/package-lock.json
             ./infrastructure/package-lock.json
+
       - name: Build and Test Infrastructure
         working-directory: ./infrastructure
         run: |
           npm install
-          npm run build
           npm test
+
       - name: Build and Test Client
         working-directory: ./client
         run: |
           npm install
-          npm run build
           npm test
+
   deploy_infrastructure:
     name: Deploy Infrastructure
     defaults:

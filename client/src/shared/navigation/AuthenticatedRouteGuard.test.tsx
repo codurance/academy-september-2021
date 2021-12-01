@@ -3,7 +3,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import { AuthenticatedRouteGuard} from ".";
 import {AuthenticatedUser, AuthenticatedUserStore} from "../authentication/persistence";
 import {instance, mock, when} from "ts-mockito";
-import {Authenticator} from "../../services";
+import {Authenticator} from "../authentication/authenticator";
 
 describe('AuthenticatedRouteGuard', () => {
 
