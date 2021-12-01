@@ -2,7 +2,7 @@ name: SkillSet_Pipeline
 
 on:
   push:
-    branches: [ main, pipeline_fixes]
+    branches: [ main]
   pull_request:
     branches: [ main ]
 
@@ -76,7 +76,7 @@ jobs:
       - run: |
           npm install
           touch .env
-          echo REACT_APP_BASE_URL=${{ secrets.STAGING_URL }} >> .env
+          echo REACT_APP_BASE_URL=${{ secrets.STAGING_URL }} >> .env.production
           yarn build
           
       - name: Configure AWS Credentials
