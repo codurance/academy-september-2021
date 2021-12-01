@@ -7,12 +7,13 @@ import {act, waitFor} from "@testing-library/react";
 import {ApplicationNavigator} from "../../../shared/navigation";
 
 describe('axios request client', () => {
+    const requestUrl = `${process.env.REACT_APP_BASE_URL}/path-to-my-resource` ?? "http://localhost:3004/dev/path-to-my-resource"
     const server = setupServer();
 
     interface ResultType {
         property: string;
     }
-
+    
     const authenticatedUserStore = mock<AuthenticatedUserStore>();
     const applicationNavigator = mock<ApplicationNavigator>();
 
@@ -32,7 +33,7 @@ describe('axios request client', () => {
         let authorisationHeader: string | null;
         when(authenticatedUserStore.get()).thenReturn(authenticatedUser);
         server.use(
-            rest.get('http://localhost:3004/dev/path-to-my-resource', (request, response) => {
+            rest.get(requestUrl, (request, response) => {
                 authorisationHeader = request.headers.get('Authorization');
                 return response();
             })
@@ -47,7 +48,7 @@ describe('axios request client', () => {
 
     it('return result for successful get request', async () => {
         server.use(
-            rest.get('http://localhost:3004/dev/path-to-my-resource', (request, response, context) => {
+            rest.get(requestUrl, (request, response, context) => {
                 return response(
                     context.status(200),
                     context.json({
@@ -67,7 +68,7 @@ describe('axios request client', () => {
     it('performs get request with query parameters', async () => {
         let queryParameters: any | null;
         server.use(
-            rest.get('http://localhost:3004/dev/path-to-my-resource', (request, response) => {
+            rest.get(requestUrl, (request, response) => {
                 queryParameters = request.url.search;
                 return response();
             })
@@ -83,7 +84,7 @@ describe('axios request client', () => {
     it.each([401, 403])
     ('navigate to login for intercepted get request with response status of %d', async (statusCode) => {
         server.use(
-            rest.get('http://localhost:3004/dev/path-to-my-resource', (request, response, context) => {
+            rest.get(requestUrl, (request, response, context) => {
                 return response(
                     context.status(statusCode),
                 );
@@ -101,7 +102,7 @@ describe('axios request client', () => {
 
     it('return error for get requests with non authorisation errors', async () => {
         server.use(
-            rest.get('http://localhost:3004/dev/path-to-my-resource', (request, response, context) => {
+            rest.get(requestUrl, (request, response, context) => {
                 return response(
                     context.status(400),
                 );
