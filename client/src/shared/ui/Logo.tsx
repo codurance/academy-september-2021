@@ -8,4 +8,4 @@ export const Logo = () => {
             <Header as='h1' textAlign='center' style={{fontFamily: 'Orbitron', fontSize: '4em'}}>SkillSet</Header>
         </>
     );
-}
+};

@@ -57,17 +57,17 @@ describe('GoogleAuthenticator', () => {
             getBasicProfile(): gapi.auth2.BasicProfile {
                 return {
                     getName(): string {
-                        return "Full Name"
+                        return "Full Name";
                     },
                     getEmail(): string {
-                        return "best.user@codurance.com"
+                        return "best.user@codurance.com";
                     },
                     getImageUrl(): string {
-                        return 'https://google.com/profile/best-user-image.png'
+                        return 'https://google.com/profile/best-user-image.png';
                     }
                 } as gapi.auth2.BasicProfile;
             }
         } as gapi.auth2.GoogleUser
     );
-})
+});
 

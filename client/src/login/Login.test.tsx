@@ -1,16 +1,15 @@
-import React from 'react';
-import {LoginService} from './LoginService'
-import {BrowserRouter} from 'react-router-dom'
-import {Login} from './Login'
-import {render, screen} from '@testing-library/react'
+import {LoginService} from './LoginService';
+import {BrowserRouter} from 'react-router-dom';
+import {Login} from './Login';
+import {render, screen} from '@testing-library/react';
 import {instance, mock, when} from 'ts-mockito';
 
 describe('on login rendered', () => {
     const loginService = mock(LoginService);
 
     beforeEach(() => {
-        render(<Login loginService={instance(loginService)}/>, {wrapper: BrowserRouter})
-    })
+        render(<Login loginService={instance(loginService)}/>, {wrapper: BrowserRouter});
+    });
 
     it('show no login error from successful login attempt on login button clicked', async () => {
         when(loginService.login()).thenResolve();
@@ -26,5 +25,5 @@ describe('on login rendered', () => {
         screen.getByAltText('Sign in with Google').click();
 
         expect(await screen.findByText("Login attempt was unsuccessful:")).toBeInTheDocument();
-    })
-})
+    });
+});

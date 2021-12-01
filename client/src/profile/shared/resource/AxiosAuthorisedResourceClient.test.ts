@@ -7,13 +7,13 @@ import {act, waitFor} from "@testing-library/react";
 import {ApplicationNavigator} from "../../../shared/navigation";
 
 describe('axios request client', () => {
-    const requestUrl = `${process.env.REACT_APP_BASE_URL}/path-to-my-resource` ?? "http://localhost:3004/dev/path-to-my-resource"
+    const requestUrl = `${process.env.REACT_APP_BASE_URL}/path-to-my-resource` ?? "http://localhost:3004/dev/path-to-my-resource";
     const server = setupServer();
 
     interface ResultType {
         property: string;
     }
-    
+
     const authenticatedUserStore = mock<AuthenticatedUserStore>();
     const applicationNavigator = mock<ApplicationNavigator>();
 
@@ -44,7 +44,7 @@ describe('axios request client', () => {
         return waitFor(() => {
             expect(authorisationHeader).toBe('Bearer access-token');
         });
-    })
+    });
 
     it('return result for successful get request', async () => {
         server.use(
@@ -66,7 +66,7 @@ describe('axios request client', () => {
     });
 
     it('performs get request with query parameters', async () => {
-        let queryParameters: any | null;
+        let queryParameters: any | null; // eslint-disable-line @typescript-eslint/no-explicit-any
         server.use(
             rest.get(requestUrl, (request, response) => {
                 queryParameters = request.url.search;
@@ -74,15 +74,17 @@ describe('axios request client', () => {
             })
         );
 
-        await axiosAuthorisedResourceClient.get<ResultType>('/path-to-my-resource', {param1: 'value', param2: ['other', 'values']});
+        await axiosAuthorisedResourceClient.get<ResultType>('/path-to-my-resource', {
+            param1: 'value',
+            param2: ['other', 'values']
+        });
 
         return waitFor(() => {
             expect(queryParameters).toEqual('?param1=value&param2%5B0%5D=other&param2%5B1%5D=values');
         });
     });
 
-    it.each([401, 403])
-    ('navigate to login for intercepted get request with response status of %d', async (statusCode) => {
+    it.each([401, 403])('navigate to login for intercepted get request with response status of %d', async (statusCode) => {
         server.use(
             rest.get(requestUrl, (request, response, context) => {
                 return response(

@@ -89,10 +89,10 @@ describe('profile search results', () => {
         );
     };
 
-    const navigateToResults = (state: any) => {
+    const navigateToResults = (state: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
         act(() => {
             history.push('/results', state);
         });
     };
 
-})
+});

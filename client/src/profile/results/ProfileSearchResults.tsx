@@ -10,7 +10,7 @@ import {ProfileCard} from "./ProfileCard";
 type Props = {
     applicationNavigator: ApplicationNavigator,
     profileSearchService: ProfileSearchService
-}
+};
 
 export const ProfileSearchResults = ({applicationNavigator, profileSearchService}: Props) => {
     const location = useLocation();
@@ -51,4 +51,4 @@ export const ProfileSearchResults = ({applicationNavigator, profileSearchService
             </Grid>
         </>
     );
-}
+};

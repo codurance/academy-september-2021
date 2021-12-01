@@ -5,7 +5,7 @@ import {Outlet} from "react-router-dom";
 
 type Props = {
     authenticatedUserStore: AuthenticatedUserStore;
-}
+};
 
 export const Layout = ({authenticatedUserStore}: Props) => {
     const authenticatedUser = authenticatedUserStore.get();
@@ -33,4 +33,4 @@ export const Layout = ({authenticatedUserStore}: Props) => {
             </Grid>
         </div>
     );
-}
+};

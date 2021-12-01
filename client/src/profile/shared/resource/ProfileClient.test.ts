@@ -19,4 +19,4 @@ describe('ProfileRequestClient', () => {
 
         expect(searchResults).toEqual(results);
     });
-})
+});

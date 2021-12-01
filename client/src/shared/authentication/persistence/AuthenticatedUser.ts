@@ -3,4 +3,4 @@ export type AuthenticatedUser = {
     accessToken: string,
     email: string,
     profileImageUrl: string,
-}
+};

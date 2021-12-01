@@ -1,7 +1,5 @@
 import {BrowserHistoryNavigator} from ".";
-import {act, waitFor} from "@testing-library/react";
-import {renderHook} from "@testing-library/react-hooks";
-import {BrowserRouter, useNavigate} from "react-router-dom";
+import {waitFor} from "@testing-library/react";
 import {createBrowserHistory} from "history";
 
 describe('ReactRouterNavigator', () => {

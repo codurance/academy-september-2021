@@ -6,7 +6,7 @@ import {ProfileSearchQuery} from "skillset";
 type Props = {
     profileSearchService: ProfileSearchService;
     query?: ProfileSearchQuery;
-}
+};
 
 export const ProfileSearch = ({profileSearchService, query}: Props) => {
     const [hasSearchError, setHasSearchError] = useState(false);
@@ -14,8 +14,8 @@ export const ProfileSearch = ({profileSearchService, query}: Props) => {
 
     useEffect(() => {
         const requestedSkills = query?.skills.join(', ') ?? '';
-        setSkills(requestedSkills)
-    }, [query])
+        setSkills(requestedSkills);
+    }, [query]);
 
     async function search(): Promise<void> {
         const query: ProfileSearchQuery = {skills: parseSkills()};
@@ -46,5 +46,5 @@ export const ProfileSearch = ({profileSearchService, query}: Props) => {
                 </Form.Field>
             </Form>
         </>
-    )
-}
+    );
+};

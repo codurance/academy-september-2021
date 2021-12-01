@@ -18,7 +18,7 @@ describe('AuthenticatedRouteGuard', () => {
         await attemptProtectedRouteRender();
 
         expect(await screen.findByText('Protected Route')).toBeInTheDocument();
-    })
+    });
 
     it('redirect to login for invalid access token', async () => {
         const authenticatedUser = {accessToken: 'invalid-token'} as AuthenticatedUser;
@@ -28,7 +28,7 @@ describe('AuthenticatedRouteGuard', () => {
         await attemptProtectedRouteRender();
 
         expect(await screen.findByText('Login')).toBeInTheDocument();
-    })
+    });
 
     it('redirect to login if user has not logged in', async () => {
         when(authenticatedUserStore.get()).thenReturn(null);
@@ -36,7 +36,7 @@ describe('AuthenticatedRouteGuard', () => {
         await attemptProtectedRouteRender();
 
         expect(await screen.findByText('Login')).toBeInTheDocument();
-    })
+    });
 
     const attemptProtectedRouteRender = async () =>
         render(

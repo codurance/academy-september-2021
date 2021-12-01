@@ -33,5 +33,5 @@ export const Login = ({loginService}: { loginService: LoginService }) => {
                 </Button>
             </Grid.Column>
         </Grid>
-    )
-}
+    );
+};

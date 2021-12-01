@@ -7,7 +7,7 @@ type Props = {
     authenticatedUserStore: AuthenticatedUserStore;
     authenticator: Authenticator;
     children: JSX.Element;
-}
+};
 
 export const AuthenticatedRouteGuard = ({authenticatedUserStore, authenticator, children }: Props) => {
     const authenticatedUser = authenticatedUserStore.get();
@@ -15,5 +15,5 @@ export const AuthenticatedRouteGuard = ({authenticatedUserStore, authenticator, 
 
     if(accessToken && authenticator.isValidToken(accessToken)) return children;
 
-    return <Navigate to={BrowserHistoryNavigator.LOGIN_ROUTE} />
+    return <Navigate to={BrowserHistoryNavigator.LOGIN_ROUTE} />;
 };

@@ -21,7 +21,7 @@ export class AxiosAuthorisedResourceClient implements AuthorisedResourceClient {
         this.handleUnauthorisedResponses();
     }
 
-    async get<T>(path: string, query?: any): Promise<T> {
+    async get<T>(path: string, query?: any): Promise<T> { // eslint-disable-line @typescript-eslint/no-explicit-any
         return this.axiosClient
             .get(path, {params: query, paramsSerializer: params => querystring.stringify(params)})
             .then(response => response.data as T);
@@ -49,7 +49,7 @@ export class AxiosAuthorisedResourceClient implements AuthorisedResourceClient {
                 const responseStatus = error.response.status;
                 if (responseStatus === 401 || responseStatus === 403) {
                     this.applicationNavigator.navigateToLogin();
-                    return new Promise(() => {
+                    return new Promise(() => { // eslint-disable-line @typescript-eslint/no-empty-function
                     });
                 }
 

@@ -18,5 +18,5 @@ export const ProfileCard = ({profile}: { profile: Profile }) => {
                 </Card.Meta>
             </Card.Content>
         </Card>
-    )
-}
+    );
+};

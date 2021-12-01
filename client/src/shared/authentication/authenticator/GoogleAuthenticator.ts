@@ -33,7 +33,7 @@ export class GoogleAuthenticator implements Authenticator {
             accessToken: authResponse.id_token,
             email: userProfile.getEmail(),
             profileImageUrl: userProfile.getImageUrl(),
-        }
+        };
     }
 
 }
