@@ -67,7 +67,7 @@ jobs:
     needs: [build]
     env:
       S3_BUCKET_COMMAND: ${{secrets.AWS_S3_BUCKET_COMMAND}}
-      
+      REACT_APP_BASE_URL: ${{secrets.STAGING_URL}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -75,9 +75,7 @@ jobs:
         uses: actions/setup-node@v2
       - run: |
           npm install
-          touch .env
-          echo REACT_APP_BASE_URL=${{ secrets.STAGING_URL }} >> .env.production
-          yarn build
+          yarn build $REACT_APP_BASE_URL
           
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
