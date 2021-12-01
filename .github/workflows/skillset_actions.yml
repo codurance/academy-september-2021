@@ -72,10 +72,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build
         uses: actions/setup-node@v2
-      - run: |
+        run: |
           npm install
           yarn build
-      - env: 
+        env: 
           REACT_APP_BASE_URL: ${{secrets.STAGING_URL}}
 
       - name: Configure AWS Credentials
@@ -90,7 +90,7 @@ jobs:
         uses: unfor19/install-aws-cli-action@master
         with:
           version: '2.2.45'
-      - run: aws s3 sync build/ $S3_BUCKET_COMMAND
+        run: aws s3 sync build/ $S3_BUCKET_COMMAND
         shell: bash
 
   acceptance_tests:
