@@ -29,8 +29,8 @@ export const ProfileSearchResults: React.FC<Props> = ({applicationNavigator, pro
         <>
             <Grid verticalAlign='middle'>
                 <GridRow>
-                    <GridColumn width={2}>
-                        <Image src={logo} centered height={125} width={75}/>
+                    <GridColumn width={2} style={{paddingRight: 0}}>
+                        <Image src={logo} height={125} width={75} floated={"right"}/>
                     </GridColumn>
                     <GridColumn width={12}>
                         <ProfileSearch profileSearchService={profileSearchService} query={query}/>

@@ -1,4 +1,4 @@
-import {Grid, Image} from "semantic-ui-react";
+import {Container, Grid, Image} from "semantic-ui-react";
 import React from "react";
 import {AuthenticatedUserStore} from "../../../../shared/authentication/persistence";
 import {Outlet} from "react-router-dom";
@@ -15,7 +15,8 @@ export const Layout: React.FC<Props> = ({authenticatedUserStore}: Props) => {
             <Grid columns={3} textAlign='right' padded style={{paddingRight: '2em'}}>
                 <Grid.Row>
                     <Grid.Column floated='right'>
-                        <Image src={authenticatedUser?.profileImageUrl} alt="Profile Image" circular size="tiny" floated='right'/>
+                        <Image src={authenticatedUser?.profileImageUrl} alt="Profile Image" circular size="tiny"
+                               floated='right'/>
                     </Grid.Column>
                 </Grid.Row>
 
@@ -26,11 +27,9 @@ export const Layout: React.FC<Props> = ({authenticatedUserStore}: Props) => {
                 </Grid.Row>
             </Grid>
 
-            <Grid textAlign='center' verticalAlign='middle'>
-                <Grid.Column style={{maxWidth: 800}}>
-                    <Outlet/>
-                </Grid.Column>
-            </Grid>
+            <Container>
+                <Outlet/>
+            </Container>
         </div>
     );
 };
