@@ -3,44 +3,71 @@ describe('perform simple search queries', () => {
         cy.loginToGoogleAccount();
         cy.visit('/');
 
-        cy
-            .get('[placeholder="Java, TypeScript, React..."]')
-            .type('Kotlin')
+        findPeopleWithKotlinSkill();
 
-        cy
-            .get('form')
-            .submit()
+        findPeopleWithJavascriptSkill();
 
-        cy
-            .contains('Jordan Colgan')
-            .should('exist');
+        findPeopleWithKotlinAndJavascriptSkill();
 
-        cy
-            .contains('Sam Steele')
-            .should('not.exist')
-            .get('[placeholder="Java, TypeScript, React..."]')
-            .type('Javascript, Kotlin')
-            .get('form')
-            .submit();
-        //
-        // cy
-        //     .get('[placeholder="Java, TypeScript, React..."]')
-        //     .type('Javascript, Kotlin')
+        findNoPeopleWithPythonSkill();
+    });
 
-        // cy
-        //     .get('form')
-        //     .submit()
+    const findPeopleWithKotlinSkill = () => {
+        searchForSkills('Kotlin');
 
         cy
             .contains('Jordan Colgan')
             .should('exist');
 
         cy
-            .contains('Sam Steele')
+            .contains('Niall Bambury')
+            .should('not.exist');
+    };
+
+    const findPeopleWithJavascriptSkill = () => {
+        searchForSkills('Javascript');
+
+        cy
+            .contains('Jordan Colgan')
+            .should('not.exist');
+
+        cy
+            .contains('Niall Bambury')
+            .should('exist');
+    };
+
+    const findPeopleWithKotlinAndJavascriptSkill = () => {
+        searchForSkills('Kotlin, Javascript');
+
+        cy
+            .contains('Jordan Colgan')
+            .should('exist');
+
+        cy
+            .contains('Niall Bambury')
             .should('exist');
 
         cy
             .contains('Simon Rosenberg')
             .should('not.exist');
-    });
+    };
+
+    const findNoPeopleWithPythonSkill = () => {
+        searchForSkills('Python');
+
+        cy
+            .contains('No results found')
+            .should('exist');
+    };
+
+    const searchForSkills = (skills: string) => {
+        cy
+            .get('[placeholder="Java, TypeScript, React..."]')
+            .clear()
+            .type(skills);
+
+        cy
+            .get('form')
+            .submit()
+    };
 });
