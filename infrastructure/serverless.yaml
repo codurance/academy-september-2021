@@ -16,16 +16,7 @@ functions:
           path: profile/all
           method: get
           authorizer: authorise
-          cors:
-            origin: '*'
-            headers:
-              - Content-Type
-              - X-Amz-Date
-              - Authorization
-              - X-Api-Key
-              - X-Amz-Security-Token
-              - X-Amz-User-Agent
-            allowCredentials: true
+          cors: true
   authorise:
     handler: src/authorisation/handler.authorise
 
