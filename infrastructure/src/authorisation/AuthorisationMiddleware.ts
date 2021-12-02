@@ -25,7 +25,7 @@ export class AuthorisationMiddleware {
                 ]
             },
             context: {
-                authorisedUser
+                authorisedUser: JSON.stringify(authorisedUser)
             }
         };
     }
