@@ -4,7 +4,7 @@ describe('perform simple search queries', () => {
         cy.visit('/');
 
         cy
-            .contains('Java, TypeScript, React...')
+            .get('[placeholder=Java, TypeScript, React...]')
             .type('Kotlin')
             .submit();
 
