@@ -45,7 +45,7 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
                     <Input icon placeholder='Java, TypeScript, React...'>
                         <input type='text' required value={skills} onChange={e => setSkills(e.target.value)} disabled={isLoadingSearch}/>
                         {isLoadingSearch
-                            ? <Icon name='circle notch' loading/>
+                            ? <Icon name='circle notch' aria-label='Loading' loading/>
                             : <Icon name='search' aria-label='Search' onClick={search} link/>
                         }
                     </Input>
