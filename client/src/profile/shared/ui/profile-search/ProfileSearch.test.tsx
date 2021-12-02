@@ -1,9 +1,9 @@
 import {render, screen} from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import {anything, capture, instance, mock, when} from "ts-mockito";
 import {ProfileSearchService} from "./ProfileSearchService";
 import {ProfileSearch} from './ProfileSearch';
 import {ProfileSearchQuery} from "skillset";
+import userEvent from "@testing-library/user-event";
 
 describe('profile search', () => {
 
@@ -27,12 +27,21 @@ describe('profile search', () => {
         expect(search).toHaveValue('TypeScript, Python');
     });
 
-    it('should perform search with provided skill', async () => {
+    it('should provide loading feedback when waiting for search result', async () => {
         when(profileSearchService.search(anything())).thenResolve();
-
         renderProfileSearch();
 
-        submitSearch('React, Typecript, Serverless');
+        await submitSearch('PHP');
+
+        expect(screen.getByPlaceholderText('Java, TypeScript, React...')).toBeDisabled();
+        expect(screen.getByLabelText('Loading')).toBeInTheDocument();
+    });
+
+    it('should perform search with provided skill', async () => {
+        when(profileSearchService.search(anything())).thenResolve();
+        renderProfileSearch();
+
+        await submitSearch('React, Typecript, Serverless');
 
         const expectedQuery = {skills: ['React', 'Typecript', 'Serverless']};
         const capturedQuery = capture(profileSearchService.search).last()[0];
@@ -43,7 +52,7 @@ describe('profile search', () => {
         when(profileSearchService.search(anything())).thenReject();
         renderProfileSearch();
 
-        submitSearch('Ruby');
+        await submitSearch('Ruby');
 
         expect(await screen.findByText("Network Error, try again.")).toBeInTheDocument();
     });
@@ -55,6 +64,7 @@ describe('profile search', () => {
     const submitSearch = (term: string) => {
         const search = screen.getByPlaceholderText('Java, TypeScript, React...');
         userEvent.type(search, term);
-        screen.getByLabelText('Search').click();
+        const searchButton = screen.getByLabelText('Search');
+        searchButton.click();
     };
 });
