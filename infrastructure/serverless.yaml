@@ -32,10 +32,10 @@ resources:
         ResponseType: DEFAULT_4XX
         RestApiId:
           Ref: 'ApiGatewayRestApi'
-    userProfilesTable:
+    profilesTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: userProfilesTable
+        TableName: profilesTable
         AttributeDefinitions:
           - AttributeName: name
             AttributeType: S
