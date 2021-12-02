@@ -1,14 +1,12 @@
-xdescribe('perform simple search queries', () => {
+describe('perform simple search queries', () => {
     it('display all results when user selects to view all results', () => {
         cy.loginToGoogleAccount();
         cy.visit('/');
 
         cy
             .contains('Java, TypeScript, React...')
-            .type('Java')
+            .type('Kotlin')
             .submit();
-
-        //put in listen request to wait for API response
 
         cy
             .contains('Jordan Colgan')
@@ -16,6 +14,23 @@ xdescribe('perform simple search queries', () => {
 
         cy
             .contains('Sam Steele')
+            .should('not.exist');
+
+        cy
+            .contains('Kotlin')
+            .type('Javascript, Kotlin')
+            .submit();
+
+        cy
+            .contains('Jordan Colgan')
+            .should('exist');
+
+        cy
+            .contains('Sam Steele')
+            .should('exist');
+
+        cy
+            .contains('Simon Rosenberg')
             .should('not.exist');
     });
 });
