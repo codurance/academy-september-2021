@@ -55,7 +55,7 @@ describe('profile search results', () => {
             skills: ['Java', 'Kotlin'],
             currentClient: 'Client',
             isAvailable: false
-        }
+        };
         const state = {
             query: {skills: ['Java']},
             results: [profile]
