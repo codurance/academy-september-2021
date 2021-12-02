@@ -9,6 +9,7 @@ type Props = {
 };
 
 export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Props) => {
+    const [isLoadingSearch, setIsLoadingSearch] = useState(false);
     const [hasSearchError, setHasSearchError] = useState(false);
     const [skills, setSkills] = useState('');
 
@@ -19,10 +20,12 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
 
     async function search(): Promise<void> {
         const query: ProfileSearchQuery = {skills: parseSkills()};
+        setIsLoadingSearch(true);
 
         await profileSearchService
             .search(query)
-            .catch(() => setHasSearchError(true));
+            .catch(() => setHasSearchError(true))
+            .finally(() => setIsLoadingSearch(false));
     }
 
     const parseSkills = () => skills
@@ -40,8 +43,11 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
             <Form onSubmit={search}>
                 <Form.Field>
                     <Input icon placeholder='Java, TypeScript, React...'>
-                        <input type='text' required value={skills} onChange={e => setSkills(e.target.value)}/>
-                        <Icon name='search' aria-label='Search' onClick={search} link/>
+                        <input type='text' required value={skills} onChange={e => setSkills(e.target.value)} disabled={isLoadingSearch}/>
+                        {isLoadingSearch
+                            ? <Icon name='circle notch' loading/>
+                            : <Icon name='search' aria-label='Search' onClick={search} link/>
+                        }
                     </Input>
                 </Form.Field>
             </Form>
