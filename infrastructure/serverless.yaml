@@ -41,7 +41,7 @@ resources:
             AttributeType: S
         KeySchema:
           - AttributeName: id
-            KeyType: S
+            KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
