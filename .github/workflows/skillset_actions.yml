@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [ main, env_pipline_fixes ]
 
-env: 
-  REACT_APP_BASE_URL: ${{secrets.STAGING_URL}}
-
 jobs:
   checks:
     name: Run Checks
@@ -58,9 +55,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - run: npm install
-      - run: npm install -g serverless
-      - run: serverless deploy --stage staging --region us-east-1
+        run: |
+          npm install
+          npm install -g serverless
+          serverless deploy --stage staging --region us-east-1
 
   deploy_client:
     name: Deploy Client
@@ -70,6 +68,7 @@ jobs:
     needs: [checks]
     env:
       S3_BUCKET_COMMAND: ${{secrets.AWS_S3_BUCKET_COMMAND}}
+      REACT_APP_BASE_URL: ${{secrets.STAGING_URL}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
