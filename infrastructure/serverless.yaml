@@ -31,3 +31,17 @@ resources:
         ResponseType: DEFAULT_4XX
         RestApiId:
           Ref: 'ApiGatewayRestApi'
+
+    userProfilesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: userProfilesTable
+        AttributeDefinitions:
+          - AttributeName: name
+            AttributeType: String
+        KeySchema:
+          - AttributeName: id
+            KeyType: String
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
