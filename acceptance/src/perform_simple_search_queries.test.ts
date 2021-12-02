@@ -1,5 +1,5 @@
 describe('perform simple search queries', () => {
-    it('display all results when user selects to view all results', () => {
+    it('display relevant results when user searches for a skill', () => {
         cy.loginToGoogleAccount();
         cy.visit('/');
 
@@ -15,14 +15,17 @@ describe('perform simple search queries', () => {
             .contains('Jordan Colgan')
             .should('exist');
 
-        cy
-            .contains('Sam Steele')
-            .should('not.exist');
+        // cy
+        //     .contains('Sam Steele')
+        //     .should('not.exist');
 
         cy
             .contains('Kotlin')
             .type('Javascript, Kotlin')
-            .submit();
+
+        cy
+            .get('form')
+            .submit()
 
         cy
             .contains('Jordan Colgan')
