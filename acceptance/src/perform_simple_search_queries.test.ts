@@ -6,7 +6,10 @@ describe('perform simple search queries', () => {
         cy
             .get('[placeholder="Java, TypeScript, React..."]')
             .type('Kotlin')
-            .submit();
+
+        cy
+            .get('form')
+            .submit()
 
         cy
             .contains('Jordan Colgan')
