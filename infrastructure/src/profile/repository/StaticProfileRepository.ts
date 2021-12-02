@@ -15,7 +15,7 @@ export class StaticProfileRepository implements ProfileRepository {
         {
             name: 'Amandeep Panesar',
             role: 'Software Craftsperson in Training',
-            skills: ['Docker', 'Serverless', 'React', 'Java'],
+            skills: ['Docker', 'Serverless', 'React', 'Java', "JavaScript"],
             imageUrl: 'https://www.codurance.com/hubfs/IMG_5435-2.jpg',
             isAvailable: false,
             currentClient: 'Academy'
@@ -23,7 +23,7 @@ export class StaticProfileRepository implements ProfileRepository {
         {
             name: 'Darío Fernández',
             role: 'Software Craftsperson in Training',
-            skills: ['Javascript', 'React', 'Design'],
+            skills: ['JavaScript', 'React', 'Design', 'Java'],
             imageUrl: 'https://www.codurance.com/hubfs/Dario_Fernandez.png',
             isAvailable: false,
             currentClient: 'Academy'
@@ -31,7 +31,7 @@ export class StaticProfileRepository implements ProfileRepository {
         {
             name: 'Jordan Colgan',
             role: 'Software Craftsperson in Training',
-            skills: ['Angular', 'Kotlin', 'Typescript', 'React', 'Java'],
+            skills: ['Angular', 'Kotlin', 'Android', 'Typescript', 'React', 'Java'],
             imageUrl: 'https://www.codurance.com/hubfs/jordan-colgan-photo.jpg',
             isAvailable: false,
             currentClient: 'Academy'
@@ -47,7 +47,7 @@ export class StaticProfileRepository implements ProfileRepository {
         {
             name: 'Samuel Steele',
             role: 'Software Craftsperson in Training',
-            skills: ['React', 'Javascript', 'Java'],
+            skills: ['React', 'JavaScript', 'Java'],
             imageUrl: 'https://www.codurance.com/hubfs/Sam.jpeg',
             isAvailable: false,
             currentClient: 'Academy'
@@ -55,7 +55,7 @@ export class StaticProfileRepository implements ProfileRepository {
         {
             name: 'Niall Bambury',
             role: ' Software Craftsperson ',
-            skills: ['Java', 'Sprint', 'Javascript', 'React'],
+            skills: ['Java', 'Spring', 'JavaScript', 'React'],
             imageUrl: 'https://www.codurance.com/hubfs/niall.jpg',
             isAvailable: true,
             currentClient: 'On the bench'

@@ -19,6 +19,10 @@ export const ProfileCard: React.FC<Props> = ({profile}: Props) => (
             <Card.Meta textAlign="center">
                 <span style={{fontSize: '1rem'}}>{profile.role}</span>
             </Card.Meta>
+
+            <Card.Description style={{margin: '1rem 0 0 0'}}>
+                {profile.skills.join(', ').replace(/, ([^,]*)$/, ', $1')}
+            </Card.Description>
         </Card.Content>
 
         <Card.Content extra>

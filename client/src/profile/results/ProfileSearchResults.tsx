@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 import {Profile, ProfileSearchQuery} from "skillset";
 import logo from "../../shared/ui/logo.svg";
-import {Grid, GridColumn, GridRow, Image} from "semantic-ui-react";
+import {Grid, Header, Image} from "semantic-ui-react";
 import {ProfileCard} from "./ProfileCard";
 
 type Props = {
@@ -26,29 +26,34 @@ export const ProfileSearchResults: React.FC<Props> = ({applicationNavigator, pro
     }, [location.state, applicationNavigator]);
 
     return (
-        <>
+        <div style={{paddingBottom: '2rem'}}>
             <Grid verticalAlign='middle'>
-                <GridRow>
-                    <GridColumn width={2} style={{paddingRight: 0}}>
+                <Grid.Row>
+                    <Grid.Column width={2} style={{paddingRight: 0}}>
                         <Image src={logo} height={125} width={75} floated={"right"}/>
-                    </GridColumn>
-                    <GridColumn width={12}>
+                    </Grid.Column>
+                    <Grid.Column width={12}>
                         <ProfileSearch profileSearchService={profileSearchService} query={query}/>
-                    </GridColumn>
-                </GridRow>
+                    </Grid.Column>
+                </Grid.Row>
             </Grid>
 
-            {!results?.length &&
-            <p>No results found</p>
-            }
+            <Grid divided="vertically">
+                <Grid.Row stretched>
 
-            <Grid>
-                {results?.map(profile => (
-                    <GridColumn mobile={16} tablet={8} computer={4} key="{profile}">
-                        <ProfileCard profile={profile}/>
-                    </GridColumn>
-                ))}
+                    {!results?.length &&
+                    <Grid.Column>
+                        <Header as="h2" textAlign={"center"}>No results found</Header>
+                    </Grid.Column>
+                    }
+
+                    {results?.map(profile => (
+                        <Grid.Column mobile={16} tablet={8} computer={4} key={profile.name}>
+                            <ProfileCard profile={profile}/>
+                        </Grid.Column>
+                    ))}
+                </Grid.Row>
             </Grid>
-        </>
+        </div>
     );
 };
