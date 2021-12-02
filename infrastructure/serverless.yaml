@@ -7,6 +7,7 @@ provider:
 plugins:
   - serverless-plugin-typescript
   - serverless-offline
+  - serverless-dynamodb-local
 
 functions:
   searchProfiles:
@@ -31,3 +32,16 @@ resources:
         ResponseType: DEFAULT_4XX
         RestApiId:
           Ref: 'ApiGatewayRestApi'
+    userProfilesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: userProfilesTable
+        AttributeDefinitions:
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: S
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
