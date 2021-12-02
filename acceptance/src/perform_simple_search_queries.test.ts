@@ -17,15 +17,19 @@ describe('perform simple search queries', () => {
 
         cy
             .contains('Sam Steele')
-            .should('not.exist');
-
-        cy
+            .should('not.exist')
             .get('[placeholder="Java, TypeScript, React..."]')
             .type('Javascript, Kotlin')
-
-        cy
             .get('form')
-            .submit()
+            .submit();
+        //
+        // cy
+        //     .get('[placeholder="Java, TypeScript, React..."]')
+        //     .type('Javascript, Kotlin')
+
+        // cy
+        //     .get('form')
+        //     .submit()
 
         cy
             .contains('Jordan Colgan')
