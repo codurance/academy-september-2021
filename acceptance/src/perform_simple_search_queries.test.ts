@@ -15,9 +15,9 @@ describe('perform simple search queries', () => {
             .contains('Jordan Colgan')
             .should('exist');
 
-        // cy
-        //     .contains('Sam Steele')
-        //     .should('not.exist');
+        cy
+            .contains('Sam Steele')
+            .should('not.exist');
 
         cy
             .get('[placeholder="Java, TypeScript, React..."]')
