@@ -7,7 +7,7 @@ import {act, waitFor} from "@testing-library/react";
 import {ApplicationNavigator} from "../../../shared/navigation";
 
 describe('axios request client', () => {
-    const requestUrl = `${process.env.REACT_APP_BASE_URL}/path-to-my-resource` ?? "http://localhost:3004/dev/path-to-my-resource";
+    const requestUrl = "http://localhost:3004/dev/path-to-my-resource";
     const server = setupServer();
 
     interface ResultType {
