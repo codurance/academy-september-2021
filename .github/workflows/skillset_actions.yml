@@ -10,8 +10,8 @@ env:
   REACT_APP_BASE_URL: ${{secrets.STAGING_URL}}
 
 jobs:
-  build:
-    name: Build and Test
+  checks:
+    name: Run Checks
     runs-on: ubuntu-latest
     steps:
       - name: Checkout from GH repository
@@ -30,13 +30,13 @@ jobs:
         working-directory: ./infrastructure
         run: |
           npm install
-          npm test
+          npm run checks
 
       - name: Build and Test Client
         working-directory: ./client
         run: |
           npm install
-          npm test
+          npm run checks
 
   deploy_infrastructure:
     name: Deploy Infrastructure
@@ -44,7 +44,7 @@ jobs:
       run:
         working-directory: ./infrastructure
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [checks]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 14
@@ -67,7 +67,7 @@ jobs:
     defaults:
       run:
         working-directory: ./client
-    needs: [build]
+    needs: [checks]
     env:
       S3_BUCKET_COMMAND: ${{secrets.AWS_S3_BUCKET_COMMAND}}
     runs-on: ubuntu-latest
