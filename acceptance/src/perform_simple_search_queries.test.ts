@@ -20,7 +20,7 @@ describe('perform simple search queries', () => {
         //     .should('not.exist');
 
         cy
-            .contains('Kotlin')
+            .get('[placeholder="Java, TypeScript, React..."]')
             .type('Javascript, Kotlin')
 
         cy
