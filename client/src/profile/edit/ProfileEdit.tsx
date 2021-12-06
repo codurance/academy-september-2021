@@ -23,7 +23,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
                 if (profile) setProfile(profile);
             })
             .catch(() => console.log('Unable to get profile'));
-    });
+    }, []);
 
     return (
         <Form>

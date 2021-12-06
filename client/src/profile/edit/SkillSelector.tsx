@@ -1,6 +1,7 @@
 import {ProfileSkill, skills} from "./ProfileSkill";
 import React, {SyntheticEvent, useState} from "react";
 import {Dropdown, DropdownItemProps, Form} from "semantic-ui-react";
+import "./SkillSelector.css";
 
 type Props = {
     onSkillAdded: (skill: ProfileSkill) => void;
@@ -34,25 +35,30 @@ export const SkillSelector: React.FC<Props> = ({onSkillAdded, addedSkills}) => {
 
     return (
         <>
-            <Form.Dropdown placeholder='Select Skill' selection text={name}>
-                <Dropdown.Menu>
-                    {getAvailableSkillNames().map(skill =>
-                        <Dropdown.Item key={skill} text={skill} value={skill} onClick={updateName}/>
-                    )}
-                </Dropdown.Menu>
-            </Form.Dropdown>
+            <Form.Field>
+                <Dropdown className="selection" placeholder='Select Skill' text={name}>
+                    <Dropdown.Menu>
+                        {getAvailableSkillNames().map(skill =>
+                            <Dropdown.Item key={skill} text={skill} value={skill} onClick={updateName}/>
+                        )}
+                    </Dropdown.Menu>
+                </Dropdown>
+            </Form.Field>
 
-            <Form.Dropdown placeholder='Select Level' selection text={level?.toString()} disabled={!name}>
-                <Dropdown.Menu>
-                    <Dropdown.Item text="1" description="I've just started learning this" value='1'
-                                   onClick={updateLevel}/>
-                    <Dropdown.Item text="2" description="TBA" value='2' onClick={updateLevel}/>
-                    <Dropdown.Item text="3" description="TBA" value='3' onClick={updateLevel}/>
-                    <Dropdown.Item text="4" description="TBA" value='4' onClick={updateLevel}/>
-                    <Dropdown.Item text="5" description="I could talk about this at a conference" value='5'
-                                   onClick={updateLevel}/>
-                </Dropdown.Menu>
-            </Form.Dropdown>
+            <Form.Field>
+                <Dropdown className="selection" placeholder='Select Level' text={level?.toString()}
+                               disabled={!name}>
+                    <Dropdown.Menu>
+                        <Dropdown.Item text="1" description="I've just started learning this" value='1'
+                                       onClick={updateLevel}/>
+                        <Dropdown.Item text="2" description="TBA" value='2' onClick={updateLevel}/>
+                        <Dropdown.Item text="3" description="TBA" value='3' onClick={updateLevel}/>
+                        <Dropdown.Item text="4" description="TBA" value='4' onClick={updateLevel}/>
+                        <Dropdown.Item text="5" description="I could talk about this at a conference" value='5'
+                                       onClick={updateLevel}/>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </Form.Field>
 
             <Form.Button onClick={addSkill} disabled={!level}>Add Skill</Form.Button>
         </>
