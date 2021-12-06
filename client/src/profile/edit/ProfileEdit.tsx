@@ -37,8 +37,8 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
             }
 
             <Form.Group widths='equal'>
-                <Form.Input fluid label='Name' placeholder={profile?.name ?? authenticatedUser?.name} readOnly/>
-                <Form.Input fluid label='Email' placeholder={profile?.email ?? authenticatedUser?.email} readOnly/>
+                <Form.Input fluid label='Name' value={profile?.name ?? authenticatedUser?.name} readOnly/>
+                <Form.Input fluid label='Email' value={profile?.email ?? authenticatedUser?.email} readOnly/>
             </Form.Group>
 
             <Grid columns={3} padded='vertically'>

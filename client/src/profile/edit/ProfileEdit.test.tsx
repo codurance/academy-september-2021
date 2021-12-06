@@ -20,8 +20,8 @@ describe('editing a profile should', () => {
         renderProfileEdit();
 
         expect(await screen.queryByText('It looks like this is your first time creating a profile')).not.toBeInTheDocument();
-        await expectReadOnlyInputToBeVisible('Retrieved Best User');
-        await expectReadOnlyInputToBeVisible('retrieved.best.user@codurance.com');
+        await expectReadOnlyInputToHaveValue('Name', 'Retrieved Best User');
+        await expectReadOnlyInputToHaveValue('Email', 'retrieved.best.user@codurance.com');
     });
 
     it('display personal information of the authenticated user if the user has not created a profile', async () => {
@@ -30,8 +30,8 @@ describe('editing a profile should', () => {
         renderProfileEdit();
 
         expect(await screen.findByText('It looks like this is your first time creating a profile')).toBeInTheDocument();
-        await expectReadOnlyInputToBeVisible('Local Best User');
-        await expectReadOnlyInputToBeVisible('local.best.user@codurance.com');
+        await expectReadOnlyInputToHaveValue('Name', 'Local Best User');
+        await expectReadOnlyInputToHaveValue('Email', 'local.best.user@codurance.com');
     });
 
     const renderProfileEdit = () => {
@@ -44,9 +44,11 @@ describe('editing a profile should', () => {
                             authenticatedUserStore={instance(authenticatedUserStore)}/>);
     };
 
-    const expectReadOnlyInputToBeVisible = async (placeholder: string) => {
-        const input = await screen.findByPlaceholderText(placeholder);
-        expect(input).toBeInTheDocument();
+    const expectReadOnlyInputToHaveValue = async (label: string, value: string) => {
+        const labelElement = screen.getByText(label);
+        const field = labelElement.parentElement;
+        const input = field?.querySelector('input');
+        expect(input).toHaveValue(value);
         expect(input).toHaveAttribute('readonly');
     };
 });
