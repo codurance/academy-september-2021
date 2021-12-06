@@ -21,6 +21,8 @@ export const SkillSelector: React.FC<Props> = ({onSkillAdded}) => {
             level: level!
         };
         onSkillAdded(skillAdded);
+        setName(undefined);
+        setLevel(undefined);
     };
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
 
