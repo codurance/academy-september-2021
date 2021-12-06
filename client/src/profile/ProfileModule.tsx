@@ -10,6 +10,7 @@ import {AuthenticatedUserStore} from "../shared/authentication/persistence";
 import {Route, Routes} from "react-router-dom";
 import {AxiosAuthorisedResourceClient, ProfileClient} from "./shared/resource";
 import {Layout} from "./shared/ui/layout/Layout";
+import {ProfileEdit} from "./edit/ProfileEdit";
 
 type Props = {
     history: History;
@@ -46,6 +47,12 @@ export const ProfileModule: React.FC<Props> = ({
                                                   profileSearchService={profileSearchService}/>
                         </AuthenticatedRouteGuard>
                     }/>
+                    <Route path={BrowserHistoryProfileFeatureNavigator.PROFILE_ROUTE} element={
+                        <AuthenticatedRouteGuard authenticator={authenticator}
+                                                 authenticatedUserStore={authenticatedUserStore}>
+                            <ProfileEdit profileClient={profileClient} authenticatedUserStore={authenticatedUserStore}/>
+                        </AuthenticatedRouteGuard>
+                    } />
                 </Route>
             </Routes>
         </div>

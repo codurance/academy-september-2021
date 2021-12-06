@@ -46,15 +46,19 @@ export class AxiosAuthorisedResourceClient implements AuthorisedResourceClient {
         this.axiosClient.interceptors.response.use(
             response => response,
             error => {
-                const responseStatus = error.response.status;
-                if (responseStatus === 401 || responseStatus === 403) {
+                if (error.response && this.isUnauthorisedResponse(error.response)) {
                     this.applicationNavigator.navigateToLogin();
-                    return new Promise(() => { // eslint-disable-line @typescript-eslint/no-empty-function
+                    return new Promise(() => { /* do nothing */
                     });
                 }
 
                 return Promise.reject(error);
             }
         );
+    }
+
+    private isUnauthorisedResponse(response: { status: number }) {
+        const responseStatus = response.status;
+        return responseStatus === 401 || responseStatus === 403;
     }
 }

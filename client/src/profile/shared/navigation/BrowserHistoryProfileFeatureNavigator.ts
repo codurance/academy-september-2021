@@ -5,6 +5,7 @@ import {History} from "history";
 export class BrowserHistoryProfileFeatureNavigator implements ProfileFeatureNavigator {
 
     public static readonly PROFILE_SEARCH_RESULTS_ROUTE = '/results';
+    public static readonly PROFILE_ROUTE = '/profile';
 
     private history: History;
 
