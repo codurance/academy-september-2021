@@ -5,12 +5,6 @@ import userEvent from "@testing-library/user-event";
 import {SkillSelector} from "./SkillSelector";
 
 describe('skill selector should', () => {
-
-    let skillAdded: ProfileSkill = {} as ProfileSkill;
-    const updateSkillAdded = (skill: ProfileSkill) => {
-        skillAdded = skill;
-    };
-
     it('disable skill level dropdown if no skill has been selected', () => {
         render(<SkillSelector onSkillAdded={() => {/* do nothing */}} addedSkills={[]}/>);
 
@@ -24,7 +18,10 @@ describe('skill selector should', () => {
     });
 
     it('trigger skill added on valid skill added', () => {
-
+        let skillAdded: ProfileSkill = {} as ProfileSkill;
+        const updateSkillAdded = (skill: ProfileSkill) => {
+            skillAdded = skill;
+        };
         render(<SkillSelector onSkillAdded={updateSkillAdded} addedSkills={[]}/>);
 
         selectDropdownValue('Select Skill', 'React');
@@ -35,17 +32,18 @@ describe('skill selector should', () => {
     });
 
     it('clears dropdown menus upon adding selection', async () => {
-        render(<SkillSelector onSkillAdded={updateSkillAdded} addedSkills={[]}/>);
+        render(<SkillSelector onSkillAdded={() => {/* do nothing */}} addedSkills={[]}/>);
 
         selectDropdownValue('Select Skill', 'React');
         selectDropdownValue('Select Level', '5');
         clickInput('Add Skill');
 
         expect(await screen.findByText('Select Skill')).toBeInTheDocument();
+        expect(await screen.findByText('Select Level')).toBeInTheDocument();
     });
 
     it('removes skills already added from select skills dropdown menu', async () => {
-        render(<SkillSelector onSkillAdded={updateSkillAdded} addedSkills={[{name: 'React', level: 5}]}/>);
+        render(<SkillSelector onSkillAdded={() => {/* do nothing */}} addedSkills={[{name: 'React', level: 5}]}/>);
 
         expect(await screen.queryByText('React')).not.toBeInTheDocument();
     });

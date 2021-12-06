@@ -53,7 +53,6 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
             </Grid>
 
             <Form.Group widths='equal'>
-
                 <SkillSelector onSkillAdded={newSkill => setNewSkills(skills => [...skills, newSkill])} addedSkills={newSkills}/>
             </Form.Group>
         </Form>
