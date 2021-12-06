@@ -12,20 +12,20 @@ describe('skill selector should', () => {
     };
 
     it('disable skill level dropdown if no skill has been selected', () => {
-        render(<SkillSelector onSkillAdded={() => {/* do nothing */}}/>);
+        render(<SkillSelector onSkillAdded={() => {/* do nothing */}} addedSkills={[]}/>);
 
         expect(screen.getByText('Select Level').parentElement).toHaveAttribute('aria-disabled', 'true');
     });
 
     it('disable add skill button when no skill level has been selected', () => {
-        render(<SkillSelector onSkillAdded={() => {/* do nothing */}}/>);
+        render(<SkillSelector onSkillAdded={() => {/* do nothing */}} addedSkills={[]}/>);
 
         expect(screen.getByText('Add Skill')).toBeDisabled();
     });
 
     it('trigger skill added on valid skill added', () => {
 
-        render(<SkillSelector onSkillAdded={updateSkillAdded}/>);
+        render(<SkillSelector onSkillAdded={updateSkillAdded} addedSkills={[]}/>);
 
         selectDropdownValue('Select Skill', 'React');
         selectDropdownValue('Select Level', '5');
@@ -35,13 +35,19 @@ describe('skill selector should', () => {
     });
 
     it('clears dropdown menus upon adding selection', async () => {
-        render(<SkillSelector onSkillAdded={updateSkillAdded}/>);
+        render(<SkillSelector onSkillAdded={updateSkillAdded} addedSkills={[]}/>);
 
         selectDropdownValue('Select Skill', 'React');
         selectDropdownValue('Select Level', '5');
         clickInput('Add Skill');
 
         expect(await screen.findByText('Select Skill')).toBeInTheDocument();
+    })
+
+    it('removes skills already added from select skills dropdown menu', async () => {
+        render(<SkillSelector onSkillAdded={updateSkillAdded} addedSkills={['React']}/>);
+
+        expect(await screen.queryByText('React')).not.toBeInTheDocument();
     })
 
     const selectDropdownValue = (dropdownPlaceholder: string, selection: string) => {

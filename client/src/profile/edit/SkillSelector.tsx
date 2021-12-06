@@ -4,9 +4,10 @@ import {Dropdown, DropdownItemProps, Form} from "semantic-ui-react";
 
 type Props = {
     onSkillAdded: (skill: ProfileSkill) => void;
+    addedSkills: string[];
 };
 
-export const SkillSelector: React.FC<Props> = ({onSkillAdded}) => {
+export const SkillSelector: React.FC<Props> = ({onSkillAdded, addedSkills}) => {
     const [name, setName] = useState<string | undefined>();
     const [level, setLevel] = useState<number | undefined>();
 
@@ -26,11 +27,13 @@ export const SkillSelector: React.FC<Props> = ({onSkillAdded}) => {
     };
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
 
+    const skillSelection = skills.filter( skill => !addedSkills.includes(skill));
+
     return (
         <>
             <Form.Dropdown placeholder='Select Skill' selection text={name}>
                 <Dropdown.Menu>
-                    {skills.map(skill =>
+                    {skillSelection.map(skill =>
                         <Dropdown.Item key={skill} text={skill} value={skill} onClick={updateName}/>
                     )}
                 </Dropdown.Menu>
