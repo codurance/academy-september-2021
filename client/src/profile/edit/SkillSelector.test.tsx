@@ -45,7 +45,7 @@ describe('skill selector should', () => {
     });
 
     it('removes skills already added from select skills dropdown menu', async () => {
-        render(<SkillSelector onSkillAdded={updateSkillAdded} addedSkills={['React']}/>);
+        render(<SkillSelector onSkillAdded={updateSkillAdded} addedSkills={[{name: 'React', level: 5}]}/>);
 
         expect(await screen.queryByText('React')).not.toBeInTheDocument();
     });
