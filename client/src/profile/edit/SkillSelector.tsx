@@ -2,6 +2,7 @@ import {ProfileSkill, skills} from "./ProfileSkill";
 import React, {SyntheticEvent, useState} from "react";
 import {Dropdown, DropdownItemProps, Form} from "semantic-ui-react";
 import "./SkillSelector.css";
+import {LevelSelector} from "./skill/LevelSelector";
 
 type Props = {
     onSkillAdded: (skill: ProfileSkill) => void;
@@ -14,7 +15,7 @@ export const SkillSelector: React.FC<Props> = ({onSkillAdded, addedSkills}) => {
 
     const updateName = (event: SyntheticEvent, data: DropdownItemProps) => setName(data.value as string);
 
-    const updateLevel = (event: SyntheticEvent, data: DropdownItemProps) => setLevel(data.value as number);
+    const updateLevel = (level: number) => setLevel(level);
 
     /* eslint-disable @typescript-eslint/no-non-null-assertion */
     const addSkill = () => {
@@ -46,18 +47,7 @@ export const SkillSelector: React.FC<Props> = ({onSkillAdded, addedSkills}) => {
             </Form.Field>
 
             <Form.Field>
-                <Dropdown className="selection" placeholder='Select Level' text={level?.toString()}
-                               disabled={!name}>
-                    <Dropdown.Menu>
-                        <Dropdown.Item text="1" description="I've just started learning this" value='1'
-                                       onClick={updateLevel}/>
-                        <Dropdown.Item text="2" description="TBA" value='2' onClick={updateLevel}/>
-                        <Dropdown.Item text="3" description="TBA" value='3' onClick={updateLevel}/>
-                        <Dropdown.Item text="4" description="TBA" value='4' onClick={updateLevel}/>
-                        <Dropdown.Item text="5" description="I could talk about this at a conference" value='5'
-                                       onClick={updateLevel}/>
-                    </Dropdown.Menu>
-                </Dropdown>
+                <LevelSelector isDisabled={!name} selectedLevel={level} onLevelSelected={updateLevel} />
             </Form.Field>
 
             <Form.Button onClick={addSkill} disabled={!level}>Add Skill</Form.Button>

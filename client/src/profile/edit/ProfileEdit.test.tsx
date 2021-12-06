@@ -5,6 +5,7 @@ import React from "react";
 import {ProfileClient} from "../shared/resource";
 import {Profile} from "skillset";
 import {ProfileEdit} from "./ProfileEdit";
+import userEvent from "@testing-library/user-event";
 
 describe('editing a profile should', () => {
     const profileClient = mock(ProfileClient);
@@ -24,7 +25,7 @@ describe('editing a profile should', () => {
         await expectReadOnlyInputToHaveValue('Email', 'retrieved.best.user@codurance.com');
     });
 
-    it('display personal information of the authenticated user if the user has not created a profile', async () => {
+    it('display authenticated user when the user has not saved a profile before', async () => {
         when(profileClient.getSavedProfile()).thenResolve(undefined);
 
         renderProfileEdit();
@@ -32,6 +33,29 @@ describe('editing a profile should', () => {
         expect(await screen.findByText('It looks like this is your first time creating a profile')).toBeInTheDocument();
         await expectReadOnlyInputToHaveValue('Name', 'Local Best User');
         await expectReadOnlyInputToHaveValue('Email', 'local.best.user@codurance.com');
+    });
+
+    it('update rating for added skill that has been edited', () => {
+        when(profileClient.getSavedProfile()).thenResolve(undefined);
+        renderProfileEdit();
+        addSkill('TypeScript', '1');
+
+        clickIconButton('Edit');
+        selectDropdownWithSelection('1', '5');
+        clickIconButton('Edit');
+
+        const dropdown = screen.getAllByText('5')[0];
+        expect(dropdown).toHaveClass('default');
+    });
+
+    it('remove skill', async () => {
+        when(profileClient.getSavedProfile()).thenResolve(undefined);
+        renderProfileEdit();
+        addSkill('React', '5');
+
+        clickIconButton('Delete');
+
+        expect(await screen.queryByText('React', {selector: 'div'})).not.toBeInTheDocument();
     });
 
     const renderProfileEdit = () => {
@@ -50,5 +74,34 @@ describe('editing a profile should', () => {
         const input = field?.querySelector('input');
         expect(input).toHaveValue(value);
         expect(input).toHaveAttribute('readonly');
+    };
+
+    const addSkill = (name: string, level: string) => {
+        selectDropdownValue('Select Skill', name);
+        selectDropdownValue('Select Level', level);
+        clickInput('Add Skill');
+    };
+
+    const selectDropdownValue = (dropdownPlaceholder: string, selection: string) => {
+        clickInput(dropdownPlaceholder);
+        clickInput(selection);
+    };
+
+    const clickInput = (text: string) => {
+        const input = screen.getByText(text);
+        userEvent.click(input);
+    };
+
+    const clickIconButton = (label: string) => {
+        const button = screen.getByLabelText(label);
+        userEvent.click(button);
+    };
+
+    const selectDropdownWithSelection = (currentSelection: string, newSelection: string) => {
+        const dropdown = screen.getAllByText(currentSelection)[0];
+        userEvent.click(dropdown);
+
+        const selection = screen.getAllByText(newSelection)[0];
+        userEvent.click(selection);
     };
 });
