@@ -42,13 +42,13 @@ describe('skill selector should', () => {
         clickInput('Add Skill');
 
         expect(await screen.findByText('Select Skill')).toBeInTheDocument();
-    })
+    });
 
     it('removes skills already added from select skills dropdown menu', async () => {
         render(<SkillSelector onSkillAdded={updateSkillAdded} addedSkills={['React']}/>);
 
         expect(await screen.queryByText('React')).not.toBeInTheDocument();
-    })
+    });
 
     const selectDropdownValue = (dropdownPlaceholder: string, selection: string) => {
         clickInput(dropdownPlaceholder);
