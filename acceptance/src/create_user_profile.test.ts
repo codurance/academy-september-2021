@@ -1,6 +1,6 @@
 
 describe("user profile creation", () => {
-    it("a user should be able to input their details and create a user profile", () => {
+    xit("a user should be able to input their details and create a user profile", () => {
         cy.loginToGoogleAccount();
         cy.visit('/profile');
 
