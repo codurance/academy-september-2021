@@ -1,12 +1,14 @@
 import {Handler} from 'aws-lambda';
 import {ProfileController} from "./controller/ProfileController";
-import {StaticProfileRepository} from "./repository/StaticProfileRepository";
 import {ProfileSearchQueryParser} from "./controller/ProfileSearchQueryParser";
 import {SearchProfilesEvent} from "./event/SearchProfilesEvent";
 import {GetProfileEvent} from "./event/GetProfileEvent";
+import {SaveProfileEvent} from "./event/SaveProfileEvent";
+import {StaticProfileRepository} from "./repository/StaticProfileRepository";
 
-const profileSearchQueryParser = new ProfileSearchQueryParser();
+//Switch this out for the proper implementation when ready
 const profileRepository = new StaticProfileRepository();
+const profileSearchQueryParser = new ProfileSearchQueryParser();
 const profileController = new ProfileController(profileSearchQueryParser, profileRepository);
 
 export const search: Handler = async (event: SearchProfilesEvent) => {
@@ -15,4 +17,8 @@ export const search: Handler = async (event: SearchProfilesEvent) => {
 
 export const get: Handler = async (event: GetProfileEvent) => {
     return profileController.get(event);
+};
+
+export const save: Handler = async (event: SaveProfileEvent) => {
+    return profileController.save(event);
 };

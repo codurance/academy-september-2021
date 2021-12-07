@@ -105,7 +105,7 @@ export class StaticProfileRepository implements ProfileRepository {
         },
     ];
 
-    search(query: ProfileSearchQuery): Profile[] {
+    async search(query: ProfileSearchQuery): Promise<Profile[]> {
         let matchingProfiles: Profile[] = [];
 
         query.skills.forEach((skill: string) => {
@@ -121,7 +121,12 @@ export class StaticProfileRepository implements ProfileRepository {
         return matchingProfiles;
     }
 
-    get(email: string): Profile | undefined {
+    async get(email: string): Promise<Profile | undefined> {
         return this.profiles.find(profile => profile.email == email);
+    }
+
+    async save(profile: Profile): Promise<void> {
+        console.log(profile);
+        return Promise.resolve(undefined);
     }
 }

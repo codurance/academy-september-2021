@@ -4,6 +4,8 @@ import {ProfileRepository} from "../repository/ProfileRepository";
 import {Response} from "./Response";
 import {SearchProfilesEvent} from "../event/SearchProfilesEvent";
 import {GetProfileEvent} from "../event/GetProfileEvent";
+import {SaveProfileEvent} from "../event/SaveProfileEvent";
+import {AuthorisedUser} from "../../shared/AuthorisedUser";
 
 export class ProfileController {
 
@@ -18,7 +20,7 @@ export class ProfileController {
     async search(event: SearchProfilesEvent): Promise<Response> {
         const queryStringParameters = event.queryStringParameters;
         const query = this.profileSearchQueryParser.parse(queryStringParameters);
-        const result: Profile[] = this.profileRepository.search(query);
+        const result: Profile[] = await this.profileRepository.search(query);
 
         return {
             statusCode: 200,
@@ -31,7 +33,7 @@ export class ProfileController {
 
     async get(event: GetProfileEvent): Promise<Response> {
         const email = event.pathParameters.email;
-        const profile = this.profileRepository.get(email);
+        const profile = await this.profileRepository.get(email);
 
         return {
             statusCode: 200,
@@ -42,4 +44,27 @@ export class ProfileController {
         };
     }
 
+    async save(event: SaveProfileEvent): Promise<Response> {
+        const authorisedUser = JSON.parse(event.authorisedUser) as AuthorisedUser;
+        const updatedProfile = event.body;
+        const profile: Profile = {
+            email: authorisedUser.email,
+            name: authorisedUser.name,
+            imageUrl: authorisedUser.profileImageUrl,
+            ...updatedProfile,
+            currentClient: 'Fake Client',
+            isAvailable: true,
+            role: 'Fake Role'
+        };
+
+        await this.profileRepository.save(profile);
+
+        return {
+            statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: ''
+        };
+    }
 }

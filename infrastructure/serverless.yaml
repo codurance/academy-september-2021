@@ -1,8 +1,26 @@
 service: skillset-infrastructure
 
+custom:
+  profilesTable: 'profilesTable-${sls:stage}'
+  dynamodb:
+    stages:
+      - dev
+
 provider:
   name: aws
   runtime: nodejs14.x
+  environment:
+    PROFILES_TABLE: ${self:custom.profilesTable}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+          Resource:
+            - Fn::GetAtt: [ ProfilesTable, Arn ]
 
 plugins:
   - serverless-plugin-typescript
@@ -26,6 +44,14 @@ functions:
           method: get
           authorizer: authorise
           cors: true
+  saveProfile:
+    handler: src/profile/handler.save
+    events:
+      - http:
+          path: profile
+          method: put
+          authorizer: authorise
+          cors: true
   authorise:
     handler: src/authorisation/handler.authorise
 
@@ -40,15 +66,15 @@ resources:
         ResponseType: DEFAULT_4XX
         RestApiId:
           Ref: 'ApiGatewayRestApi'
-    profilesTable:
+    ProfilesTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: profilesTable
+        TableName: ${self:custom.profilesTable}
         AttributeDefinitions:
-          - AttributeName: name
+          - AttributeName: email
             AttributeType: S
         KeySchema:
-          - AttributeName: name
+          - AttributeName: email
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1

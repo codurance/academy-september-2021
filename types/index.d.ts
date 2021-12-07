@@ -17,4 +17,8 @@ declare module 'skillset' {
         name: string;
         level: number;
     }
+
+    export interface UpdatedProfile {
+        skills: ProfileSkill[];
+    }
 }

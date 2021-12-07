@@ -4,12 +4,12 @@ import {StaticProfileRepository} from "./StaticProfileRepository";
 describe('static profile repository', () => {
     const staticProfileRepository = new StaticProfileRepository();
 
-   test('find matching profiles with skills', () => {
+   test('find matching profiles with skills', async () => {
        const query: ProfileSearchQuery = {
            skills: ['TYPESCRIPT', 'ServerLess', 'kotlin']
        };
 
-       const result = staticProfileRepository.search(query);
+       const result = await staticProfileRepository.search(query);
 
        expect(result.length).toEqual(3);
        expect(result[0].name).toBe('Jordan Colgan');
