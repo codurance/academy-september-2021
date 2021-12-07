@@ -20,11 +20,11 @@ describe('profile client should', () => {
         expect(searchResults).toEqual(results);
     });
 
-    it('get saved profile', async () => {
+    it('get profile by email', async () => {
         const profile: Profile = {name: 'Simon Spielberg'} as Profile;
-        when(authorisedResourceClient.get('/profile')).thenResolve(profile);
+        when(authorisedResourceClient.get('/profile/simon.spielbery@codurance.com')).thenResolve(profile);
 
-        const result = await profileClient.getSavedProfile();
+        const result = await profileClient.getProfile('simon.spielbery@codurance.com');
 
         expect(result).toBe(profile);
     });

@@ -12,18 +12,22 @@ type Props = {
 };
 
 export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserStore}) => {
-    const authenticatedUser = authenticatedUserStore.get();
+    const authenticatedUser = authenticatedUserStore.get()!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
     const [profile, setProfile] = useState<Profile | undefined>();
     const [skills, setSkills] = useState<ProfileSkill[]>([]);
 
     useEffect(() => {
         profileClient
-            .getSavedProfile()
+            .getProfile(authenticatedUser.email)
             .then(profile => {
-                if (profile) setProfile(profile);
+                if (profile) updateForm(profile);
             })
             .catch(() => console.log('Unable to get profile'));
     }, []);
+
+    const updateForm = (profile: Profile) => {
+        setProfile(profile);
+    };
 
     return (
         <Form>
@@ -37,8 +41,8 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
             }
 
             <Form.Group widths='equal'>
-                <Form.Input fluid label='Name' value={profile?.name ?? authenticatedUser?.name} readOnly/>
-                <Form.Input fluid label='Email' value={profile?.email ?? authenticatedUser?.email} readOnly/>
+                <Form.Input fluid label='Name' value={profile?.name ?? authenticatedUser.name} readOnly/>
+                <Form.Input fluid label='Email' value={profile?.email ?? authenticatedUser.email} readOnly/>
             </Form.Group>
 
             <EditSkills skills={skills} onSkillsUpdated={updatedSkills => setSkills(updatedSkills)}/>

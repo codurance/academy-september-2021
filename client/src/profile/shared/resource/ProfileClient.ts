@@ -12,7 +12,7 @@ export class ProfileClient {
         return this.resourceClient.get<Profile[]>('/profile/all', query);
     }
 
-    public async getSavedProfile(): Promise<Profile | undefined> {
-        return this.resourceClient.get<Profile | undefined>('/profile');
+    public async getProfile(email: string): Promise<Profile | undefined> {
+        return this.resourceClient.get<Profile | undefined>(`/profile/${email}`);
     }
 }

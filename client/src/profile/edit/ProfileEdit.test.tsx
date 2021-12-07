@@ -15,7 +15,7 @@ describe('editing a profile should', () => {
             name: 'Retrieved Best User',
             email: 'retrieved.best.user@codurance.com',
         } as Profile;
-        when(profileClient.getSavedProfile()).thenResolve(profile);
+        when(profileClient.getProfile('local.best.user@codurance.com')).thenResolve(profile);
 
         renderProfileEdit();
 
@@ -25,7 +25,7 @@ describe('editing a profile should', () => {
     });
 
     it('display authenticated user when the user has not saved a profile before', async () => {
-        when(profileClient.getSavedProfile()).thenResolve(undefined);
+        when(profileClient.getProfile('local.best.user@codurance.com')).thenResolve(undefined);
 
         renderProfileEdit();
 
