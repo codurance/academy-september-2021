@@ -1,11 +1,8 @@
-import {ProfileFeatureNavigator} from "./ProfileFeatureNavigator";
+import {ProfileFeatureNavigator, ProfileFeatureRoute} from ".";
 import {Profile, ProfileSearchQuery} from "skillset";
 import {History} from "history";
 
 export class BrowserHistoryProfileFeatureNavigator implements ProfileFeatureNavigator {
-
-    public static readonly PROFILE_SEARCH_RESULTS_ROUTE = '/results';
-    public static readonly PROFILE_ROUTE = '/profile';
 
     private history: History;
 
@@ -15,7 +12,7 @@ export class BrowserHistoryProfileFeatureNavigator implements ProfileFeatureNavi
 
     navigateToResults(query: ProfileSearchQuery, results: Profile[]): void {
         this.history.replace(
-            BrowserHistoryProfileFeatureNavigator.PROFILE_SEARCH_RESULTS_ROUTE,
+            ProfileFeatureRoute.RESULTS,
             {query, results}
         );
     }
