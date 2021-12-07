@@ -4,4 +4,5 @@ export interface ProfileRepository {
 
     search(query: ProfileSearchQuery): Profile[];
 
+    get(email: string): Profile | undefined;
 }

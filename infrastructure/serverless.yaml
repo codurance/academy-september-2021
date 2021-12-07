@@ -18,6 +18,14 @@ functions:
           method: get
           authorizer: authorise
           cors: true
+  getProfile:
+    handler: src/profile/handler.get
+    events:
+      - http:
+          path: profile/{email}
+          method: get
+          authorizer: authorise
+          cors: true
   authorise:
     handler: src/authorisation/handler.authorise
 
