@@ -11,10 +11,14 @@ export class BrowserHistoryProfileFeatureNavigator implements ProfileFeatureNavi
     }
 
     navigateToResults(query: ProfileSearchQuery, results: Profile[]): void {
-        this.history.replace(
+        this.history.push(
             ProfileFeatureRoute.RESULTS,
             {query, results}
         );
+    }
+
+    navigateToProfile(): void {
+        this.history.push(ProfileFeatureRoute.PROFILE);
     }
 
 }

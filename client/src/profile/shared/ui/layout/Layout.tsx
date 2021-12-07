@@ -2,12 +2,14 @@ import {Container, Grid, Image} from "semantic-ui-react";
 import React from "react";
 import {AuthenticatedUserStore} from "../../../../shared/authentication/persistence";
 import {Outlet} from "react-router-dom";
+import {ProfileFeatureNavigator} from "../../navigation";
 
 type Props = {
     authenticatedUserStore: AuthenticatedUserStore;
+    profileFeatureNavigator: ProfileFeatureNavigator;
 };
 
-export const Layout: React.FC<Props> = ({authenticatedUserStore}: Props) => {
+export const Layout: React.FC<Props> = ({authenticatedUserStore, profileFeatureNavigator}) => {
     const authenticatedUser = authenticatedUserStore.get();
 
     return (
@@ -15,8 +17,10 @@ export const Layout: React.FC<Props> = ({authenticatedUserStore}: Props) => {
             <Grid columns={3} textAlign='right' padded style={{paddingRight: '2em'}}>
                 <Grid.Row>
                     <Grid.Column floated='right'>
-                        <Image src={authenticatedUser?.profileImageUrl} alt="Profile Image" circular size="tiny"
-                               floated='right'/>
+                        <div className="link" onClick={() => profileFeatureNavigator.navigateToProfile()}>
+                            <Image src={authenticatedUser?.profileImageUrl} alt="Profile Image" circular size="tiny"
+                                   floated='right'/>
+                        </div>
                     </Grid.Column>
                 </Grid.Row>
 

@@ -33,7 +33,7 @@ export const ProfileModule: React.FC<Props> = ({
     return (
         <div>
             <Routes>
-                <Route path="/" element={<Layout authenticatedUserStore={authenticatedUserStore}/>}>
+                <Route path="/" element={<Layout authenticatedUserStore={authenticatedUserStore} profileFeatureNavigator={profileFeatureNavigator}/>}>
                     <Route path={ProfileFeatureRoute.SEARCH} element={
                         <AuthenticatedRouteGuard authenticator={authenticator}
                                                  authenticatedUserStore={authenticatedUserStore}>
