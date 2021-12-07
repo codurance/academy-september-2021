@@ -1,8 +1,8 @@
-import {ProfileSkill, skills} from "./ProfileSkill";
+import {ProfileSkill, skills} from "../ProfileSkill";
 import React, {SyntheticEvent, useState} from "react";
 import {Dropdown, DropdownItemProps, Form} from "semantic-ui-react";
 import "./SkillSelector.css";
-import {LevelSelector} from "./skill/LevelSelector";
+import {LevelSelector} from "./LevelSelector";
 
 type Props = {
     onSkillAdded: (skill: ProfileSkill) => void;

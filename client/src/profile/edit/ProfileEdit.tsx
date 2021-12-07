@@ -2,10 +2,9 @@ import {ProfileClient} from "../shared/resource";
 import {AuthenticatedUserStore} from "../../shared/authentication/persistence";
 import React, {useEffect, useState} from "react";
 import {Profile} from "skillset";
-import {Container, Form, Message, Segment} from "semantic-ui-react";
-import {SkillSelector} from "./SkillSelector";
+import {Form, Message} from "semantic-ui-react";
 import {ProfileSkill} from "./ProfileSkill";
-import {EditableProfileSkill} from "./skill/EditableProfileSkill";
+import {EditSkills} from "./skills/EditSkills";
 
 type Props = {
     profileClient: ProfileClient;
@@ -15,7 +14,7 @@ type Props = {
 export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserStore}) => {
     const authenticatedUser = authenticatedUserStore.get();
     const [profile, setProfile] = useState<Profile | undefined>();
-    const [newSkills, setNewSkills] = useState<ProfileSkill[]>([]);
+    const [skills, setSkills] = useState<ProfileSkill[]>([]);
 
     useEffect(() => {
         profileClient
@@ -25,20 +24,6 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
             })
             .catch(() => console.log('Unable to get profile'));
     }, []);
-
-    const updateSkill = (updatedSkill: ProfileSkill) => {
-        const persistedSkills = [...newSkills];
-        const persistedSkillIndex = newSkills.findIndex(skill => skill.name === updatedSkill.name);
-        persistedSkills[persistedSkillIndex] = updatedSkill;
-        setNewSkills(persistedSkills);
-    };
-
-    const removeSkill = (removedSkill: ProfileSkill) => {
-        const persistedSkills = [...newSkills];
-        const persistedSkillIndex = newSkills.findIndex(skill => skill.name === removedSkill.name);
-        persistedSkills.splice(persistedSkillIndex, 1);
-        setNewSkills(persistedSkills);
-    };
 
     return (
         <Form>
@@ -56,22 +41,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
                 <Form.Input fluid label='Email' value={profile?.email ?? authenticatedUser?.email} readOnly/>
             </Form.Group>
 
-
-            <div style={{padding: '2em 0 2em 0'}}>
-                {newSkills.map(skill =>
-                    <Container textAlign={"center"} key={skill.name}>
-                        <Segment>
-                            <EditableProfileSkill skill={skill} onSkillUpdated={updateSkill}
-                                                  onSkillRemoved={removeSkill}/>
-                        </Segment>
-                    </Container>
-                )}
-            </div>
-
-            <Form.Group widths='equal'>
-                <SkillSelector onSkillAdded={newSkill => setNewSkills(skills => [...skills, newSkill])}
-                               addedSkills={newSkills}/>
-            </Form.Group>
+            <EditSkills skills={skills} onSkillsUpdated={updatedSkills => setSkills(updatedSkills)}/>
         </Form>
     );
 };

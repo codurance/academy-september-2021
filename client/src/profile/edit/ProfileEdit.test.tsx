@@ -5,7 +5,6 @@ import React from "react";
 import {ProfileClient} from "../shared/resource";
 import {Profile} from "skillset";
 import {ProfileEdit} from "./ProfileEdit";
-import userEvent from "@testing-library/user-event";
 
 describe('editing a profile should', () => {
     const profileClient = mock(ProfileClient);
@@ -35,29 +34,6 @@ describe('editing a profile should', () => {
         await expectReadOnlyInputToHaveValue('Email', 'local.best.user@codurance.com');
     });
 
-    it('update rating for added skill that has been edited', () => {
-        when(profileClient.getSavedProfile()).thenResolve(undefined);
-        renderProfileEdit();
-        addSkill('TypeScript', '1');
-
-        clickIconButton('Edit');
-        selectDropdownWithSelection('1', '5');
-        clickIconButton('Edit');
-
-        const dropdown = screen.getAllByText('5')[0];
-        expect(dropdown).toHaveClass('default');
-    });
-
-    it('remove skill', async () => {
-        when(profileClient.getSavedProfile()).thenResolve(undefined);
-        renderProfileEdit();
-        addSkill('React', '5');
-
-        clickIconButton('Delete');
-
-        expect(await screen.queryByText('React', {selector: 'div'})).not.toBeInTheDocument();
-    });
-
     const renderProfileEdit = () => {
         const authenticatedUser = {
             name: 'Local Best User',
@@ -76,32 +52,4 @@ describe('editing a profile should', () => {
         expect(input).toHaveAttribute('readonly');
     };
 
-    const addSkill = (name: string, level: string) => {
-        selectDropdownValue('Select Skill', name);
-        selectDropdownValue('Select Level', level);
-        clickInput('Add Skill');
-    };
-
-    const selectDropdownValue = (dropdownPlaceholder: string, selection: string) => {
-        clickInput(dropdownPlaceholder);
-        clickInput(selection);
-    };
-
-    const clickInput = (text: string) => {
-        const input = screen.getByText(text);
-        userEvent.click(input);
-    };
-
-    const clickIconButton = (label: string) => {
-        const button = screen.getByLabelText(label);
-        userEvent.click(button);
-    };
-
-    const selectDropdownWithSelection = (currentSelection: string, newSelection: string) => {
-        const dropdown = screen.getAllByText(currentSelection)[0];
-        userEvent.click(dropdown);
-
-        const selection = screen.getAllByText(newSelection)[0];
-        userEvent.click(selection);
-    };
 });
