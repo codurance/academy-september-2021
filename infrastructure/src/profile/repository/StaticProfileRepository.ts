@@ -1,5 +1,5 @@
 import {ProfileRepository} from "./ProfileRepository";
-import {Profile, ProfileSearchQuery} from "skillset";
+import {Profile, ProfileSearchQuery, ProfileSkill} from "skillset";
 
 export class StaticProfileRepository implements ProfileRepository {
 
@@ -8,7 +8,11 @@ export class StaticProfileRepository implements ProfileRepository {
             name: 'Alexander Howson',
             email: 'alexander.howson@codurance.com',
             role: 'Software Craftsperson in Training',
-            skills: ['C#', 'Java', 'Rust'],
+            skills: [
+                {name: 'C#', level: 4},
+                {name: 'Java', level: 3},
+                {name: 'Rust', level: 1}
+            ],
             imageUrl: 'https://www.codurance.com/hubfs/Picture.jpg',
             isAvailable: false,
             currentClient: 'Academy'
@@ -17,7 +21,13 @@ export class StaticProfileRepository implements ProfileRepository {
             name: 'Amandeep Panesar',
             email: 'amandeep.panesar@codurance.com',
             role: 'Software Craftsperson in Training',
-            skills: ['Docker', 'Serverless', 'React', 'Java', "JavaScript"],
+            skills: [
+                {name: 'Docker', level: 5},
+                {name: 'Serverless', level: 2},
+                {name: 'React', level: 3},
+                {name: 'Java', level: 1},
+                {name: "JavaScript", level: 5}
+            ],
             imageUrl: 'https://www.codurance.com/hubfs/IMG_5435-2.jpg',
             isAvailable: false,
             currentClient: 'Academy'
@@ -26,7 +36,12 @@ export class StaticProfileRepository implements ProfileRepository {
             name: 'Darío Fernández',
             email: 'dario.fernandez@codurance.com',
             role: 'Software Craftsperson in Training',
-            skills: ['JavaScript', 'React', 'Design', 'Java'],
+            skills: [
+                {name: 'JavaScript', level: 4},
+                {name: 'React', level: 3},
+                {name: 'Design', level: 5},
+                {name: 'Java', level: 1}
+            ],
             imageUrl: 'https://www.codurance.com/hubfs/Dario_Fernandez.png',
             isAvailable: false,
             currentClient: 'Academy'
@@ -35,7 +50,14 @@ export class StaticProfileRepository implements ProfileRepository {
             name: 'Jordan Colgan',
             email: 'jordan.colgan@codurance.com',
             role: 'Software Craftsperson in Training',
-            skills: ['Angular', 'Kotlin', 'Android', 'Typescript', 'React', 'Java'],
+            skills: [
+                {name: 'Angular', level: 5},
+                {name: 'Kotlin', level: 3},
+                {name: 'Android', level: 2},
+                {name: 'Typescript', level: 1},
+                {name: 'React', level: 2},
+                {name: 'Java', level: 1}
+            ],
             imageUrl: 'https://www.codurance.com/hubfs/jordan-colgan-photo.jpg',
             isAvailable: false,
             currentClient: 'Academy'
@@ -44,7 +66,11 @@ export class StaticProfileRepository implements ProfileRepository {
             name: 'Simon Rosenberg',
             email: 'simon.rosenberg@codurance.com',
             role: 'Software Craftsperson in Training',
-            skills: ['React', 'Typescript', 'Java'],
+            skills: [
+                {name: 'Java', level: 4},
+                {name: 'TypeScript', level: 4},
+                {name: 'React', level: 4}
+            ],
             imageUrl: 'https://www.codurance.com/hubfs/picture%20(1).jpg',
             isAvailable: false,
             currentClient: 'Academy'
@@ -53,7 +79,12 @@ export class StaticProfileRepository implements ProfileRepository {
             name: 'Samuel Steele',
             email: 'samuel.steele@codurance.com',
             role: 'Software Craftsperson in Training',
-            skills: ['React', 'JavaScript', 'Java'],
+            skills: [
+                {name: 'Java', level: 3},
+                {name: 'PHP', level: 4},
+                {name: 'JavaScript', level: 3},
+                {name: 'React', level: 4}
+            ],
             imageUrl: 'https://www.codurance.com/hubfs/Sam.jpeg',
             isAvailable: false,
             currentClient: 'Academy'
@@ -61,8 +92,13 @@ export class StaticProfileRepository implements ProfileRepository {
         {
             name: 'Niall Bambury',
             email: 'niall.bambury@codurance.com',
-            role: ' Software Craftsperson ',
-            skills: ['Java', 'Spring', 'JavaScript', 'React'],
+            role: ' Software Craftsperson',
+            skills: [
+                {name: 'Java', level: 4},
+                {name: 'Spring', level: 5},
+                {name: 'JavaScript', level: 3},
+                {name: 'React', level: 4}
+            ],
             imageUrl: 'https://www.codurance.com/hubfs/niall.jpg',
             isAvailable: true,
             currentClient: 'On the bench'
@@ -75,7 +111,7 @@ export class StaticProfileRepository implements ProfileRepository {
         query.skills.forEach((skill: string) => {
             const formattedSkill = skill.toLowerCase();
             const profilesWithSkill = this.profiles.filter(profile => {
-                    const formattedSkills = profile.skills.map((skill: string) => skill.toLowerCase());
+                    const formattedSkills = profile.skills.flatMap((skill: ProfileSkill) => skill.name.toLowerCase());
                     return formattedSkills.includes(formattedSkill);
                 }
             );

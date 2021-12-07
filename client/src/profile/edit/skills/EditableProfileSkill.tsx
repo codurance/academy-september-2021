@@ -1,4 +1,4 @@
-import {ProfileSkill} from "../ProfileSkill";
+import {ProfileSkill} from "skillset";
 import React, {useState} from "react";
 import {Button, Grid, Label, Rating} from "semantic-ui-react";
 import {LevelSelector} from "./LevelSelector";

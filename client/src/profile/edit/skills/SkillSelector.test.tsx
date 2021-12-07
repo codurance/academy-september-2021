@@ -1,6 +1,6 @@
 import {render, screen} from "@testing-library/react";
 import React from "react";
-import {ProfileSkill} from "../ProfileSkill";
+import {ProfileSkill} from "skillset";
 import userEvent from "@testing-library/user-event";
 import {SkillSelector} from "./SkillSelector";
 

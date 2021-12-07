@@ -3,7 +3,7 @@ import {instance, mock, when} from "ts-mockito";
 import {AuthenticatedUser, AuthenticatedUserStore} from "../../shared/authentication/persistence";
 import React from "react";
 import {ProfileClient} from "../shared/resource";
-import {Profile} from "skillset";
+import {Profile, ProfileSkill} from "skillset";
 import {ProfileEdit} from "./ProfileEdit";
 
 describe('editing a profile should', () => {
@@ -14,6 +14,7 @@ describe('editing a profile should', () => {
         const profile: Profile = {
             name: 'Retrieved Best User',
             email: 'retrieved.best.user@codurance.com',
+            skills: [] as ProfileSkill[]
         } as Profile;
         when(profileClient.getProfile('local.best.user@codurance.com')).thenResolve(profile);
 

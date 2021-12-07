@@ -50,9 +50,10 @@ describe('profile search results', () => {
     it('should show search results', async () => {
         const profile: Profile = {
             name: 'Jordan Steele',
+            email: 'jordan.steele@codurance.com',
             role: 'Software Craftsperson',
             imageUrl: "http://localhost:3000/profile/jordan.steele.png",
-            skills: ['Java', 'Kotlin'],
+            skills: [{name:'Java', level: 4}, {name: 'Kotlin', level: 3}],
             currentClient: 'Client',
             isAvailable: false
         };

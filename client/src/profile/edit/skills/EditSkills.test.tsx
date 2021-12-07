@@ -1,7 +1,7 @@
 import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import {ProfileSkill} from "../ProfileSkill";
+import {ProfileSkill} from "skillset";
 import {EditSkills} from "./EditSkills";
 
 describe('edit skills should', () => {

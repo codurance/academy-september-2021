@@ -3,7 +3,7 @@ declare module 'skillset' {
         name: string;
         email: string;
         role: string;
-        skills: string[];
+        skills: ProfileSkill[];
         imageUrl: string;
         isAvailable: boolean;
         currentClient: string;
@@ -11,5 +11,10 @@ declare module 'skillset' {
 
     export interface ProfileSearchQuery {
         skills: string[];
+    }
+
+    export interface ProfileSkill {
+        name: string;
+        level: number;
     }
 }

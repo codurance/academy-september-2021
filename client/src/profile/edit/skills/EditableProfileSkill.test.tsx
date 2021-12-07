@@ -2,7 +2,7 @@ import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import {EditableProfileSkill} from "./EditableProfileSkill";
-import {ProfileSkill} from "../ProfileSkill";
+import {ProfileSkill} from "skillset";
 
 describe('editable profile skill should', () => {
     let updatedSkill: ProfileSkill = {} as ProfileSkill;

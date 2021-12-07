@@ -1,9 +1,8 @@
 import {ProfileClient} from "../shared/resource";
 import {AuthenticatedUserStore} from "../../shared/authentication/persistence";
 import React, {useEffect, useState} from "react";
-import {Profile} from "skillset";
+import {Profile, ProfileSkill} from "skillset";
 import {Form, Message} from "semantic-ui-react";
-import {ProfileSkill} from "./ProfileSkill";
 import {EditSkills} from "./skills/EditSkills";
 
 type Props = {
@@ -27,6 +26,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
 
     const updateForm = (profile: Profile) => {
         setProfile(profile);
+        setSkills(profile.skills);
     };
 
     return (

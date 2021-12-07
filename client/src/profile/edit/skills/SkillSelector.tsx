@@ -1,4 +1,5 @@
-import {ProfileSkill, skills} from "../ProfileSkill";
+import {ProfileSkill} from "skillset";
+import {skills} from "../ProfileSkill";
 import React, {SyntheticEvent, useState} from "react";
 import {Dropdown, DropdownItemProps, Form} from "semantic-ui-react";
 import "./SkillSelector.css";

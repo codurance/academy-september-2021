@@ -1,5 +1,5 @@
 import React from "react";
-import {ProfileSkill} from "../ProfileSkill";
+import {ProfileSkill} from "skillset";
 import {Container, Form, Segment} from "semantic-ui-react";
 import {EditableProfileSkill} from "./EditableProfileSkill";
 import {SkillSelector} from "./SkillSelector";
