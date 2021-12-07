@@ -44,4 +44,22 @@ describe('profile controller should', () => {
          body: '[{"name":"Person One"}]'
       });
    });
+
+   test('return requested profile', async () => {
+      const event = {
+         pathParameters: {'email': 'jordan.bambury@codurance.com'}
+      };
+      const persistedProfile = {name: 'Jordan Bambury'} as Profile;
+      when(profileRepository.get('jordan.bambury@codurance.com')).thenReturn(persistedProfile);
+
+      const response = await profileController.get(event);
+
+      expect((response)).toEqual({
+         statusCode: 200,
+         headers: {
+            'Access-Control-Allow-Origin': '*'
+         },
+         body: '{"name":"Jordan Bambury"}'
+      });
+   });
 });

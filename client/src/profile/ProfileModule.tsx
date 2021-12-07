@@ -1,7 +1,7 @@
-import {BrowserHistoryProfileFeatureNavigator} from "./shared/navigation";
+import {BrowserHistoryProfileFeatureNavigator, ProfileFeatureRoute} from "./shared/navigation";
 import {ProfileSearchService} from "./shared/ui/profile-search";
 import {History} from "history";
-import {ApplicationNavigator, AuthenticatedRouteGuard, BrowserHistoryNavigator} from "../shared/navigation";
+import {ApplicationNavigator, AuthenticatedRouteGuard} from "../shared/navigation";
 import {ProfileSearchLanding} from "./search/ProfileSearchLanding";
 import {ProfileSearchResults} from "./results/ProfileSearchResults";
 import React from "react";
@@ -33,26 +33,26 @@ export const ProfileModule: React.FC<Props> = ({
     return (
         <div>
             <Routes>
-                <Route path="/" element={<Layout authenticatedUserStore={authenticatedUserStore}/>}>
-                    <Route path={BrowserHistoryNavigator.HOME_ROUTE} element={
+                <Route path="/" element={<Layout authenticatedUserStore={authenticatedUserStore} profileFeatureNavigator={profileFeatureNavigator}/>}>
+                    <Route path={ProfileFeatureRoute.SEARCH} element={
                         <AuthenticatedRouteGuard authenticator={authenticator}
                                                  authenticatedUserStore={authenticatedUserStore}>
                             <ProfileSearchLanding profileSearchService={profileSearchService}/>
                         </AuthenticatedRouteGuard>
                     }/>
-                    <Route path={BrowserHistoryProfileFeatureNavigator.PROFILE_SEARCH_RESULTS_ROUTE} element={
+                    <Route path={ProfileFeatureRoute.RESULTS} element={
                         <AuthenticatedRouteGuard authenticator={authenticator}
                                                  authenticatedUserStore={authenticatedUserStore}>
                             <ProfileSearchResults applicationNavigator={applicationNavigator}
                                                   profileSearchService={profileSearchService}/>
                         </AuthenticatedRouteGuard>
                     }/>
-                    <Route path={BrowserHistoryProfileFeatureNavigator.PROFILE_ROUTE} element={
+                    <Route path={ProfileFeatureRoute.PROFILE} element={
                         <AuthenticatedRouteGuard authenticator={authenticator}
                                                  authenticatedUserStore={authenticatedUserStore}>
                             <ProfileEdit profileClient={profileClient} authenticatedUserStore={authenticatedUserStore}/>
                         </AuthenticatedRouteGuard>
-                    } />
+                    }/>
                 </Route>
             </Routes>
         </div>

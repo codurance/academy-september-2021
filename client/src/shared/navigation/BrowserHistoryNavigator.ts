@@ -1,10 +1,7 @@
-import { ApplicationNavigator } from ".";
+import { ApplicationNavigator, FeatureRoute } from ".";
 import { History } from "history";
 
 export class BrowserHistoryNavigator implements ApplicationNavigator {
-
-    public static readonly LOGIN_ROUTE = '/login';
-    public static readonly HOME_ROUTE = '/';
 
     private history: History;
 
@@ -13,11 +10,11 @@ export class BrowserHistoryNavigator implements ApplicationNavigator {
     }
 
     navigateToHome(): void {
-        this.history.push(BrowserHistoryNavigator.HOME_ROUTE);
+        this.history.push(FeatureRoute.PROFILE);
     }
 
     navigateToLogin(): void {
-        this.history.push(BrowserHistoryNavigator.LOGIN_ROUTE);
+        this.history.push(FeatureRoute.LOGIN);
     }
 
 }
