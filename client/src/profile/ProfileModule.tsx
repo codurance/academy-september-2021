@@ -8,7 +8,7 @@ import React from "react";
 import {Authenticator} from "../shared/authentication/authenticator";
 import {AuthenticatedUserStore} from "../shared/authentication/persistence";
 import {Route, Routes} from "react-router-dom";
-import {AxiosAuthorisedResourceClient, ProfileClient} from "./shared/resource";
+import {AuthorisedAxiosResourceClient, ProfileClient} from "./shared/resource";
 import {Layout} from "./shared/ui/layout/Layout";
 import {ProfileEdit} from "./edit/ProfileEdit";
 
@@ -25,8 +25,8 @@ export const ProfileModule: React.FC<Props> = ({
                                                    authenticatedUserStore,
                                                    applicationNavigator
                                                }: Props) => {
-    const authorisedResourceClient = new AxiosAuthorisedResourceClient(authenticatedUserStore, applicationNavigator);
-    const profileClient = new ProfileClient(authorisedResourceClient);
+    const resourceClient = new AuthorisedAxiosResourceClient(authenticatedUserStore, applicationNavigator);
+    const profileClient = new ProfileClient(resourceClient);
     const profileFeatureNavigator = new BrowserHistoryProfileFeatureNavigator(history);
     const profileSearchService = new ProfileSearchService(profileClient, profileFeatureNavigator);
 

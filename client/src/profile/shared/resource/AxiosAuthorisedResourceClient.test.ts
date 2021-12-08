@@ -1,6 +1,6 @@
 import {setupServer} from "msw/node";
 import {rest} from "msw";
-import {AxiosAuthorisedResourceClient} from "./AxiosAuthorisedResourceClient";
+import {AuthorisedAxiosResourceClient} from "./AuthorisedAxiosResourceClient";
 import {AuthenticatedUser, AuthenticatedUserStore} from "../../../shared/authentication/persistence";
 import {instance, mock, verify, when} from "ts-mockito";
 import {act, waitFor} from "@testing-library/react";
@@ -18,10 +18,21 @@ describe('axios request client', () => {
     const authenticatedUserStore = mock<AuthenticatedUserStore>();
     const applicationNavigator = mock<ApplicationNavigator>();
 
-    const axiosAuthorisedResourceClient = new AxiosAuthorisedResourceClient(
+    const authorisedAxiosResourceClient = new AuthorisedAxiosResourceClient(
         instance(authenticatedUserStore),
         instance(applicationNavigator)
     );
+
+    const targets = [
+        {
+            trigger: () => authorisedAxiosResourceClient.get<ResultType>('/path-to-my-resource'),
+            interceptor: rest.get
+        },
+        {
+            trigger: () => authorisedAxiosResourceClient.update('/path-to-my-resource', {}),
+            interceptor: rest.put
+        }
+    ];
 
     beforeAll(() => server.listen());
 
@@ -29,22 +40,56 @@ describe('axios request client', () => {
 
     afterAll(() => server.close());
 
-    it('performs get request with authorisation header', async () => {
+    it.each(targets)('performs request with authorisation header', async (target) => {
         const authenticatedUser: AuthenticatedUser = {accessToken: "access-token"} as AuthenticatedUser;
         let authorisationHeader: string | null;
         when(authenticatedUserStore.get()).thenReturn(authenticatedUser);
         server.use(
-            rest.get(requestUrl, (request, response) => {
+            target.interceptor(requestUrl, (request, response) => {
                 authorisationHeader = request.headers.get('Authorization');
                 return response();
             })
         );
 
-        await axiosAuthorisedResourceClient.get<ResultType>('/path-to-my-resource');
+        await target.trigger();
 
         return waitFor(() => {
             expect(authorisationHeader).toBe('Bearer access-token');
         });
+    });
+
+    it.each(targets)('navigate to login for intercepted get request with response status of %d', async (target) => {
+        for (const statusCode of [401, 403]) {
+            server.use(
+                target.interceptor(requestUrl, (request, response, context) => {
+                    return response(
+                        context.status(statusCode),
+                    );
+                })
+            );
+
+            act(() => {
+                target.trigger();
+            });
+
+            await waitFor(() => {
+                verify(applicationNavigator.navigateToLogin()).called();
+            });
+        }
+    });
+
+    it.each(targets)('return error for get requests with non authorisation errors', async (target) => {
+        server.use(
+            target.interceptor(requestUrl, (request, response, context) => {
+                return response(
+                    context.status(400),
+                );
+            })
+        );
+
+        await expect(target.trigger())
+            .rejects
+            .toEqual(Error('Request failed with status code 400'));
     });
 
     it('return result for successful get request', async () => {
@@ -59,7 +104,7 @@ describe('axios request client', () => {
             })
         );
 
-        const result = await axiosAuthorisedResourceClient.get<ResultType>('/path-to-my-resource');
+        const result = await authorisedAxiosResourceClient.get<ResultType>('/path-to-my-resource');
 
         expect(result).toEqual({
             property: 'value'
@@ -75,7 +120,7 @@ describe('axios request client', () => {
             })
         );
 
-        await axiosAuthorisedResourceClient.get<ResultType>('/path-to-my-resource', {
+        await authorisedAxiosResourceClient.get<ResultType>('/path-to-my-resource', {
             param1: 'value',
             param2: ['other', 'values']
         });
@@ -85,39 +130,7 @@ describe('axios request client', () => {
         });
     });
 
-    it.each([401, 403])('navigate to login for intercepted get request with response status of %d', async (statusCode) => {
-        server.use(
-            rest.get(requestUrl, (request, response, context) => {
-                return response(
-                    context.status(statusCode),
-                );
-            })
-        );
-
-        act(() => {
-            axiosAuthorisedResourceClient.get<ResultType>('/path-to-my-resource');
-        });
-
-        return waitFor(() => {
-            verify(applicationNavigator.navigateToLogin()).called();
-        });
-    });
-
-    it('return error for get requests with non authorisation errors', async () => {
-        server.use(
-            rest.get(requestUrl, (request, response, context) => {
-                return response(
-                    context.status(400),
-                );
-            })
-        );
-
-        await expect(axiosAuthorisedResourceClient.get<ResultType>('/path-to-my-resource'))
-            .rejects
-            .toEqual(Error('Request failed with status code 400'));
-    });
-
-    it('perform PUT request', async () => {
+    it('perform put request with supplied value to update', async () => {
         interface ResourceValue {
             value: string
         }
@@ -132,7 +145,7 @@ describe('axios request client', () => {
             })
         );
 
-        await axiosAuthorisedResourceClient.update('/path-to-my-resource', value);
+        await authorisedAxiosResourceClient.update('/path-to-my-resource', value);
 
         expect(body).toEqual(value);
     });

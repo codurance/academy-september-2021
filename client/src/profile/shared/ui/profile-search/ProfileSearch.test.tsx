@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {render, screen} from "@testing-library/react";
 import {anything, capture, instance, mock, when} from "ts-mockito";
 import {ProfileSearchService} from "./ProfileSearchService";

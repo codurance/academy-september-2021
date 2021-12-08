@@ -1,10 +1,10 @@
-import {AuthorisedResourceClient} from "./AuthorisedResourceClient";
+import {ResourceClient} from "./ResourceClient";
 import axios from "axios";
 import {AuthenticatedUserStore} from "../../../shared/authentication/persistence";
 import {ApplicationNavigator} from "../../../shared/navigation";
 import querystring from "qs";
 
-export class AxiosAuthorisedResourceClient implements AuthorisedResourceClient {
+export class AuthorisedAxiosResourceClient implements ResourceClient {
 
     private readonly axiosClient = axios.create({
         baseURL: process.env.REACT_APP_BASE_URL ?? 'http://localhost:3004/dev',

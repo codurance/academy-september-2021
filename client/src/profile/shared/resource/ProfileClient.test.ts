@@ -1,19 +1,19 @@
 import {instance, mock, verify, when} from "ts-mockito";
 import {ProfileClient} from "./ProfileClient";
-import {AuthorisedResourceClient} from "./AuthorisedResourceClient";
-import {Profile, UpdatedProfile} from "skillset";
+import {ResourceClient} from "./ResourceClient";
+import {Profile, ProfileSearchQuery, UpdatedProfile} from "skillset";
 
 describe('profile client should', () => {
-    const authorisedResourceClient = mock<AuthorisedResourceClient>();
+    const resourceClient = mock<ResourceClient>();
 
     const profileClient = new ProfileClient(
-        instance(authorisedResourceClient)
+        instance(resourceClient)
     );
 
     it('perform get request on search', async () => {
-        const query = {skills: ['React']};
+        const query: ProfileSearchQuery = {skills: ['React'], isAvailable: true};
         const results: Profile[] = [{name: 'Jordan Steele'} as Profile, {name: 'Sam Colgan'} as Profile];
-        when(authorisedResourceClient.get('/profile/all', query)).thenResolve(results);
+        when(resourceClient.get('/profile/all', query)).thenResolve(results);
 
         const searchResults = await profileClient.search(query);
 
@@ -22,7 +22,7 @@ describe('profile client should', () => {
 
     it('get profile by email', async () => {
         const profile: Profile = {name: 'Simon Spielberg'} as Profile;
-        when(authorisedResourceClient.get('/profile/simon.spielbery@codurance.com')).thenResolve(profile);
+        when(resourceClient.get('/profile/simon.spielbery@codurance.com')).thenResolve(profile);
 
         const result = await profileClient.getProfile('simon.spielbery@codurance.com');
 
@@ -36,6 +36,6 @@ describe('profile client should', () => {
 
        await profileClient.save(updatedProfile);
 
-       verify(authorisedResourceClient.update('/profile', updatedProfile)).called();
+       verify(resourceClient.update('/profile', updatedProfile)).called();
     });
 });

@@ -1,3 +1,3 @@
-export type {AuthorisedResourceClient} from "./AuthorisedResourceClient";
-export {AxiosAuthorisedResourceClient} from "./AxiosAuthorisedResourceClient";
+export type {ResourceClient} from "./ResourceClient";
+export {AuthorisedAxiosResourceClient} from "./AuthorisedAxiosResourceClient";
 export {ProfileClient} from "./ProfileClient";

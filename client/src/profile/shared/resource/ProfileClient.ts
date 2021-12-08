@@ -1,11 +1,11 @@
 import {Profile, ProfileSearchQuery, UpdatedProfile} from "skillset";
-import {AuthorisedResourceClient} from "./AuthorisedResourceClient";
+import {ResourceClient} from "./ResourceClient";
 
 export class ProfileClient {
-    private resourceClient: AuthorisedResourceClient;
+    private resourceClient: ResourceClient;
 
-    constructor(authorisedResourceClient: AuthorisedResourceClient) {
-        this.resourceClient = authorisedResourceClient;
+    constructor(resourceClient: ResourceClient) {
+        this.resourceClient = resourceClient;
     }
 
     public async search(query: ProfileSearchQuery): Promise<Profile[]> {
