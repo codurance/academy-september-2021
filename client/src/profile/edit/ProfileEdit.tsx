@@ -2,7 +2,7 @@ import {ProfileClient} from "../shared/resource";
 import {AuthenticatedUserStore} from "../../shared/authentication/persistence";
 import React, {useEffect, useState} from "react";
 import {Profile, ProfileSkill} from "skillset";
-import {Form, Message} from "semantic-ui-react";
+import {Button, Form, Message} from "semantic-ui-react";
 import {EditSkills} from "./skills/EditSkills";
 
 type Props = {
@@ -29,6 +29,14 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
         setSkills(profile.skills);
     };
 
+    async function saveProfile() {
+        const updatedProfile = {
+            skills
+        };
+
+        await profileClient.save(updatedProfile);
+    }
+
     return (
         <Form>
             {!profile &&
@@ -46,6 +54,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
             </Form.Group>
 
             <EditSkills skills={skills} onSkillsUpdated={updatedSkills => setSkills(updatedSkills)}/>
+            <Button onClick={saveProfile}>Save</Button>
         </Form>
     );
 };

@@ -5,6 +5,7 @@ import {AuthenticatedUser, AuthenticatedUserStore} from "../../../shared/authent
 import {instance, mock, verify, when} from "ts-mockito";
 import {act, waitFor} from "@testing-library/react";
 import {ApplicationNavigator} from "../../../shared/navigation";
+import {DefaultRequestBody} from "msw/lib/types/handlers/RequestHandler";
 
 describe('axios request client', () => {
     const requestUrl = "http://localhost:3004/dev/path-to-my-resource";
@@ -114,5 +115,25 @@ describe('axios request client', () => {
         await expect(axiosAuthorisedResourceClient.get<ResultType>('/path-to-my-resource'))
             .rejects
             .toEqual(Error('Request failed with status code 400'));
+    });
+
+    it('perform PUT request', async () => {
+        interface ResourceValue {
+            value: string
+        }
+        const value: ResourceValue = {
+            value: "Value updated"
+        };
+        let body: DefaultRequestBody;
+        server.use(
+            rest.put(requestUrl, (request, response) => {
+                body = request.body;
+                return response();
+            })
+        );
+
+        await axiosAuthorisedResourceClient.update('/path-to-my-resource', value);
+
+        expect(body).toEqual(value);
     });
 });

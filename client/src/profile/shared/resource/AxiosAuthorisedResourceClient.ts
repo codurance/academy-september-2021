@@ -27,6 +27,11 @@ export class AxiosAuthorisedResourceClient implements AuthorisedResourceClient {
             .then(response => response.data as T);
     }
 
+    async update<T>(path: string, value: T): Promise<void> {
+        return this.axiosClient
+            .put(path, value);
+    }
+
     private addRequestAuthorisationHeader(): void {
         this.axiosClient.interceptors.request.use(
             config => {

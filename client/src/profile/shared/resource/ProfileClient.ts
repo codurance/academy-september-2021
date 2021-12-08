@@ -1,4 +1,4 @@
-import {Profile, ProfileSearchQuery} from "skillset";
+import {Profile, ProfileSearchQuery, UpdatedProfile} from "skillset";
 import {AuthorisedResourceClient} from "./AuthorisedResourceClient";
 
 export class ProfileClient {
@@ -14,5 +14,9 @@ export class ProfileClient {
 
     public async getProfile(email: string): Promise<Profile | undefined> {
         return this.resourceClient.get<Profile | undefined>(`/profile/${email}`);
+    }
+
+    public async save(profile: UpdatedProfile): Promise<void> {
+        await this.resourceClient.update<UpdatedProfile>('/profile', profile);
     }
 }

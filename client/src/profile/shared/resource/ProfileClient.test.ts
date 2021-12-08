@@ -1,7 +1,7 @@
-import {instance, mock, when} from "ts-mockito";
+import {instance, mock, verify, when} from "ts-mockito";
 import {ProfileClient} from "./ProfileClient";
 import {AuthorisedResourceClient} from "./AuthorisedResourceClient";
-import {Profile} from "skillset";
+import {Profile, UpdatedProfile} from "skillset";
 
 describe('profile client should', () => {
     const authorisedResourceClient = mock<AuthorisedResourceClient>();
@@ -27,5 +27,15 @@ describe('profile client should', () => {
         const result = await profileClient.getProfile('simon.spielbery@codurance.com');
 
         expect(result).toBe(profile);
+    });
+
+    it('update profile on save', async () => {
+        const updatedProfile: UpdatedProfile = {
+            skills: [ { name: 'React', level: 5 } ]
+        };
+
+       await profileClient.save(updatedProfile);
+
+       verify(authorisedResourceClient.update('/profile', updatedProfile)).called();
     });
 });

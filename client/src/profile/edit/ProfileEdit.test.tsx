@@ -1,10 +1,11 @@
 import {render, screen} from "@testing-library/react";
-import {instance, mock, when} from "ts-mockito";
+import {capture, instance, mock, when} from "ts-mockito";
 import {AuthenticatedUser, AuthenticatedUserStore} from "../../shared/authentication/persistence";
 import React from "react";
 import {ProfileClient} from "../shared/resource";
-import {Profile, ProfileSkill} from "skillset";
+import {Profile, ProfileSkill, UpdatedProfile} from "skillset";
 import {ProfileEdit} from "./ProfileEdit";
+import userEvent from "@testing-library/user-event";
 
 describe('editing a profile should', () => {
     const profileClient = mock(ProfileClient);
@@ -35,6 +36,22 @@ describe('editing a profile should', () => {
         await expectReadOnlyInputToHaveValue('Email', 'local.best.user@codurance.com');
     });
 
+    it('save profile on save clicked', async () => {
+        when(profileClient.getProfile('local.best.user@codurance.com')).thenResolve(undefined);
+        const expectedUpdatedProfile: UpdatedProfile = {
+            skills: [ { name: 'React', level: '5' } ]
+        };
+        renderProfileEdit();
+        selectDropdownValue('Select Skill', 'React');
+        selectDropdownValue('Select Level', '5');
+        clickInput('Add Skill');
+
+        screen.getByText('Save').click();
+
+        const capturedUpdatedProfile = capture(profileClient.save).last()[0];
+        expect(capturedUpdatedProfile).toEqual(expectedUpdatedProfile);
+    });
+
     const renderProfileEdit = () => {
         const authenticatedUser = {
             name: 'Local Best User',
@@ -52,5 +69,16 @@ describe('editing a profile should', () => {
         expect(input).toHaveValue(value);
         expect(input).toHaveAttribute('readonly');
     };
+
+    const selectDropdownValue = (dropdownPlaceholder: string, selection: string) => {
+        clickInput(dropdownPlaceholder);
+        clickInput(selection);
+    };
+
+    const clickInput = (text: string) => {
+        const input = screen.getByText(text);
+        userEvent.click(input);
+    };
+
 
 });
