@@ -7,7 +7,7 @@ import {SaveProfileEvent} from "./event/SaveProfileEvent";
 import {StaticProfileRepository} from "./repository/StaticProfileRepository";
 
 //Switch this out for the proper implementation when ready
-const profileRepository = new StaticProfileRepository()ProfileRepository();
+const profileRepository = new StaticProfileRepository();
 const profileSearchQueryParser = new ProfileSearchQueryParser();
 const profileController = new ProfileController(profileSearchQueryParser, profileRepository);
 
