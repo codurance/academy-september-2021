@@ -18,7 +18,8 @@ describe('profile search', () => {
 
     it('should prefill search when query provided', () => {
         const query: ProfileSearchQuery = {
-            skills: ['TypeScript', 'Python']
+            skills: ['TypeScript', 'Python'],
+            isAvailable: false
         };
 
         render(<ProfileSearch profileSearchService={instance(profileSearchService)} query={query}/>);
@@ -41,9 +42,9 @@ describe('profile search', () => {
         when(profileSearchService.search(anything())).thenResolve();
         renderProfileSearch();
 
-        await submitSearch('React, Typecript, Serverless');
+        await submitSearch('React, TypeScript, Serverless');
 
-        const expectedQuery = {skills: ['React', 'Typecript', 'Serverless']};
+        const expectedQuery = {skills: ['React', 'TypeScript', 'Serverless'], isAvailable: false};
         const capturedQuery = capture(profileSearchService.search).last()[0];
         expect(capturedQuery).toEqual(expectedQuery);
     });
@@ -57,6 +58,19 @@ describe('profile search', () => {
         expect(await screen.findByText("Network Error, try again.")).toBeInTheDocument();
     });
 
+    it('should perform search with filter for availability', async () => {
+        when(profileSearchService.search(anything())).thenResolve();
+        renderProfileSearch();
+
+        toggleIsAvailable();
+
+        await submitSearch('React, TypeScript, Serverless');
+
+        const expectedQuery = {skills: ['React', 'TypeScript', 'Serverless'], isAvailable: true};
+        const capturedQuery = capture(profileSearchService.search).last()[0];
+        expect(capturedQuery).toEqual(expectedQuery);
+    });
+
     const renderProfileSearch = () => {
         render(<ProfileSearch profileSearchService={instance(profileSearchService)}/>);
     };
@@ -67,4 +81,9 @@ describe('profile search', () => {
         const searchButton = screen.getByLabelText('Search');
         searchButton.click();
     };
+
+    const toggleIsAvailable = () => {
+        const isAvailableFilter = screen.getByTestId('Only show available consultants');
+        userEvent.click(isAvailableFilter);
+    }
 });

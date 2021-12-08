@@ -1,4 +1,4 @@
-import {Form, Icon, Input, Message} from "semantic-ui-react";
+import {Form, Icon, Input, Message, Checkbox} from "semantic-ui-react";
 import React, {useEffect, useState} from "react";
 import {ProfileSearchService} from "./ProfileSearchService";
 import {ProfileSearchQuery} from "skillset";
@@ -12,6 +12,7 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
     const [isLoadingSearch, setIsLoadingSearch] = useState(false);
     const [hasSearchError, setHasSearchError] = useState(false);
     const [skills, setSkills] = useState('');
+    const [isAvailable, setIsAvailable] = useState(false);
 
     useEffect(() => {
         const requestedSkills = query?.skills.join(', ') ?? '';
@@ -19,7 +20,7 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
     }, [query]);
 
     async function search(): Promise<void> {
-        const query: ProfileSearchQuery = {skills: parseSkills()};
+        const query: ProfileSearchQuery = {skills: parseSkills(), isAvailable: isAvailable};
         setIsLoadingSearch(true);
 
         await profileSearchService
@@ -49,6 +50,7 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
                             : <Icon name='search' aria-label='Search' onClick={search} link/>
                         }
                     </Input>
+                    <Checkbox label='Only show available consultants' data-testid='Only show available consultants' onClick={() => setIsAvailable(!isAvailable)}/>
                 </Form.Field>
             </Form>
         </>
