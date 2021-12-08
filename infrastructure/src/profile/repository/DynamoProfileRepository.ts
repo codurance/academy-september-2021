@@ -7,7 +7,6 @@ export class DynamoProfileRepository implements ProfileRepository {
     private client;
 
     constructor() {
-        //create .env file with ENV=dev on line 1 to run locally
         const { ENV } = process.env;
         const connectionOptions = ENV === 'dev'
             ? { region: 'localhost', endpoint: 'http://localhost:8000' }
@@ -37,14 +36,19 @@ export class DynamoProfileRepository implements ProfileRepository {
     }
 
     async search(query: ProfileSearchQuery): Promise<Profile[]> {
+
         const result = await this.client
             .scan({
                 TableName: process.env.PROFILES_TABLE! // eslint-disable-line @typescript-eslint/no-non-null-assertion
             })
             .promise();
 
-        const persistedProfiles = result.Items?.map(item => new PersistedProfile(item as Profile));
+        let persistedProfiles = result.Items?.map(item => new PersistedProfile(item as Profile));
         if (!persistedProfiles) return [];
+
+        if (query.isAvailable) {
+            persistedProfiles = persistedProfiles.filter(profile => profile.isAvailable);
+        }
 
         return persistedProfiles.filter(profile => profile.hasSkills(query.skills));
     }
