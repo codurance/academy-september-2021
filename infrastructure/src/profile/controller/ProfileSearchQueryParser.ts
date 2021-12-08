@@ -7,7 +7,8 @@ export class ProfileSearchQueryParser {
         const queryParameters = querystring.parse(parameters);
 
         return  {
-            skills: queryParameters.skills as string[]
+            skills: queryParameters.skills as string[],
+            isAvailable: queryParameters.isAvailable as unknown as boolean
         };
     }
 

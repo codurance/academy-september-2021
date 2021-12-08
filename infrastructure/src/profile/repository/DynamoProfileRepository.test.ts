@@ -12,7 +12,8 @@ describe('dynamo database profile repository', () => {
         });
         const dynamoProfileRepository = new DynamoProfileRepository();
         const query: ProfileSearchQuery = {
-            skills: ['TYPESCRIPT', 'ServerLess', 'kotlin']
+            skills: ['TYPESCRIPT', 'ServerLess', 'kotlin'],
+            isAvailable: false
         };
 
         const result = await dynamoProfileRepository.search(query);
@@ -21,6 +22,22 @@ describe('dynamo database profile repository', () => {
         expect(result[0].name).toBe('Amandeep Panesar');
         expect(result[1].name).toBe('Jordan Colgan');
         expect(result[2].name).toBe('Simon Rosenberg');
+    });
+
+    test('find matching available only profiles with skills', async () => {
+        AWSMock.mock('DynamoDB.DocumentClient', 'scan', (params: ScanInput, callback: Function) => { // eslint-disable-line @typescript-eslint/ban-types
+            callback(null, mockedProfileTable());
+        });
+        const dynamoProfileRepository = new DynamoProfileRepository();
+        const query: ProfileSearchQuery = {
+            skills: ['TYPESCRIPT', 'ServerLess', 'kotlin'],
+            isAvailable: true
+        };
+
+        const result = await dynamoProfileRepository.search(query);
+
+        expect(result.length).toEqual(1);
+        expect(result[0].name).toBe('Jordan Colgan');
     });
 
     test('get one profile by email', async () => {
@@ -110,7 +127,7 @@ describe('dynamo database profile repository', () => {
                     {name: 'Java', level: 1}
                 ],
                 imageUrl: 'https://www.codurance.com/hubfs/jordan-colgan-photo.jpg',
-                isAvailable: false,
+                isAvailable: true,
                 currentClient: 'Academy'
             },
             {
