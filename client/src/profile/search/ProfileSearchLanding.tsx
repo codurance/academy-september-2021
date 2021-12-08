@@ -11,6 +11,7 @@ export const ProfileSearchLanding: React.FC<Props> = ({profileSearchService}: Pr
     return (
         <Grid textAlign='center' verticalAlign='middle'>
             <Grid.Column style={{maxWidth: 800, marginTop: '2em'}}>
+                <h1>has this rendered in staging?</h1>
                 <Logo/>
                 <ProfileSearch profileSearchService={profileSearchService}/>
             </Grid.Column>
