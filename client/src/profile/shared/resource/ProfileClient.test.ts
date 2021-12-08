@@ -11,7 +11,7 @@ describe('profile client should', () => {
     );
 
     it('perform get request on search', async () => {
-        const query: ProfileSearchQuery = {skills: ['React'], isAvailable: true};
+        const query: ProfileSearchQuery = {skills: ['React'], hasRequestedAvailableOnly: false};
         const results: Profile[] = [{name: 'Jordan Steele'} as Profile, {name: 'Sam Colgan'} as Profile];
         when(resourceClient.get('/profile/all', query)).thenResolve(results);
 

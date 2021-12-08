@@ -12,17 +12,18 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
     const [isLoadingSearch, setIsLoadingSearch] = useState(false);
     const [hasSearchError, setHasSearchError] = useState(false);
     const [skills, setSkills] = useState('');
-    const [isAvailable, setIsAvailable] = useState(false);
+    const [hasRequestedAvailableOnly, setHasRequestedAvailableOnly] = useState(false);
 
+    /* eslint-disable @typescript-eslint/no-non-null-assertion */
     useEffect(() => {
-        const requestedSkills = query?.skills.join(', ') ?? '';
-        const requestedIsAvailable = query?.isAvailable ?? false;
+        const requestedSkills = query!.skills.join(', ');
         setSkills(requestedSkills);
-        setIsAvailable(requestedIsAvailable);
+        setHasRequestedAvailableOnly(query!.hasRequestedAvailableOnly);
     }, [query]);
+    /* eslint-enable @typescript-eslint/no-non-null-assertion */
 
     async function search(): Promise<void> {
-        const query: ProfileSearchQuery = {skills: parseSkills(), isAvailable: isAvailable};
+        const query: ProfileSearchQuery = {skills: parseSkills(), hasRequestedAvailableOnly: hasRequestedAvailableOnly};
         setIsLoadingSearch(true);
 
         await profileSearchService
@@ -56,8 +57,8 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
                 <Form.Field style={{textAlign: 'left'}}>
                     <Checkbox
                         label='Only show available consultants'
-                        checked={isAvailable}
-                        onClick={() => setIsAvailable(!isAvailable)}
+                        checked={hasRequestedAvailableOnly}
+                        onClick={() => setHasRequestedAvailableOnly(!hasRequestedAvailableOnly)}
                     />
                 </Form.Field>
             </Form>

@@ -13,7 +13,7 @@ describe('dynamo database profile repository', () => {
         const dynamoProfileRepository = new DynamoProfileRepository();
         const query: ProfileSearchQuery = {
             skills: ['TYPESCRIPT', 'ServerLess', 'kotlin'],
-            isAvailable: false
+            hasRequestedAvailableOnly: false
         };
 
         const result = await dynamoProfileRepository.search(query);
@@ -31,7 +31,7 @@ describe('dynamo database profile repository', () => {
         const dynamoProfileRepository = new DynamoProfileRepository();
         const query: ProfileSearchQuery = {
             skills: ['TYPESCRIPT', 'ServerLess', 'kotlin'],
-            isAvailable: true
+            hasRequestedAvailableOnly: true
         };
 
         const result = await dynamoProfileRepository.search(query);

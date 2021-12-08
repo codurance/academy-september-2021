@@ -2,9 +2,11 @@ import {ProfileRepository} from "./ProfileRepository";
 import {Profile, ProfileSearchQuery} from "skillset";
 import {PersistedProfile} from "./PersistedProfile";
 import AWS from "aws-sdk";
+import {DocumentClient} from "aws-sdk/clients/dynamodb";
 
 export class DynamoProfileRepository implements ProfileRepository {
-    private client;
+    private readonly profileTableName = process.env.PROFILES_TABLE!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    private readonly client: DocumentClient;
 
     constructor() {
         const { ENV } = process.env;
@@ -18,7 +20,7 @@ export class DynamoProfileRepository implements ProfileRepository {
     async get(email: string): Promise<Profile | undefined> {
         const result = await this.client
             .get({
-                TableName: process.env.PROFILES_TABLE!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+                TableName: this.profileTableName,
                 Key: {email},
             })
             .promise();
@@ -29,27 +31,31 @@ export class DynamoProfileRepository implements ProfileRepository {
     async save(profile: Profile): Promise<void> {
         await this.client
             .put({
-                TableName: process.env.PROFILES_TABLE!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+                TableName: this.profileTableName,
                 Item: profile,
             })
             .promise();
     }
 
     async search(query: ProfileSearchQuery): Promise<Profile[]> {
-
         const result = await this.client
             .scan({
-                TableName: process.env.PROFILES_TABLE! // eslint-disable-line @typescript-eslint/no-non-null-assertion
+                TableName: this.profileTableName,
             })
             .promise();
 
-        let persistedProfiles = result.Items?.map(item => new PersistedProfile(item as Profile));
+        const persistedProfiles = result.Items?.map(item => new PersistedProfile(item as Profile));
         if (!persistedProfiles) return [];
 
-        if (query.isAvailable) {
-            persistedProfiles = persistedProfiles.filter(profile => profile.isAvailable);
+        return this.filterProfiles(persistedProfiles, query);
+    }
+
+    private filterProfiles(profiles: PersistedProfile[], query: ProfileSearchQuery) {
+        let filteredProfiles = profiles;
+        if (query.hasRequestedAvailableOnly) {
+            filteredProfiles = filteredProfiles.filter(profile => profile.isAvailable);
         }
 
-        return persistedProfiles.filter(profile => profile.hasSkills(query.skills));
+        return filteredProfiles.filter(profile => profile.hasSkills(query.skills));
     }
 }

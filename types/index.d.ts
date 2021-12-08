@@ -11,7 +11,7 @@ declare module 'skillset' {
 
     export interface ProfileSearchQuery {
         skills: string[];
-        isAvailable: boolean;
+        hasRequestedAvailableOnly: boolean;
     }
 
     export interface ProfileSkill {

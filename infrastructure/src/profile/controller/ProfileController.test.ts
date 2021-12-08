@@ -21,7 +21,7 @@ describe('profile controller should', () => {
         const capturedQuery: ProfileSearchQuery = capture(profileRepository.search).last()[0];
         expect(capturedQuery).toEqual({
             skills: ['React', 'Typescript', 'Serverless'],
-            isAvailable: true
+            hasRequestedAvailableOnly: true
         });
     });
 

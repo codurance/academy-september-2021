@@ -19,7 +19,7 @@ describe('profile search', () => {
     it('should prefill search when query provided', () => {
         const query: ProfileSearchQuery = {
             skills: ['TypeScript', 'Python'],
-            isAvailable: false
+            hasRequestedAvailableOnly: false
         };
 
         render(<ProfileSearch profileSearchService={instance(profileSearchService)} query={query}/>);
