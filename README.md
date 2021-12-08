@@ -20,26 +20,74 @@ The application supports the following browsers
 
 ### Testing SkillSet
 
-> cd ~/academy-september-2021/client
-> 
-> npm install
-> 
-> npm test
+For each command you may need to adjust the path to where you have stored the project. 
 
-> cd ~/academy-september-2021/infrastructure
-> 
-> npm install
-> 
-> npm test
+The alias "run checks" runs both "npm run lint && npm run test"
 
-> cd ~/academy-september-2021/acceptance
-> 
+**Client**
+
+> cd ./client
+>
 > npm install
-> 
+>
+> npm run checks
+
+**Infrastructure**
+
+> cd ./infrastructure
+>
+> npm install
+>
+> npm run checks
+
+**Acceptance**
+
+> cd ./acceptance
+>
+> npm install
+>
 > npm run headless-mode
+
+###Locally Running Services
+
+During development you may wish to run some or all of the services locally. Documented is a configuration guide.
+
+**Local Infrastructure Configuration**
+
+In cases where you wish to run infrastructure locally you will need to add an environment file
+
+> touch ./infrastructure/.env
+>
+> echo ENV=dev > ./infrastructure/.env
+
+**Running Serverless Locally**
+
+Requires downloading serverless as a dependency. This can be done in a variety of ways as well as through node.
+> npm install serverless -g
+
+Serverless can then be run offline with the following command.
+> serverless offline --httpPort 3004
+
+**Running DynamoDB Locally**
+
+Running Dynamodb locally can be done by installing DynamoDB to the host machine. This also depends on serverless
+
+Installing serverless
+> npm install -g serverless
+
+Starting DynamoDB locally
+> cd ./infrastructure
+>
+> npm install
+>
+> sls dynamodb start --migrate
 
 ### Dependencies
 
 The application has the following dependencies
 
-- node with typescript
+- typescript
+- node
+- AWS
+- serverless
+- dynamoDB
