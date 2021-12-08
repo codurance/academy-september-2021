@@ -48,9 +48,9 @@ The alias "run checks" runs both "npm run lint && npm run test"
 >
 > npm run headless-mode
 
-###Locally Running Services
+### Locally Running Services
 
-During development you may wish to run some or all of the services locally. Documented is a configuration guide.
+During development, you may wish to run some or all of the services locally. Documented is a configuration guide.
 
 **Local Infrastructure Configuration**
 
