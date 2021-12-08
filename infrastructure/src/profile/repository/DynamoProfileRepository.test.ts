@@ -1,4 +1,4 @@
-import {Profile, ProfileSearchQuery, ProfileSkill} from "skillset";
+import {Profile, ProfileSearchQuery} from "skillset";
 import {DynamoProfileRepository} from "./DynamoProfileRepository";
 import AWSMock from 'aws-sdk-mock';
 import AWS from 'aws-sdk';
@@ -36,43 +36,21 @@ describe('dynamo database profile repository', () => {
         expect(result?.name).toBe('Alexander Howson');
     });
 
-    test('upsert a new profile', async () => {
+    test('save a new profile', async () => {
+        let putItemInput: PutItemInput;
         AWSMock.setSDKInstance(AWS);
         AWSMock.mock('DynamoDB.DocumentClient', 'put', (params: PutItemInput, callback: Function) => { // eslint-disable-line @typescript-eslint/ban-types
-            callback(null, {Item: updatedMockedProfileTable().Items[0]});
+            putItemInput = params;
+            callback(null);
         });
         const dynamoProfileRepository = new DynamoProfileRepository();
-
-        const profileSkills: ProfileSkill[] = [
-            {name: 'C#', level: 5},
-            {name: 'Java', level: 4},
-            {name: 'Rust', level: 3}
-        ];
-
         const profile: Profile = {
-            email: 'alexander.howson@codurance.com',
-            skills: profileSkills,
+            skills: [{name: 'C#', level: 5}, {name: 'Java', level: 4}],
         } as Profile;
 
         await dynamoProfileRepository.save(profile);
 
-        //Assertion that the mock was called with a matching profile skill level
-    });
-
-    const updatedMockedProfileTable = () => ({
-        Items: [{
-            name: 'Alexander Howson',
-            email: 'alexander.howson@codurance.com',
-            role: 'Software Craftsperson in Training',
-            skills: [
-                {name: 'C#', level: 5},
-                {name: 'Java', level: 4},
-                {name: 'Rust', level: 3},
-            ],
-            imageUrl: 'https://www.codurance.com/hubfs/Picture.jpg',
-            isAvailable: false,
-            currentClient: 'Academy'
-        }]
+        expect(putItemInput!.Item).toEqual(profile); // eslint-disable-line @typescript-eslint/no-non-null-assertion
     });
 
     const mockedProfileTable = () => ({

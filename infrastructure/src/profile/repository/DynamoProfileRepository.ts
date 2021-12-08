@@ -17,9 +17,13 @@ export class DynamoProfileRepository implements ProfileRepository {
         return result.Item as Profile;
     }
 
-    save(profile: Profile): Promise<void> {
-        console.log(profile);
-        return Promise.resolve();
+    async save(profile: Profile): Promise<void> {
+        await this.client
+            .put({
+                TableName: process.env.PROFILES_TABLE!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+                Item: profile,
+            })
+            .promise();
     }
 
     async search(query: ProfileSearchQuery): Promise<Profile[]> {
