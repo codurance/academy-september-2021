@@ -14,13 +14,12 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
     const [skills, setSkills] = useState('');
     const [hasRequestedAvailableOnly, setHasRequestedAvailableOnly] = useState(false);
 
-    /* eslint-disable @typescript-eslint/no-non-null-assertion */
     useEffect(() => {
-        const requestedSkills = query!.skills.join(', ');
-        setSkills(requestedSkills);
-        setHasRequestedAvailableOnly(query!.hasRequestedAvailableOnly);
+        const previousSkills = query?.skills.join(', ') ?? '';
+        const hasRequestedAvailableOnly = query?.hasRequestedAvailableOnly ?? false
+        setSkills(previousSkills);
+        setHasRequestedAvailableOnly(hasRequestedAvailableOnly);
     }, [query]);
-    /* eslint-enable @typescript-eslint/no-non-null-assertion */
 
     async function search(): Promise<void> {
         const query: ProfileSearchQuery = {skills: parseSkills(), hasRequestedAvailableOnly: hasRequestedAvailableOnly};

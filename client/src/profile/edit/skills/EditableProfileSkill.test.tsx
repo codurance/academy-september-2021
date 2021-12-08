@@ -34,7 +34,7 @@ describe('editable profile skill should', () => {
         clickIconButton('Edit');
         selectDropdownValue('4', '5');
 
-        expect(updatedSkill).toEqual({name: 'TypeScript', level: '5'});
+        expect(updatedSkill).toEqual({name: 'TypeScript', level: 5});
     });
 
     it('reset editable state when skill updated', () => {

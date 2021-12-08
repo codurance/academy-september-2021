@@ -44,7 +44,7 @@ describe('profile search', () => {
 
         await submitSearch('React, TypeScript, Serverless');
 
-        const expectedQuery = {skills: ['React', 'TypeScript', 'Serverless'], isAvailable: false};
+        const expectedQuery = {skills: ['React', 'TypeScript', 'Serverless'], hasRequestedAvailableOnly: false};
         const capturedQuery = capture(profileSearchService.search).last()[0];
         expect(capturedQuery).toEqual(expectedQuery);
     });
@@ -66,7 +66,7 @@ describe('profile search', () => {
 
         await submitSearch('React, TypeScript, Serverless');
 
-        const expectedQuery = {skills: ['React', 'TypeScript', 'Serverless'], isAvailable: true};
+        const expectedQuery = {skills: ['React', 'TypeScript', 'Serverless'], hasRequestedAvailableOnly: true};
         const capturedQuery = capture(profileSearchService.search).last()[0];
         expect(capturedQuery).toEqual(expectedQuery);
     });

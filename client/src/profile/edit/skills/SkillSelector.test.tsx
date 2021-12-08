@@ -28,7 +28,7 @@ describe('skill selector should', () => {
         selectDropdownValue('Select Level', '5');
         clickInput('Add Skill');
 
-        expect(skillAdded).toEqual({name: 'React', level: '5'});
+        expect(skillAdded).toEqual({name: 'React', level: 5});
     });
 
     it('clears dropdown menus upon adding selection', async () => {

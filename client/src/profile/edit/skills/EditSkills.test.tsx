@@ -23,7 +23,7 @@ describe('edit skills should', () => {
 
         expect(skills).toEqual([
             {name: 'TypeScript', level: 5},
-            {name: 'React', level: '3'}
+            {name: 'React', level: 3}
         ]);
     });
 
@@ -34,7 +34,7 @@ describe('edit skills should', () => {
         selectDropdownWithSelection('5', '4');
 
         expect(skills).toEqual([
-            {name: 'TypeScript', level: '4'},
+            {name: 'TypeScript', level: 4},
         ]);
     });
 

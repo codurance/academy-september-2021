@@ -39,7 +39,7 @@ describe('editing a profile should', () => {
     it('save profile on save clicked', async () => {
         when(profileClient.getProfile('local.best.user@codurance.com')).thenResolve(undefined);
         const expectedUpdatedProfile: UpdatedProfile = {
-            skills: [ { name: 'React', level: '5' } ]
+            skills: [ { name: 'React', level: 5 } ]
         };
         renderProfileEdit();
         selectDropdownValue('Select Skill', 'React');
