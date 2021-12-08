@@ -64,10 +64,12 @@ describe('profile controller should', () => {
 
     test('save updated profile', async () => {
         const event = {
-            body: {
-                skills: [{name: 'React', level: 5}]
-            },
-            authorisedUser: '{"name":"Best User","email":"best.user@codurance.com","profileImageUrl":"http://codurance.com/best-user/profile-image.png"}',
+            body: '{"skills": [{"name": "React", "level": 5}]}',
+            requestContext: {
+                authorizer: {
+                    authorisedUser: '{"name":"Best User","email":"best.user@codurance.com","profileImageUrl":"http://codurance.com/best-user/profile-image.png"}',
+                }
+            }
         };
 
         await profileController.save(event);
@@ -86,10 +88,12 @@ describe('profile controller should', () => {
 
     test('return success response after updating profile', async () => {
         const event = {
-            body: {
-                skills: [{name: 'React', level: 5}]
-            },
-            authorisedUser: '{"name":"Best User","email":"best.user@codurance.com","profileImageUrl":"http://codurance.com/best-user/profile-image.png"}',
+            body: '{"skills": [{"name": "React", "level": 5}]}',
+            requestContext: {
+                authorizer: {
+                    authorisedUser: '{"name":"Best User","email":"best.user@codurance.com","profileImageUrl":"http://codurance.com/best-user/profile-image.png"}',
+                }
+            }
         };
         when(profileRepository.save(anything())).thenResolve();
 

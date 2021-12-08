@@ -1,6 +1,6 @@
-import {UpdatedProfile} from "skillset";
+import {RequestContext} from "../../shared/RequestContext";
 
 export interface SaveProfileEvent {
-    body: UpdatedProfile;
-    authorisedUser: string;
+    body: string;
+    requestContext: RequestContext;
 }
