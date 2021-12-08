@@ -4,10 +4,12 @@ import {PersistedProfile} from "./PersistedProfile";
 import AWS from "aws-sdk";
 
 export class DynamoProfileRepository implements ProfileRepository {
-    private client = new AWS.DynamoDB.DocumentClient({
-        region: process.env.region ?? 'localhost',
-        endpoint: 'http://localhost:8000'
-    });
+    private client = new AWS.DynamoDB.DocumentClient(
+        // {
+        //     region: process.env.region ?? 'localhost',
+        //     endpoint: 'http://localhost:8000'
+        // }
+    );
 
     async get(email: string): Promise<Profile | undefined> {
         const result = await this.client
@@ -22,7 +24,7 @@ export class DynamoProfileRepository implements ProfileRepository {
 
     save(profile: Profile): Promise<void> {
         console.log(profile);
-        return Promise.resolve(undefined);
+        return Promise.resolve();
     }
 
     async search(query: ProfileSearchQuery): Promise<Profile[]> {
