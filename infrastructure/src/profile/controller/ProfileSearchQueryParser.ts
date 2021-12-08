@@ -8,7 +8,7 @@ export class ProfileSearchQueryParser {
 
         return  {
             skills: queryParameters.skills as string[],
-            isAvailable: queryParameters.isAvailable as unknown as boolean
+            isAvailable: Boolean(queryParameters.isAvailable) as boolean
         };
     }
 

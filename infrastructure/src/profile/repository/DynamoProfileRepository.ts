@@ -36,6 +36,7 @@ export class DynamoProfileRepository implements ProfileRepository {
     }
 
     async search(query: ProfileSearchQuery): Promise<Profile[]> {
+
         const result = await this.client
             .scan({
                 TableName: process.env.PROFILES_TABLE! // eslint-disable-line @typescript-eslint/no-non-null-assertion

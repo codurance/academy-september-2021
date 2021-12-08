@@ -106,6 +106,7 @@ export class StaticProfileRepository implements ProfileRepository {
     ];
 
     async search(query: ProfileSearchQuery): Promise<Profile[]> {
+
         let matchingProfiles: Profile[] = [];
 
         query.skills.forEach((skill: string) => {
