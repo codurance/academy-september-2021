@@ -83,7 +83,8 @@ describe('profile search', () => {
     };
 
     const toggleIsAvailable = () => {
-        const isAvailableFilter = screen.getByTestId('Only show available consultants');
-        userEvent.click(isAvailableFilter);
+        const isAvailableFilterLabel = screen.getByText('Only show available consultants');
+        const isAvailableFilterCheckbox = isAvailableFilterLabel.parentElement!;
+        userEvent.click(isAvailableFilterCheckbox);
     };
 });

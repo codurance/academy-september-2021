@@ -16,7 +16,9 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
 
     useEffect(() => {
         const requestedSkills = query?.skills.join(', ') ?? '';
+        const requestedIsAvailable = query?.isAvailable ?? false;
         setSkills(requestedSkills);
+        setIsAvailable(requestedIsAvailable);
     }, [query]);
 
     async function search(): Promise<void> {
@@ -50,7 +52,13 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
                             : <Icon name='search' aria-label='Search' onClick={search} link/>
                         }
                     </Input>
-                    <Checkbox label='Only show available consultants' data-testid='Only show available consultants' onClick={() => setIsAvailable(!isAvailable)}/>
+                </Form.Field>
+                <Form.Field style={{textAlign: 'left'}}>
+                    <Checkbox
+                        label='Only show available consultants'
+                        checked={isAvailable}
+                        onClick={() => setIsAvailable(!isAvailable)}
+                    />
                 </Form.Field>
             </Form>
         </>
