@@ -1,4 +1,4 @@
-import {Profile} from "skillset";
+import {Profile, UpdatedProfile} from "skillset";
 import {ProfileSearchQueryParser} from "./ProfileSearchQueryParser";
 import {ProfileRepository} from "../repository/ProfileRepository";
 import {Response} from "./Response";
@@ -45,8 +45,8 @@ export class ProfileController {
     }
 
     async save(event: SaveProfileEvent): Promise<Response> {
-        const authorisedUser = JSON.parse(event.authorisedUser) as AuthorisedUser;
-        const updatedProfile = event.body;
+        const authorisedUser = JSON.parse(event.requestContext.authorizer.authorisedUser) as AuthorisedUser;
+        const updatedProfile = JSON.parse(event.body) as UpdatedProfile;
         const profile: Profile = {
             email: authorisedUser.email,
             name: authorisedUser.name,
