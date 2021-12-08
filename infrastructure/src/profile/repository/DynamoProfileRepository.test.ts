@@ -1,8 +1,8 @@
-import {ProfileSearchQuery} from "skillset";
+import {Profile, ProfileSearchQuery} from "skillset";
 import {DynamoProfileRepository} from "./DynamoProfileRepository";
 import AWSMock from 'aws-sdk-mock';
 import AWS from 'aws-sdk';
-import {GetItemInput, ScanInput} from "aws-sdk/clients/dynamodb";
+import {GetItemInput, PutItemInput, ScanInput} from "aws-sdk/clients/dynamodb";
 
 describe('dynamo database profile repository', () => {
 
@@ -34,6 +34,23 @@ describe('dynamo database profile repository', () => {
         const result = await dynamoProfileRepository.get(email);
 
         expect(result?.name).toBe('Alexander Howson');
+    });
+
+    test('save a new profile', async () => {
+        let putItemInput: PutItemInput;
+        AWSMock.setSDKInstance(AWS);
+        AWSMock.mock('DynamoDB.DocumentClient', 'put', (params: PutItemInput, callback: Function) => { // eslint-disable-line @typescript-eslint/ban-types
+            putItemInput = params;
+            callback(null);
+        });
+        const dynamoProfileRepository = new DynamoProfileRepository();
+        const profile: Profile = {
+            skills: [{name: 'C#', level: 5}, {name: 'Java', level: 4}],
+        } as Profile;
+
+        await dynamoProfileRepository.save(profile);
+
+        expect(putItemInput!.Item).toEqual(profile); // eslint-disable-line @typescript-eslint/no-non-null-assertion
     });
 
     const mockedProfileTable = () => ({
