@@ -5,8 +5,8 @@ import AWS from "aws-sdk";
 import {DocumentClient} from "aws-sdk/clients/dynamodb";
 
 export class DynamoProfileRepository implements ProfileRepository {
-    private readonly profileTableName = process.env.PROFILES_TABLE!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
     private readonly client: DocumentClient;
+    private readonly profileTableName: string;
 
     constructor() {
         const { ENV } = process.env;
@@ -15,6 +15,7 @@ export class DynamoProfileRepository implements ProfileRepository {
             : undefined;
 
         this.client = new AWS.DynamoDB.DocumentClient(connectionOptions);
+        this.profileTableName = process.env.PROFILES_TABLE!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
     }
 
     async get(email: string): Promise<Profile | undefined> {

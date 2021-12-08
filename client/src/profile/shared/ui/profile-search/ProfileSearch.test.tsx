@@ -84,7 +84,7 @@ describe('profile search', () => {
 
     const toggleIsAvailable = () => {
         const isAvailableFilterLabel = screen.getByText('Only show available consultants');
-        const isAvailableFilterCheckbox = isAvailableFilterLabel.parentElement!;
+        const isAvailableFilterCheckbox = isAvailableFilterLabel.parentElement!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
         userEvent.click(isAvailableFilterCheckbox);
     };
 });

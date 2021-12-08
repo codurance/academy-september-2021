@@ -17,6 +17,6 @@ export class ProfileClient {
     }
 
     public async save(profile: UpdatedProfile): Promise<void> {
-        await this.resourceClient.update<UpdatedProfile>('/profile', profile);
+        return this.resourceClient.update<UpdatedProfile>('/profile', profile);
     }
 }

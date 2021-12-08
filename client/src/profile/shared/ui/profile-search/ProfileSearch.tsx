@@ -16,7 +16,7 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
 
     useEffect(() => {
         const previousSkills = query?.skills.join(', ') ?? '';
-        const hasRequestedAvailableOnly = query?.hasRequestedAvailableOnly ?? false
+        const hasRequestedAvailableOnly = query?.hasRequestedAvailableOnly ?? false;
         setSkills(previousSkills);
         setHasRequestedAvailableOnly(hasRequestedAvailableOnly);
     }, [query]);

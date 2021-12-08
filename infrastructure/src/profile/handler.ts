@@ -4,10 +4,9 @@ import {ProfileSearchQueryParser} from "./controller/ProfileSearchQueryParser";
 import {SearchProfilesEvent} from "./event/SearchProfilesEvent";
 import {GetProfileEvent} from "./event/GetProfileEvent";
 import {SaveProfileEvent} from "./event/SaveProfileEvent";
-import {DynamoProfileRepository} from "./repository/DynamoProfileRepository";
+import {StaticProfileRepository} from "./repository/StaticProfileRepository";
 
-//Switch this out for the proper implementation when ready
-const profileRepository = new DynamoProfileRepository();
+const profileRepository = new StaticProfileRepository();
 const profileSearchQueryParser = new ProfileSearchQueryParser();
 const profileController = new ProfileController(profileSearchQueryParser, profileRepository);
 

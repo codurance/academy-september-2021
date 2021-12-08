@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import {capture, instance, mock, when} from "ts-mockito";
+import {anything, capture, instance, mock, when} from "ts-mockito";
 import {AuthenticatedUser, AuthenticatedUserStore} from "../../shared/authentication/persistence";
 import React from "react";
 import {ProfileClient} from "../shared/resource";
@@ -27,7 +27,7 @@ describe('editing a profile should', () => {
     });
 
     it('display authenticated user when the user has not saved a profile before', async () => {
-        when(profileClient.getProfile('local.best.user@codurance.com')).thenResolve(undefined);
+        withSavingProfileForFirstTime();
 
         renderProfileEdit();
 
@@ -37,10 +37,11 @@ describe('editing a profile should', () => {
     });
 
     it('save profile on save clicked', async () => {
-        when(profileClient.getProfile('local.best.user@codurance.com')).thenResolve(undefined);
+        withSavingProfileForFirstTime();
         const expectedUpdatedProfile: UpdatedProfile = {
             skills: [ { name: 'React', level: 5 } ]
         };
+        when(profileClient.save(anything())).thenResolve();
         renderProfileEdit();
         selectDropdownValue('Select Skill', 'React');
         selectDropdownValue('Select Level', '5');
@@ -52,6 +53,26 @@ describe('editing a profile should', () => {
         expect(capturedUpdatedProfile).toEqual(expectedUpdatedProfile);
     });
 
+    it('show success message when able to save profile', async () => {
+        withSavingProfileForFirstTime();
+        when(profileClient.save(anything())).thenResolve();
+        renderProfileEdit();
+
+        screen.getByText('Save').click();
+
+        expect(await screen.findByText('Profile Saved')).toBeInTheDocument();
+    });
+
+    it('show error message when unable to save profile', async () => {
+        withSavingProfileForFirstTime();
+        when(profileClient.save(anything())).thenReject();
+        renderProfileEdit();
+
+        screen.getByText('Save').click();
+
+        expect(await screen.findByText('Unable to save profile, please try again')).toBeInTheDocument();
+    });
+
     const renderProfileEdit = () => {
         const authenticatedUser = {
             name: 'Local Best User',
@@ -60,6 +81,10 @@ describe('editing a profile should', () => {
         when(authenticatedUserStore.get()).thenReturn(authenticatedUser);
         render(<ProfileEdit profileClient={instance(profileClient)}
                             authenticatedUserStore={instance(authenticatedUserStore)}/>);
+    };
+
+    const withSavingProfileForFirstTime = () => {
+        when(profileClient.getProfile('local.best.user@codurance.com')).thenResolve(undefined);
     };
 
     const expectReadOnlyInputToHaveValue = async (label: string, value: string) => {

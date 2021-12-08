@@ -17,9 +17,14 @@ export const Layout: React.FC<Props> = ({authenticatedUserStore, profileFeatureN
             <Grid columns={3} textAlign='right' padded style={{paddingRight: '2em'}}>
                 <Grid.Row>
                     <Grid.Column floated='right'>
-                        <div className="link" onClick={() => profileFeatureNavigator.navigateToProfile()}>
-                            <Image src={authenticatedUser?.profileImageUrl} alt="Profile Image" circular size="tiny"
-                                   floated='right'/>
+                        <div onClick={() => profileFeatureNavigator.navigateToProfile()}>
+                            <Image
+                                src={authenticatedUser?.profileImageUrl}
+                                alt="Profile Image"
+                                size="tiny"
+                                floated='right'
+                                as='a'
+                                circular />
                         </div>
                     </Grid.Column>
                 </Grid.Row>
