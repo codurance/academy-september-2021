@@ -1,8 +1,8 @@
-import {ProfileSearchQuery} from "skillset";
+import {Profile, ProfileSearchQuery, ProfileSkill} from "skillset";
 import {DynamoProfileRepository} from "./DynamoProfileRepository";
 import AWSMock from 'aws-sdk-mock';
 import AWS from 'aws-sdk';
-import {GetItemInput, ScanInput} from "aws-sdk/clients/dynamodb";
+import {GetItemInput, PutItemInput, ScanInput} from "aws-sdk/clients/dynamodb";
 
 describe('dynamo database profile repository', () => {
 
@@ -34,6 +34,45 @@ describe('dynamo database profile repository', () => {
         const result = await dynamoProfileRepository.get(email);
 
         expect(result?.name).toBe('Alexander Howson');
+    });
+
+    test('upsert a new profile', async () => {
+        AWSMock.setSDKInstance(AWS);
+        AWSMock.mock('DynamoDB.DocumentClient', 'put', (params: PutItemInput, callback: Function) => { // eslint-disable-line @typescript-eslint/ban-types
+            callback(null, {Item: updatedMockedProfileTable().Items[0]});
+        });
+        const dynamoProfileRepository = new DynamoProfileRepository();
+
+        const profileSkills: ProfileSkill[] = [
+            {name: 'C#', level: 5},
+            {name: 'Java', level: 4},
+            {name: 'Rust', level: 3}
+        ];
+
+        const profile: Profile = {
+            email: 'alexander.howson@codurance.com',
+            skills: profileSkills,
+        } as Profile;
+
+        await dynamoProfileRepository.save(profile);
+
+        //Assertion that the mock was called with a matching profile skill level
+    });
+
+    const updatedMockedProfileTable = () => ({
+        Items: [{
+            name: 'Alexander Howson',
+            email: 'alexander.howson@codurance.com',
+            role: 'Software Craftsperson in Training',
+            skills: [
+                {name: 'C#', level: 5},
+                {name: 'Java', level: 4},
+                {name: 'Rust', level: 3},
+            ],
+            imageUrl: 'https://www.codurance.com/hubfs/Picture.jpg',
+            isAvailable: false,
+            currentClient: 'Academy'
+        }]
     });
 
     const mockedProfileTable = () => ({
