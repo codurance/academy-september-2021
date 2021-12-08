@@ -4,7 +4,17 @@ import {PersistedProfile} from "./PersistedProfile";
 import AWS from "aws-sdk";
 
 export class DynamoProfileRepository implements ProfileRepository {
-    private client = new AWS.DynamoDB.DocumentClient();
+    private client;
+
+    constructor() {
+        //create .env file with ENV=dev on line 1 to run locally
+        const { ENV } = process.env;
+        const connectionOptions = ENV === 'dev'
+            ? { region: 'localhost', endpoint: 'http://localhost:8000' }
+            : undefined;
+
+        this.client = new AWS.DynamoDB.DocumentClient(connectionOptions);
+    }
 
     async get(email: string): Promise<Profile | undefined> {
         const result = await this.client
