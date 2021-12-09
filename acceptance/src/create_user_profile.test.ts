@@ -37,7 +37,7 @@ describe("user profile creation", () => {
             .click()
 
         cy
-            .contains("Update Profile")
+            .contains('Save')
             .click()
 
         cy
@@ -53,8 +53,8 @@ describe("user profile creation", () => {
             .submit()
 
         cy
+            .get("div[class='ui container'")
             .contains('Sam Steele')
             .should('exist');
-
     })
 })
