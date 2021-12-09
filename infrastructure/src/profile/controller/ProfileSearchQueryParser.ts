@@ -8,7 +8,7 @@ export class ProfileSearchQueryParser {
 
         return  {
             skills: queryParameters.skills as string[],
-            hasRequestedAvailableOnly: Boolean(queryParameters.isAvailable)
+            hasRequestedAvailableOnly: (queryParameters.hasRequestedAvailableOnly as string) === 'true'
         };
     }
 

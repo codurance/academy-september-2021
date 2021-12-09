@@ -9,8 +9,7 @@ export class DynamoProfileRepository implements ProfileRepository {
     private readonly profileTableName: string;
 
     constructor() {
-        const { ENV } = process.env;
-        const connectionOptions = ENV === 'dev'
+        const connectionOptions = process.env.ENV === 'dev'
             ? { region: 'localhost', endpoint: 'http://localhost:8000' }
             : undefined;
 
@@ -53,6 +52,7 @@ export class DynamoProfileRepository implements ProfileRepository {
 
     private filterProfiles(profiles: PersistedProfile[], query: ProfileSearchQuery) {
         let filteredProfiles = profiles;
+        console.log('hasRequestedAvailableOnly', query.hasRequestedAvailableOnly);
         if (query.hasRequestedAvailableOnly) {
             filteredProfiles = filteredProfiles.filter(profile => profile.isAvailable);
         }
