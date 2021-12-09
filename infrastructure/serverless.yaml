@@ -9,7 +9,7 @@ custom:
     mySeedName:
       table: ${self:custprofilesTable}
       sources:
-        - src/profile/repository/profiles.json
+        - ./infrastructure/src/profile/repository/profiles.json
 
 provider:
   name: aws
