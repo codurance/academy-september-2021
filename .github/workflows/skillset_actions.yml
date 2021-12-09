@@ -58,8 +58,8 @@ jobs:
       - run: |
           npm install
           npm install -g serverless
-          serverless dynamodb:seed
           serverless deploy --stage staging --region us-east-1
+          serverless dynamodb:seed
 
   deploy_client:
     name: Deploy Client
