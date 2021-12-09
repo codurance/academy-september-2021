@@ -1,5 +1,8 @@
 export const skills = [
-    'React',
+    'C#',
+    'Java',
     'JavaScript',
+    'Rust',
+    'React',
     'TypeScript'
 ];
