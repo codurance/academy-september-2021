@@ -5,6 +5,10 @@ custom:
   dynamodb:
     stages:
       - dev
+    deletionPolicy:
+      dev: Delete
+      staging: Delete
+      production: Retain
   seed:
     profiles:
       table: ${self:custom.profilesTable}
@@ -75,6 +79,7 @@ resources:
           Ref: 'ApiGatewayRestApi'
     ProfilesTable:
       Type: AWS::DynamoDB::Table
+      DeletionPolicy: ${self:custom.dynamodb.deletionPolicy.${sls:stage}}
       Properties:
         TableName: ${self:custom.profilesTable}
         AttributeDefinitions:

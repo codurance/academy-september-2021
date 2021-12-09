@@ -17,11 +17,11 @@
     "email": "amandeep.panesar@codurance.com",
     "role": "Software Craftsperson in Training",
     "skills": [
-      {"name": "Docker", "level": 5},
+      {"name": "Docker", "level": 3},
       {"name": "Serverless", "level": 2},
       {"name": "React", "level": 3},
       {"name": "Java", "level": 1},
-      {"name": "JavaScript", "level": 5}
+      {"name": "JavaScript", "level": 3}
     ],
     "imageUrl": "https://www.codurance.com/hubfs/IMG_5435-2.jpg",
     "isAvailable": false,
