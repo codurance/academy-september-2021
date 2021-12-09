@@ -36,7 +36,7 @@ export const Layout: React.FC<Props> = ({authenticatedUserStore, profileFeatureN
                 </Grid.Row>
             </Grid>
 
-            <Container>
+            <Container style={{paddingBottom: '5rem'}}>
                 <Outlet/>
             </Container>
         </div>
