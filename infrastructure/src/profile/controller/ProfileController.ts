@@ -52,9 +52,9 @@ export class ProfileController {
             name: authorisedUser.name,
             imageUrl: authorisedUser.profileImageUrl,
             ...updatedProfile,
-            currentClient: 'Fake Client',
-            isAvailable: true,
-            role: 'Fake Role'
+            currentClient: 'Academy',
+            isAvailable: false,
+            role: 'Software Craftsperson in Training'
         };
 
         await this.profileRepository.save(profile);

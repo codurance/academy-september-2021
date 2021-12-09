@@ -81,9 +81,9 @@ describe('profile controller should', () => {
             name: "Best User",
             imageUrl: "http://codurance.com/best-user/profile-image.png",
             skills: [{name: 'React', level: 5}],
-            currentClient: 'Fake Client',
-            isAvailable: true,
-            role: 'Fake Role'
+            currentClient: 'Academy',
+            isAvailable: false,
+            role: 'Software Craftsperson in Training'
         });
     });
 
