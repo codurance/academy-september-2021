@@ -12,7 +12,7 @@ describe('profile controller should', () => {
 
     it('search with parsed query', async () => {
         const event = {
-            queryStringParameters: {'skills[0]': 'React', 'skills[1]': 'Typescript', 'skills[2]': 'Serverless', 'isAvailable': 'true'}
+            queryStringParameters: {'skills[0]': 'React', 'skills[1]': 'Typescript', 'skills[2]': 'Serverless', 'hasRequestedAvailableOnly': 'true'}
         };
         when(profileRepository.search(anything())).thenResolve([]);
 
