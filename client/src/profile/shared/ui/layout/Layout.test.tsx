@@ -32,4 +32,11 @@ describe('layout', () => {
 
         verify(profileFeatureNavigator.navigateToProfile()).called();
     });
+
+    it('should navigate to the search page when SkillSet logo clicked', () => {
+        const logo = screen.getByAltText('Home');
+        logo.click();
+
+        verify(profileFeatureNavigator.navigateToSearch()).called();
+    });
 });

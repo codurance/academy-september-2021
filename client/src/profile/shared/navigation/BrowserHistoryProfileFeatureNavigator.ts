@@ -21,4 +21,7 @@ export class BrowserHistoryProfileFeatureNavigator implements ProfileFeatureNavi
         this.history.push(ProfileFeatureRoute.PROFILE);
     }
 
+    navigateToSearch(): void {
+        this.history.push(ProfileFeatureRoute.SEARCH);
+    }
 }

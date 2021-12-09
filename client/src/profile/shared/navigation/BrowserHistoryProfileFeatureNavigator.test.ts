@@ -2,6 +2,7 @@ import {act, waitFor} from "@testing-library/react";
 import {Profile, ProfileSearchQuery} from "skillset";
 import {BrowserHistoryProfileFeatureNavigator} from "./BrowserHistoryProfileFeatureNavigator";
 import {createBrowserHistory} from "history";
+import {FeatureRoute} from "../../../shared/navigation/FeatureRoute";
 
 describe('react router profile feature navigator', () => {
     const history = createBrowserHistory();
@@ -33,6 +34,16 @@ describe('react router profile feature navigator', () => {
 
         return waitFor(() => {
             expect(window.location.pathname).toEqual('/profile');
+        });
+    });
+
+    it('should navigate to search', () => {
+        act(() => {
+            browserHistoryProfileFeatureNavigator.navigateToSearch();
+        });
+
+        return waitFor(() => {
+            expect(window.location.pathname).toEqual(FeatureRoute.PROFILE);
         });
     });
 });
