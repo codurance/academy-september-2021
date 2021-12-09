@@ -9,19 +9,11 @@ describe("user profile creation", () => {
             .should('exist');
 
         cy
-            .contains("Sam")
-            .should('exist');
-
-        cy
-            .contains("Steele")
-            .should('exist');
-
-        cy
             .contains('Select Skill')
             .click();
 
         cy
-            .contains("TypeScript")
+            .contains("Rust")
             .click();
 
         cy
