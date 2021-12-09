@@ -6,8 +6,8 @@ custom:
     stages:
       - dev
   seed:
-    mySeedName:
-      table: 'profilesTable-staging'
+    profiles:
+      table: ${self:custom.profilesTable}
       sources:
         - src/profile/repository/profiles.json
 
