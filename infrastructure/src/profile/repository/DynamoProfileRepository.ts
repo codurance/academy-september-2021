@@ -9,7 +9,7 @@ export class DynamoProfileRepository implements ProfileRepository {
     private readonly profileTableName: string;
 
     constructor() {
-        const connectionOptions = process.env.ENV === 'dev'
+        const connectionOptions = process.env.STAGE === 'dev'
             ? { region: 'localhost', endpoint: 'http://localhost:8000' }
             : undefined;
 

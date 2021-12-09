@@ -10,6 +10,7 @@ import userEvent from "@testing-library/user-event";
 describe('editing a profile should', () => {
     const profileClient = mock(ProfileClient);
     const authenticatedUserStore = mock<AuthenticatedUserStore>();
+    const windowView = mock<Window>();
 
     it('display retrieved profile when the user has saved a profile before', async () => {
         const profile: Profile = {
@@ -39,7 +40,7 @@ describe('editing a profile should', () => {
     it('save profile on save clicked', async () => {
         withSavingProfileForFirstTime();
         const expectedUpdatedProfile: UpdatedProfile = {
-            skills: [ { name: 'React', level: 5 } ]
+            skills: [{name: 'React', level: 5}]
         };
         when(profileClient.save(anything())).thenResolve();
         renderProfileEdit();
@@ -73,6 +74,21 @@ describe('editing a profile should', () => {
         expect(await screen.findByText('Unable to save profile, please try again')).toBeInTheDocument();
     });
 
+    it('scrolls to top after save', async () => {
+        withSavingProfileForFirstTime();
+        when(profileClient.save(anything())).thenResolve();
+        renderProfileEdit();
+
+        screen.getByText('Save').click();
+        await screen.findByText('Profile Saved');
+
+        const capturedWindowViewInteraction = capture(windowView.scrollTo).last()[0];
+        expect(capturedWindowViewInteraction).toEqual({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+
     const renderProfileEdit = () => {
         const authenticatedUser = {
             name: 'Local Best User',
@@ -80,7 +96,8 @@ describe('editing a profile should', () => {
         } as AuthenticatedUser;
         when(authenticatedUserStore.get()).thenReturn(authenticatedUser);
         render(<ProfileEdit profileClient={instance(profileClient)}
-                            authenticatedUserStore={instance(authenticatedUserStore)}/>);
+                            authenticatedUserStore={instance(authenticatedUserStore)}
+                            windowView={instance(windowView)}/>);
     };
 
     const withSavingProfileForFirstTime = () => {
@@ -104,6 +121,5 @@ describe('editing a profile should', () => {
         const input = screen.getByText(text);
         userEvent.click(input);
     };
-
 
 });

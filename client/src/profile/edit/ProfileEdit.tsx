@@ -9,14 +9,15 @@ import {ProfileSaveResponse} from "./ProfileSaveResponse";
 type Props = {
     profileClient: ProfileClient;
     authenticatedUserStore: AuthenticatedUserStore;
+    windowView: Window
 };
 
-export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserStore}) => {
+export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserStore, windowView}) => {
     const authenticatedUser = authenticatedUserStore.get()!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
     const [profile, setProfile] = useState<Profile | undefined>();
     const [skills, setSkills] = useState<ProfileSkill[]>([]);
     const [isPerformingNetworkRequest, setIsPerformingNetworkRequest] = useState(true);
-    const [profileSaveResponse, setProfileSaveResponse] = useState<ProfileSaveResponse>();
+    const [profileSaveResponse, setProfileSaveResponse] = useState<ProfileSaveResponse | undefined>(undefined);
 
     useEffect(() => {
         profileClient
@@ -44,14 +45,14 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
             .catch(() => setProfileSaveResponse(ProfileSaveResponse.ERROR))
             .finally(() => {
                 setIsPerformingNetworkRequest(false);
-                window.scrollTo({top: 0, behavior: 'smooth'});
+                windowView.scrollTo({top: 0, behavior: 'smooth'});
             });
     };
 
     return (
         <Form>
             <Dimmer inverted active={isPerformingNetworkRequest}>
-                <Loader />
+                <Loader/>
             </Dimmer>
 
             {!profile && !profileSaveResponse &&
@@ -68,7 +69,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
             }
 
             {profileSaveResponse === ProfileSaveResponse.ERROR &&
-            <Message error>Unable to save profile, please try again</Message>
+            <Message negative>Unable to save profile, please try again</Message>
             }
 
             <Form.Group widths='equal'>
@@ -78,7 +79,9 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
 
             <EditSkills skills={skills} onSkillsUpdated={updatedSkills => setSkills(updatedSkills)}/>
 
-            <Button onClick={saveProfile}>Save</Button>
+            <div style={{marginTop: '3rem', textAlign: 'center'}}>
+                <Button size='huge' color='green' onClick={saveProfile}>Save</Button>
+            </div>
         </Form>
     );
 };

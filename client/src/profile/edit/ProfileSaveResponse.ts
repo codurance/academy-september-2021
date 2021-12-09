@@ -1,4 +1,4 @@
 export enum ProfileSaveResponse {
-    SUCCESS,
-    ERROR
+    SUCCESS = 'SUCCESS',
+    ERROR = 'ERROR'
 }
