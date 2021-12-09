@@ -69,7 +69,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
             }
 
             {profileSaveResponse === ProfileSaveResponse.ERROR &&
-            <Message error>Unable to save profile, please try again</Message>
+            <Message negative>Unable to save profile, please try again</Message>
             }
 
             <Form.Group widths='equal'>

@@ -68,20 +68,6 @@ Requires downloading serverless as a dependency. This can be done in a variety o
 Serverless can then be run offline with the following command.
 > serverless offline --httpPort 3004
 
-**Running DynamoDB Locally**
-
-Running Dynamodb locally can be done by installing DynamoDB to the host machine. This also depends on serverless
-
-Installing serverless
-> npm install -g serverless
-
-Starting DynamoDB locally
-> cd ./infrastructure
->
-> npm install
->
-> sls dynamodb start --migrate
-
 ### Dependencies
 
 The application has the following dependencies
