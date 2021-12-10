@@ -15,16 +15,17 @@ export const Layout: React.FC<Props> = ({authenticatedUserStore, profileFeatureN
 
     return (
         <div>
-            <Grid columns={3} textAlign='right' padded style={{paddingRight: '2em', paddingLeft: '2em'}}>
+            <Grid columns={3} textAlign='right' padded style={{paddingRight: '2em', paddingLeft: '1em'}}>
                 <Grid.Row>
                     <Grid.Column floated='left'>
                         <div onClick={() => profileFeatureNavigator.navigateToSearch()}>
                             <Image
                                 src={logo}
                                 alt="Home"
-                                style={{height: '65px'}}
+                                style={{height: '6vh', width: '6vh', padding: '0.5rem', cursor: 'pointer'}}
                                 floated='left'
-                                circular />
+                                bordered
+                                rounded/>
                         </div>
                     </Grid.Column>
                     <Grid.Column floated='right'>
@@ -32,10 +33,10 @@ export const Layout: React.FC<Props> = ({authenticatedUserStore, profileFeatureN
                             <Image
                                 src={authenticatedUser?.profileImageUrl}
                                 alt="Profile Image"
+                                style={{cursor: 'pointer'}}
                                 size="tiny"
                                 floated='right'
-                                as='a'
-                                circular />
+                                circular/>
                         </div>
                     </Grid.Column>
                 </Grid.Row>
