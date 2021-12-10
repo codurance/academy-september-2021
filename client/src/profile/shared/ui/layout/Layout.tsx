@@ -22,7 +22,7 @@ export const Layout: React.FC<Props> = ({authenticatedUserStore, profileFeatureN
                             <Image
                                 src={logo}
                                 alt="Home"
-                                style={{height: '6vh', width: '6vh', padding: '0.5rem', cursor: 'pointer'}}
+                                style={{height: '55px', width: '55px', padding: '0.5rem', cursor: 'pointer'}}
                                 floated='left'
                                 bordered
                                 rounded/>
