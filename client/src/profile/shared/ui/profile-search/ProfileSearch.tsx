@@ -27,6 +27,7 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
 
         await profileSearchService
             .search(query)
+            .then(() => setHasSearchError(false))
             .catch(() => setHasSearchError(true))
             .finally(() => setIsLoadingSearch(false));
     }

@@ -58,6 +58,17 @@ describe('profile search', () => {
         expect(await screen.findByText("Network Error, try again.")).toBeInTheDocument();
     });
 
+    it('should not show previous error when able to search', async () => {
+        when(profileSearchService.search(anything())).thenReject();
+        renderProfileSearch();
+        await submitSearch('Java');
+        when(profileSearchService.search(anything())).thenResolve();
+
+        await submitSearch('Java');
+
+        expect(await screen.queryByText("Network Error, try again.")).not.toBeInTheDocument();
+    });
+
     it('should perform search with filter for availability', async () => {
         when(profileSearchService.search(anything())).thenResolve();
         renderProfileSearch();
@@ -75,10 +86,10 @@ describe('profile search', () => {
         render(<ProfileSearch profileSearchService={instance(profileSearchService)}/>);
     };
 
-    const submitSearch = (term: string) => {
+    const submitSearch = async (term: string) => {
         const search = screen.getByPlaceholderText('Java, TypeScript, React...');
         userEvent.type(search, term);
-        const searchButton = screen.getByLabelText('Search');
+        const searchButton = await screen.findByLabelText('Search');
         searchButton.click();
     };
 
