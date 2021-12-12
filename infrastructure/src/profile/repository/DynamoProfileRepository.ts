@@ -52,7 +52,6 @@ export class DynamoProfileRepository implements ProfileRepository {
 
     private filterProfiles(profiles: PersistedProfile[], query: ProfileSearchQuery) {
         let filteredProfiles = profiles;
-        console.log('hasRequestedAvailableOnly', query.hasRequestedAvailableOnly);
         if (query.hasRequestedAvailableOnly) {
             filteredProfiles = filteredProfiles.filter(profile => profile.isAvailable);
         }
