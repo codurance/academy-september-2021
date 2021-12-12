@@ -4,7 +4,7 @@ export interface AuthenticatedUserStore {
 
     set(authenticatedUser: AuthenticatedUser): void
 
-    get(): AuthenticatedUser | null
+    get(): AuthenticatedUser | undefined
 
     clear(): void;
 

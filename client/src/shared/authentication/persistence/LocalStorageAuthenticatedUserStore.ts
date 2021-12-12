@@ -10,9 +10,9 @@ export class LocalStorageAuthenticatedUserStore implements AuthenticatedUserStor
         localStorage.setItem(this.AUTHENTICATED_USER_KEY, formattedUser);
     }
 
-    get(): AuthenticatedUser | null {
+    get(): AuthenticatedUser | undefined {
         const persistedUser = localStorage.getItem(this.AUTHENTICATED_USER_KEY);
-        if (!persistedUser) return null;
+        if (!persistedUser) return undefined;
 
         return JSON.parse(persistedUser);
     }

@@ -1,19 +1,17 @@
 import {Container, Dropdown, Grid, Image} from "semantic-ui-react";
 import React from "react";
-import {AuthenticatedUserStore} from "../../../../shared/authentication/persistence";
 import {Outlet} from "react-router-dom";
 import {ProfileFeatureNavigator} from "../../navigation";
 import logo from "../../../../shared/ui/logo.svg";
-import {UserService} from "../../../../shared/user/service/UserService";
+import {AuthenticatedUserService} from "../../../../shared/authentication/service/AuthenticatedUserService";
 
 type Props = {
-    authenticatedUserStore: AuthenticatedUserStore;
+    authenticatedUserService: AuthenticatedUserService;
     profileFeatureNavigator: ProfileFeatureNavigator;
-    userService: UserService;
 };
 
-export const Layout: React.FC<Props> = ({authenticatedUserStore, profileFeatureNavigator, userService}) => {
-    const authenticatedUser = authenticatedUserStore.get();
+export const Layout: React.FC<Props> = ({authenticatedUserService, profileFeatureNavigator}) => {
+    const authenticatedUser = authenticatedUserService.getAuthenticatedUser();
 
     return (
         <div>
@@ -47,7 +45,7 @@ export const Layout: React.FC<Props> = ({authenticatedUserStore, profileFeatureN
                         <Dropdown text={authenticatedUser?.name} direction={"right"}>
                             <Dropdown.Menu style={{paddingLeft: '1.5rem', paddingRight: '1.5rem'}}>
                                 <Dropdown.Item text="Profile" onClick={() => profileFeatureNavigator.navigateToProfile()} />
-                                <Dropdown.Item text="Logout" onClick={() => userService.logout()} />
+                                <Dropdown.Item text="Logout" onClick={() => authenticatedUserService.logout()} />
                             </Dropdown.Menu>
                         </Dropdown>
                     </Grid.Column>

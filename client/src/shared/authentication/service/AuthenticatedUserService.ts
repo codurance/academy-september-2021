@@ -1,8 +1,8 @@
-import {Authenticator} from "../../authentication/authenticator";
-import {AuthenticatedUserStore} from "../../authentication/persistence";
+import {Authenticator} from "../authenticator";
+import {AuthenticatedUser, AuthenticatedUserStore} from "../persistence";
 import {ApplicationNavigator} from "../../navigation";
 
-export class UserService {
+export class AuthenticatedUserService {
 
     private authenticator: Authenticator;
     private authenticatedUserStore: AuthenticatedUserStore;
@@ -14,14 +14,27 @@ export class UserService {
         this.applicationNavigator = applicationNavigator;
     }
 
+    public getAuthenticatedUser(): AuthenticatedUser | undefined {
+        return this.authenticatedUserStore.get();
+    }
+
+    public hasValidSession(): boolean {
+        const authenticatedUser = this.getAuthenticatedUser();
+        const accessToken = authenticatedUser?.accessToken;
+        if (!accessToken) return false;
+
+        return this.authenticator.isValidToken(accessToken);
+    }
+
     public async login(): Promise<void> {
         const authenticatedUser = await this.authenticator.getAuthenticatedUser();
         this.authenticatedUserStore.set(authenticatedUser);
         this.applicationNavigator.navigateToHome();
     }
 
-    logout(): void {
+    public logout(): void {
         this.authenticatedUserStore.clear();
         this.applicationNavigator.navigateToLogin();
     }
+    
 }

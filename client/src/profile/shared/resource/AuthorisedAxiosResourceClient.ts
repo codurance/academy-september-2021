@@ -1,8 +1,7 @@
 import {ResourceClient} from "./ResourceClient";
 import axios from "axios";
-import {AuthenticatedUserStore} from "../../../shared/authentication/persistence";
-import {ApplicationNavigator} from "../../../shared/navigation";
 import querystring from "qs";
+import {AuthenticatedUserService} from "../../../shared/authentication/service/AuthenticatedUserService";
 
 export class AuthorisedAxiosResourceClient implements ResourceClient {
 
@@ -10,12 +9,10 @@ export class AuthorisedAxiosResourceClient implements ResourceClient {
         baseURL: process.env.REACT_APP_BASE_URL ?? 'http://localhost:3004/dev',
     });
 
-    private authenticatedUserStore: AuthenticatedUserStore;
-    private readonly applicationNavigator: ApplicationNavigator;
+    private authenticatedUserService: AuthenticatedUserService;
 
-    constructor(authenticatedUserStore: AuthenticatedUserStore, applicationNavigator: ApplicationNavigator) {
-        this.authenticatedUserStore = authenticatedUserStore;
-        this.applicationNavigator = applicationNavigator;
+    constructor(authenticatedUserService: AuthenticatedUserService) {
+        this.authenticatedUserService = authenticatedUserService;
 
         this.addRequestAuthorisationHeader();
         this.handleUnauthorisedResponses();
@@ -35,7 +32,7 @@ export class AuthorisedAxiosResourceClient implements ResourceClient {
     private addRequestAuthorisationHeader(): void {
         this.axiosClient.interceptors.request.use(
             config => {
-                const authenticatedUser = this.authenticatedUserStore.get();
+                const authenticatedUser = this.authenticatedUserService.getAuthenticatedUser();
                 const accessToken = authenticatedUser?.accessToken;
                 return {
                     ...config,
@@ -52,7 +49,7 @@ export class AuthorisedAxiosResourceClient implements ResourceClient {
             response => response,
             error => {
                 if (error.response && this.isUnauthorisedResponse(error.response)) {
-                    this.applicationNavigator.navigateToLogin();
+                    this.authenticatedUserService.logout();
                     return new Promise(() => { /* do nothing */
                     });
                 }

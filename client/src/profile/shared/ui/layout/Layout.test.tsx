@@ -1,10 +1,10 @@
 import {render, screen} from "@testing-library/react";
 import {instance, mock, verify, when} from "ts-mockito";
 import React from "react";
-import {AuthenticatedUser, AuthenticatedUserStore} from "../../../../shared/authentication/persistence";
+import {AuthenticatedUser} from "../../../../shared/authentication/persistence";
 import {Layout} from "./Layout";
 import {ProfileFeatureNavigator} from "../../navigation";
-import {UserService} from "../../../../shared/user/service/UserService";
+import {AuthenticatedUserService} from "../../../../shared/authentication/service/AuthenticatedUserService";
 
 describe('layout should', () => {
     const authenticatedUser = {
@@ -12,17 +12,15 @@ describe('layout should', () => {
         profileImageUrl: 'https://hosting.site/profile/best-user-image.png',
     } as AuthenticatedUser;
 
-    const authenticatedUserStore = mock<AuthenticatedUserStore>();
+    const authenticatedUserService = mock<AuthenticatedUserService>();
     const profileFeatureNavigator = mock<ProfileFeatureNavigator>();
-    const userService = mock(UserService);
 
     beforeEach(() => {
-        when(authenticatedUserStore.get()).thenReturn(authenticatedUser);
+        when(authenticatedUserService.getAuthenticatedUser()).thenReturn(authenticatedUser);
         render(
             <Layout
-                authenticatedUserStore={instance(authenticatedUserStore)}
+                authenticatedUserService={instance(authenticatedUserService)}
                 profileFeatureNavigator={instance(profileFeatureNavigator)}
-                userService={instance(userService)}
             />
         );
     });
@@ -43,7 +41,7 @@ describe('layout should', () => {
         clickText('Best User');
         clickText('Logout');
 
-        verify(userService.logout()).called();
+        verify(authenticatedUserService.logout()).called();
     });
 
     it('navigate to the search page when SkillSet logo clicked', () => {

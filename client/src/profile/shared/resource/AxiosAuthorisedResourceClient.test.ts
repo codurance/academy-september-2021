@@ -1,11 +1,11 @@
 import {setupServer} from "msw/node";
 import {rest} from "msw";
 import {AuthorisedAxiosResourceClient} from "./AuthorisedAxiosResourceClient";
-import {AuthenticatedUser, AuthenticatedUserStore} from "../../../shared/authentication/persistence";
+import {AuthenticatedUser} from "../../../shared/authentication/persistence";
 import {instance, mock, verify, when} from "ts-mockito";
 import {act, waitFor} from "@testing-library/react";
-import {ApplicationNavigator} from "../../../shared/navigation";
 import {DefaultRequestBody} from "msw/lib/types/handlers/RequestHandler";
+import {AuthenticatedUserService} from "../../../shared/authentication/service/AuthenticatedUserService";
 
 describe('axios request client', () => {
     const requestUrl = "http://localhost:3004/dev/path-to-my-resource";
@@ -15,12 +15,10 @@ describe('axios request client', () => {
         property: string;
     }
 
-    const authenticatedUserStore = mock<AuthenticatedUserStore>();
-    const applicationNavigator = mock<ApplicationNavigator>();
+    const authenticatedUserService = mock<AuthenticatedUserService>();
 
     const authorisedAxiosResourceClient = new AuthorisedAxiosResourceClient(
-        instance(authenticatedUserStore),
-        instance(applicationNavigator)
+        instance(authenticatedUserService)
     );
 
     const targets = [
@@ -43,7 +41,7 @@ describe('axios request client', () => {
     it.each(targets)('performs request with authorisation header', async (target) => {
         const authenticatedUser: AuthenticatedUser = {accessToken: "access-token"} as AuthenticatedUser;
         let authorisationHeader: string | null;
-        when(authenticatedUserStore.get()).thenReturn(authenticatedUser);
+        when(authenticatedUserService.getAuthenticatedUser()).thenReturn(authenticatedUser);
         server.use(
             target.interceptor(requestUrl, (request, response) => {
                 authorisationHeader = request.headers.get('Authorization');
@@ -58,7 +56,7 @@ describe('axios request client', () => {
         });
     });
 
-    it.each(targets)('navigate to login for intercepted get request with response status of %d', async (target) => {
+    it.each(targets)('logout for intercepted request with response status of %d', async (target) => {
         for (const statusCode of [401, 403]) {
             server.use(
                 target.interceptor(requestUrl, (request, response, context) => {
@@ -73,12 +71,12 @@ describe('axios request client', () => {
             });
 
             await waitFor(() => {
-                verify(applicationNavigator.navigateToLogin()).called();
+                verify(authenticatedUserService.logout()).called();
             });
         }
     });
 
-    it.each(targets)('return error for get requests with non authorisation errors', async (target) => {
+    it.each(targets)('return error for requests with non authorisation errors', async (target) => {
         server.use(
             target.interceptor(requestUrl, (request, response, context) => {
                 return response(

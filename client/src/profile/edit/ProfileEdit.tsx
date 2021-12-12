@@ -1,19 +1,19 @@
 import {ProfileClient} from "../shared/resource";
-import {AuthenticatedUserStore} from "../../shared/authentication/persistence";
 import React, {useEffect, useState} from "react";
 import {Profile, ProfileSkill} from "skillset";
 import {Button, Dimmer, Form, Loader, Message} from "semantic-ui-react";
 import {EditSkills} from "./skills/EditSkills";
 import {ProfileEditState} from "./ProfileEditState";
+import {AuthenticatedUserService} from "../../shared/authentication/service/AuthenticatedUserService";
 
 type Props = {
     profileClient: ProfileClient;
-    authenticatedUserStore: AuthenticatedUserStore;
+    authenticatedUserService: AuthenticatedUserService;
     windowView: Window
 };
 
-export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserStore, windowView}) => {
-    const authenticatedUser = authenticatedUserStore.get()!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserService, windowView}) => {
+    const authenticatedUser = authenticatedUserService.getAuthenticatedUser()!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
     const [profile, setProfile] = useState<Profile | undefined>();
     const [skills, setSkills] = useState<ProfileSkill[]>([]);
     const [profileEditState, setProfileEditState] = useState<ProfileEditState>(ProfileEditState.PERFORMING_NETWORK_REQUEST);

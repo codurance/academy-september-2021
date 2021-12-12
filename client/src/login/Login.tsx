@@ -1,11 +1,11 @@
-import {UserService} from "../shared/user/service/UserService";
+import {AuthenticatedUserService} from "../shared/authentication/service/AuthenticatedUserService";
 import React, {useState} from 'react';
 import {Button, Grid, Image, Message} from "semantic-ui-react";
 import googleButton from './google-sign-in-button.png';
 import {Logo} from "../shared/ui/Logo";
 
 type Props = {
-    userService: UserService
+    userService: AuthenticatedUserService
 };
 
 export const Login: React.FC<Props> = ({userService}: Props) => {

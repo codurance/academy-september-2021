@@ -17,7 +17,7 @@ describe('local storage authenticated user store should', () => {
     });
 
     it('return nothing if no user persisted in local storage', () => {
-        expect(localStorageAuthenticatedUserStore.get()).toBeNull();
+        expect(localStorageAuthenticatedUserStore.get()).toBeUndefined();
     });
 
     it('return persisted user', () => {
@@ -33,6 +33,6 @@ describe('local storage authenticated user store should', () => {
 
         localStorageAuthenticatedUserStore.clear();
 
-        expect(localStorageAuthenticatedUserStore.get()).toBeNull();
+        expect(localStorageAuthenticatedUserStore.get()).toBeUndefined();
     });
 });

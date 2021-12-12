@@ -1,15 +1,16 @@
 import {render, screen} from "@testing-library/react";
 import {anything, capture, instance, mock, when} from "ts-mockito";
-import {AuthenticatedUser, AuthenticatedUserStore} from "../../shared/authentication/persistence";
+import {AuthenticatedUser} from "../../shared/authentication/persistence";
 import React from "react";
 import {ProfileClient} from "../shared/resource";
 import {Profile, ProfileSkill, UpdatedProfile} from "skillset";
 import {ProfileEdit} from "./ProfileEdit";
 import userEvent from "@testing-library/user-event";
+import {AuthenticatedUserService} from "../../shared/authentication/service/AuthenticatedUserService";
 
 describe('editing a profile should', () => {
     const profileClient = mock(ProfileClient);
-    const authenticatedUserStore = mock<AuthenticatedUserStore>();
+    const authenticatedUserService = mock<AuthenticatedUserService>();
     const windowView = mock<Window>();
 
     it('display retrieved profile when the user has saved a profile before', async () => {
@@ -94,9 +95,9 @@ describe('editing a profile should', () => {
             name: 'Local Best User',
             email: 'local.best.user@codurance.com'
         } as AuthenticatedUser;
-        when(authenticatedUserStore.get()).thenReturn(authenticatedUser);
+        when(authenticatedUserService.getAuthenticatedUser()).thenReturn(authenticatedUser);
         render(<ProfileEdit profileClient={instance(profileClient)}
-                            authenticatedUserStore={instance(authenticatedUserStore)}
+                            authenticatedUserService={instance(authenticatedUserService)}
                             windowView={instance(windowView)}/>);
     };
 

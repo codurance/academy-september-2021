@@ -6,7 +6,7 @@ import {BrowserHistoryNavigator, BrowserRouter, FeatureRoute} from "./shared/nav
 import {createBrowserHistory} from "history";
 import {ProfileModule} from "./profile/ProfileModule";
 import {LoginModule} from "./login/LoginModule";
-import {UserService} from "./shared/user/service/UserService";
+import {AuthenticatedUserService} from "./shared/authentication/service/AuthenticatedUserService";
 
 const App: React.FC = () => {
     const history = createBrowserHistory();
@@ -14,19 +14,16 @@ const App: React.FC = () => {
     const authenticator = new GoogleAuthenticator(googleUserProvider);
     const authenticatedUserStore = new LocalStorageAuthenticatedUserStore();
     const applicationNavigator = new BrowserHistoryNavigator(history);
-    const userService = new UserService(authenticator, authenticatedUserStore, applicationNavigator);
+    const authenticatedUserService = new AuthenticatedUserService(authenticator, authenticatedUserStore, applicationNavigator);
 
     return (
         <div className="App">
             <BrowserRouter history={history}>
                 <Routes>
-                    <Route path={FeatureRoute.LOGIN} element={<LoginModule userService={userService}/>}/>
+                    <Route path={FeatureRoute.LOGIN} element={<LoginModule userService={authenticatedUserService}/>}/>
 
                     <Route path="*" element={<ProfileModule history={history}
-                                                            authenticator={authenticator}
-                                                            authenticatedUserStore={authenticatedUserStore}
-                                                            applicationNavigator={applicationNavigator}
-                                                            userService={userService}/>}/>
+                                                            authenticatedUserService={authenticatedUserService}/>}/>
                 </Routes>
             </BrowserRouter>
         </div>

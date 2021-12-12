@@ -1,9 +1,9 @@
 import React from "react";
 import {Login} from "./Login";
-import {UserService} from "../shared/user/service/UserService";
+import {AuthenticatedUserService} from "../shared/authentication/service/AuthenticatedUserService";
 
 type Props = {
-    userService: UserService;
+    userService: AuthenticatedUserService;
 };
 
 export const LoginModule: React.FC<Props> = ({userService}: Props) => {

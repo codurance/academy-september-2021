@@ -2,16 +2,17 @@ import {act, render, screen, waitFor} from "@testing-library/react";
 import {ProfileSearchResults} from "./ProfileSearchResults";
 import {instance, mock, verify} from "ts-mockito";
 import {ProfileSearchService} from "../shared/ui/profile-search";
-import {ApplicationNavigator, BrowserRouter} from "../../shared/navigation";
+import {BrowserRouter} from "../../shared/navigation";
 import {Route, Routes} from "react-router-dom";
 import React from "react";
 import {createBrowserHistory} from "history";
 import {Profile} from "skillset";
+import {ProfileFeatureNavigator} from "../shared/navigation";
 
 describe('profile search results', () => {
     const history = createBrowserHistory();
 
-    const applicationNavigator = mock<ApplicationNavigator>();
+    const profileFeatureNavigator = mock<ProfileFeatureNavigator>();
     const profileSearchService = mock(ProfileSearchService);
 
     beforeEach(() => {
@@ -21,13 +22,13 @@ describe('profile search results', () => {
         });
     });
 
-    it('should navigate to home for manual navigation to search results', () => {
+    it('should navigate to search for manual navigation to search results', () => {
         act(() => {
             history.push('/results');
         });
 
         return waitFor(() => {
-            verify(applicationNavigator.navigateToHome()).called();
+            verify(profileFeatureNavigator.navigateToSearch()).called();
         });
     });
 
@@ -53,7 +54,7 @@ describe('profile search results', () => {
             email: 'jordan.steele@codurance.com',
             role: 'Software Craftsperson',
             imageUrl: "http://localhost:3000/profile/jordan.steele.png",
-            skills: [{name:'Java', level: 4}, {name: 'Kotlin', level: 3}],
+            skills: [{name: 'Java', level: 4}, {name: 'Kotlin', level: 3}],
             currentClient: 'Client',
             isAvailable: false
         };
@@ -90,7 +91,7 @@ describe('profile search results', () => {
                 <Routes>
                     <Route path="/" element={<p>Other route</p>}/>
                     <Route path="/results"
-                           element={<ProfileSearchResults applicationNavigator={instance(applicationNavigator)}
+                           element={<ProfileSearchResults profileFeatureNavigator={instance(profileFeatureNavigator)}
                                                           profileSearchService={instance(profileSearchService)}/>}/>
                 </Routes>
             </BrowserRouter>
