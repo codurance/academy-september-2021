@@ -11,19 +11,22 @@ import {Route, Routes} from "react-router-dom";
 import {AuthorisedAxiosResourceClient, ProfileClient} from "./shared/resource";
 import {Layout} from "./shared/ui/layout/Layout";
 import {ProfileEdit} from "./edit/ProfileEdit";
+import {UserService} from "../shared/user/service/UserService";
 
 type Props = {
     history: History;
     authenticator: Authenticator;
     authenticatedUserStore: AuthenticatedUserStore;
     applicationNavigator: ApplicationNavigator;
+    userService: UserService;
 };
 
 export const ProfileModule: React.FC<Props> = ({
                                                    history,
                                                    authenticator,
                                                    authenticatedUserStore,
-                                                   applicationNavigator
+                                                   applicationNavigator,
+                                                   userService
                                                }: Props) => {
     const resourceClient = new AuthorisedAxiosResourceClient(authenticatedUserStore, applicationNavigator);
     const profileClient = new ProfileClient(resourceClient);
@@ -34,7 +37,8 @@ export const ProfileModule: React.FC<Props> = ({
         <div>
             <Routes>
                 <Route path="/" element={<Layout authenticatedUserStore={authenticatedUserStore}
-                                                 profileFeatureNavigator={profileFeatureNavigator}/>}>
+                                                 profileFeatureNavigator={profileFeatureNavigator}
+                                                 userService={userService}/>}>
                     <Route path={ProfileFeatureRoute.SEARCH} element={
                         <AuthenticatedRouteGuard authenticator={authenticator}
                                                  authenticatedUserStore={authenticatedUserStore}>

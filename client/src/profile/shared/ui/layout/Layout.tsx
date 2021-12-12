@@ -1,16 +1,18 @@
-import {Container, Grid, Image} from "semantic-ui-react";
+import {Container, Dropdown, Grid, Image} from "semantic-ui-react";
 import React from "react";
 import {AuthenticatedUserStore} from "../../../../shared/authentication/persistence";
 import {Outlet} from "react-router-dom";
 import {ProfileFeatureNavigator} from "../../navigation";
 import logo from "../../../../shared/ui/logo.svg";
+import {UserService} from "../../../../shared/user/service/UserService";
 
 type Props = {
     authenticatedUserStore: AuthenticatedUserStore;
     profileFeatureNavigator: ProfileFeatureNavigator;
+    userService: UserService;
 };
 
-export const Layout: React.FC<Props> = ({authenticatedUserStore, profileFeatureNavigator}) => {
+export const Layout: React.FC<Props> = ({authenticatedUserStore, profileFeatureNavigator, userService}) => {
     const authenticatedUser = authenticatedUserStore.get();
 
     return (
@@ -29,11 +31,10 @@ export const Layout: React.FC<Props> = ({authenticatedUserStore, profileFeatureN
                         </div>
                     </Grid.Column>
                     <Grid.Column floated='right'>
-                        <div onClick={() => profileFeatureNavigator.navigateToProfile()}>
+                        <div>
                             <Image
                                 src={authenticatedUser?.profileImageUrl}
                                 alt="Profile Image"
-                                style={{cursor: 'pointer'}}
                                 size="tiny"
                                 floated='right'
                                 circular/>
@@ -43,7 +44,12 @@ export const Layout: React.FC<Props> = ({authenticatedUserStore, profileFeatureN
 
                 <Grid.Row style={{paddingTop: '0', paddingBottom: '0'}}>
                     <Grid.Column floated='right'>
-                        <p>{authenticatedUser?.name}</p>
+                        <Dropdown text={authenticatedUser?.name} direction={"right"}>
+                            <Dropdown.Menu style={{paddingLeft: '1.5rem', paddingRight: '1.5rem'}}>
+                                <Dropdown.Item text="Profile" onClick={() => profileFeatureNavigator.navigateToProfile()} />
+                                <Dropdown.Item text="Logout" onClick={() => userService.logout()} />
+                            </Dropdown.Menu>
+                        </Dropdown>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

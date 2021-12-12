@@ -1,14 +1,14 @@
-import {LoginService} from './LoginService';
+import {UserService} from '../shared/user/service/UserService';
 import {BrowserRouter} from 'react-router-dom';
 import {Login} from './Login';
 import {render, screen} from '@testing-library/react';
 import {instance, mock, when} from 'ts-mockito';
 
 describe('on login rendered', () => {
-    const loginService = mock(LoginService);
+    const loginService = mock(UserService);
 
     beforeEach(() => {
-        render(<Login loginService={instance(loginService)}/>, {wrapper: BrowserRouter});
+        render(<Login userService={instance(loginService)}/>, {wrapper: BrowserRouter});
     });
 
     it('show no login error from successful login attempt on login button clicked', async () => {

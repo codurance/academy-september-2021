@@ -1,18 +1,18 @@
-import {LoginService} from "./LoginService";
+import {UserService} from "../shared/user/service/UserService";
 import React, {useState} from 'react';
 import {Button, Grid, Image, Message} from "semantic-ui-react";
 import googleButton from './google-sign-in-button.png';
 import {Logo} from "../shared/ui/Logo";
 
 type Props = {
-    loginService: LoginService
+    userService: UserService
 };
 
-export const Login: React.FC<Props> = ({loginService}: Props) => {
+export const Login: React.FC<Props> = ({userService}: Props) => {
     const [hasLoginError, setHasLoginError] = useState(false);
 
     async function attemptLogin() {
-        await loginService
+        await userService
             .login()
             .catch(() => setHasLoginError(true));
     }

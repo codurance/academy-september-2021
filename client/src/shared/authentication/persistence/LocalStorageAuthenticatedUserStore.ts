@@ -16,5 +16,9 @@ export class LocalStorageAuthenticatedUserStore implements AuthenticatedUserStor
 
         return JSON.parse(persistedUser);
     }
+
+    clear(): void {
+        localStorage.clear();
+    }
     
 }

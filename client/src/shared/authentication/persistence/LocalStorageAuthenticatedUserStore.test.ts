@@ -1,7 +1,14 @@
-import { LocalStorageAuthenticatedUserStore } from './LocalStorageAuthenticatedUserStore';
-import { AuthenticatedUser } from './AuthenticatedUser';
+import {LocalStorageAuthenticatedUserStore} from './LocalStorageAuthenticatedUserStore';
+import {AuthenticatedUser} from './AuthenticatedUser';
 
-describe('LocalStorageAuthenticatedUserStore', () => {
+describe('local storage authenticated user store should', () => {
+
+    const authenticatedUser: AuthenticatedUser = {
+        name: "Best User",
+        email: "best.user@codurance.com",
+        profileImageUrl: 'https://hosting.site/profile/best-user-image.png',
+        accessToken: "access-token"
+    };
 
     let localStorageAuthenticatedUserStore: LocalStorageAuthenticatedUserStore;
 
@@ -9,17 +16,11 @@ describe('LocalStorageAuthenticatedUserStore', () => {
         localStorageAuthenticatedUserStore = new LocalStorageAuthenticatedUserStore();
     });
 
-    it('should return nothing if no user persisted in local storage', () => {
+    it('return nothing if no user persisted in local storage', () => {
         expect(localStorageAuthenticatedUserStore.get()).toBeNull();
     });
 
-    it('should return persisted user', () => {
-        const authenticatedUser: AuthenticatedUser = {
-            name: "Best User",
-            email: "best.user@codurance.com",
-            profileImageUrl: 'https://hosting.site/profile/best-user-image.png',
-            accessToken: "access-token"
-        };
+    it('return persisted user', () => {
         localStorageAuthenticatedUserStore.set(authenticatedUser);
 
         const persistedUser = localStorageAuthenticatedUserStore.get();
@@ -27,4 +28,11 @@ describe('LocalStorageAuthenticatedUserStore', () => {
         expect(persistedUser).toEqual(authenticatedUser);
     });
 
+    it('clear local storage', () => {
+        localStorageAuthenticatedUserStore.set(authenticatedUser);
+
+        localStorageAuthenticatedUserStore.clear();
+
+        expect(localStorageAuthenticatedUserStore.get()).toBeNull();
+    });
 });

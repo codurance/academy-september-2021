@@ -1,18 +1,11 @@
-import {Authenticator} from "../shared/authentication/authenticator";
-import {AuthenticatedUserStore} from "../shared/authentication/persistence";
-import {ApplicationNavigator} from "../shared/navigation";
 import React from "react";
 import {Login} from "./Login";
-import {LoginService} from "./LoginService";
+import {UserService} from "../shared/user/service/UserService";
 
 type Props = {
-    authenticator: Authenticator;
-    authenticatedUserStore: AuthenticatedUserStore;
-    applicationNavigator: ApplicationNavigator;
+    userService: UserService;
 };
 
-export const LoginModule: React.FC<Props> = ({authenticator, authenticatedUserStore, applicationNavigator}: Props) => {
-    const loginService = new LoginService(authenticator, authenticatedUserStore, applicationNavigator);
-
-    return <Login loginService={loginService}/>;
+export const LoginModule: React.FC<Props> = ({userService}: Props) => {
+    return <Login userService={userService}/>;
 };

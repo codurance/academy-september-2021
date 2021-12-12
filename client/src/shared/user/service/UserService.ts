@@ -1,8 +1,8 @@
-import {Authenticator} from "../shared/authentication/authenticator";
-import {AuthenticatedUserStore} from "../shared/authentication/persistence";
-import {ApplicationNavigator} from "../shared/navigation";
+import {Authenticator} from "../../authentication/authenticator";
+import {AuthenticatedUserStore} from "../../authentication/persistence";
+import {ApplicationNavigator} from "../../navigation";
 
-export class LoginService {
+export class UserService {
 
     private authenticator: Authenticator;
     private authenticatedUserStore: AuthenticatedUserStore;
@@ -20,4 +20,8 @@ export class LoginService {
         this.applicationNavigator.navigateToHome();
     }
 
+    logout(): void {
+        this.authenticatedUserStore.clear();
+        this.applicationNavigator.navigateToLogin();
+    }
 }
