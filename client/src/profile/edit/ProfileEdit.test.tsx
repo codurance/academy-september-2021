@@ -48,7 +48,7 @@ describe('editing a profile should', () => {
         selectDropdownValue('Select Level', '5');
         clickInput('Add Skill');
 
-        screen.getByText('Save').click();
+        await saveProfile();
 
         const capturedUpdatedProfile = capture(profileClient.save).last()[0];
         expect(capturedUpdatedProfile).toEqual(expectedUpdatedProfile);
@@ -59,7 +59,7 @@ describe('editing a profile should', () => {
         when(profileClient.save(anything())).thenResolve();
         renderProfileEdit();
 
-        screen.getByText('Save').click();
+        await saveProfile();
 
         expect(await screen.findByText('Profile Saved')).toBeInTheDocument();
     });
@@ -69,7 +69,7 @@ describe('editing a profile should', () => {
         when(profileClient.save(anything())).thenReject();
         renderProfileEdit();
 
-        screen.getByText('Save').click();
+        await saveProfile();
 
         expect(await screen.findByText('Unable to save profile, please try again')).toBeInTheDocument();
     });
@@ -79,7 +79,7 @@ describe('editing a profile should', () => {
         when(profileClient.save(anything())).thenResolve();
         renderProfileEdit();
 
-        screen.getByText('Save').click();
+        await saveProfile();
         await screen.findByText('Profile Saved');
 
         const capturedWindowViewInteraction = capture(windowView.scrollTo).last()[0];
@@ -120,6 +120,11 @@ describe('editing a profile should', () => {
     const clickInput = (text: string) => {
         const input = screen.getByText(text);
         userEvent.click(input);
+    };
+
+    const saveProfile = async () => {
+        const saveButton = await screen.findByText('Save');
+        saveButton.click();
     };
 
 });

@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {Profile, ProfileSkill} from "skillset";
 import {Button, Dimmer, Form, Loader, Message} from "semantic-ui-react";
 import {EditSkills} from "./skills/EditSkills";
-import {ProfileSaveResponse} from "./ProfileSaveResponse";
+import {ProfileEditState} from "./ProfileEditState";
 
 type Props = {
     profileClient: ProfileClient;
@@ -16,8 +16,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
     const authenticatedUser = authenticatedUserStore.get()!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
     const [profile, setProfile] = useState<Profile | undefined>();
     const [skills, setSkills] = useState<ProfileSkill[]>([]);
-    const [isPerformingNetworkRequest, setIsPerformingNetworkRequest] = useState(true);
-    const [profileSaveResponse, setProfileSaveResponse] = useState<ProfileSaveResponse | undefined>(undefined);
+    const [profileEditState, setProfileEditState] = useState<ProfileEditState>(ProfileEditState.PERFORMING_NETWORK_REQUEST);
 
     useEffect(() => {
         profileClient
@@ -25,7 +24,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
             .then(profile => {
                 if (profile) updateForm(profile);
             })
-            .finally(() => setIsPerformingNetworkRequest(false));
+            .finally(() => setProfileEditState(ProfileEditState.PROFILE_EDIT_READY));
     }, []);
 
     const updateForm = (profile: Profile) => {
@@ -34,28 +33,27 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
     };
 
     const saveProfile = () => {
-        setIsPerformingNetworkRequest(true);
+        setProfileEditState(ProfileEditState.PERFORMING_NETWORK_REQUEST);
         const updatedProfile = {
             skills
         };
 
         profileClient
             .save(updatedProfile)
-            .then(() => setProfileSaveResponse(ProfileSaveResponse.SUCCESS))
-            .catch(() => setProfileSaveResponse(ProfileSaveResponse.ERROR))
+            .then(() => setProfileEditState(ProfileEditState.PROFILE_SAVED))
+            .catch(() => setProfileEditState(ProfileEditState.NETWORK_ERROR))
             .finally(() => {
-                setIsPerformingNetworkRequest(false);
                 windowView.scrollTo({top: 0, behavior: 'smooth'});
             });
     };
 
     return (
         <Form>
-            <Dimmer inverted active={isPerformingNetworkRequest}>
+            <Dimmer inverted active={profileEditState === ProfileEditState.PERFORMING_NETWORK_REQUEST}>
                 <Loader/>
             </Dimmer>
 
-            {!profile && !profileSaveResponse &&
+            {!profile && profileEditState === ProfileEditState.PROFILE_EDIT_READY &&
             <Message info>
                 <Message.Header>It looks like this is your first time creating a profile</Message.Header>
                 <p>Save your details below to be shown in search results</p>
@@ -64,11 +62,11 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSt
             </Message>
             }
 
-            {profileSaveResponse === ProfileSaveResponse.SUCCESS &&
+            {profileEditState === ProfileEditState.PROFILE_SAVED &&
             <Message positive>Profile Saved</Message>
             }
 
-            {profileSaveResponse === ProfileSaveResponse.ERROR &&
+            {profileEditState === ProfileEditState.NETWORK_ERROR &&
             <Message negative>Unable to save profile, please try again</Message>
             }
 
