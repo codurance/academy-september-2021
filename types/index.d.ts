@@ -20,6 +20,8 @@ declare module 'skillset' {
     }
 
     export interface UpdatedProfile {
+        isAvailable: boolean;
+        currentClient: string;
         skills: ProfileSkill[];
     }
 }

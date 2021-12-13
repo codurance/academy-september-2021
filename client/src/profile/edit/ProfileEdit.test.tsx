@@ -41,6 +41,8 @@ describe('editing a profile should', () => {
     it('save profile on save clicked', async () => {
         withSavingProfileForFirstTime();
         const expectedUpdatedProfile: UpdatedProfile = {
+            isAvailable: true,
+            currentClient: "On the bench",
             skills: [{name: 'React', level: 5}]
         };
         when(profileClient.save(anything())).thenResolve();
@@ -49,11 +51,17 @@ describe('editing a profile should', () => {
         selectDropdownValue('Select Level', '5');
         clickInput('Add Skill');
 
+        const availabilityCheckbox = screen.getByLabelText('Are you currently available');
+        availabilityCheckbox.click();
+
         await saveProfile();
 
         const capturedUpdatedProfile = capture(profileClient.save).last()[0];
         expect(capturedUpdatedProfile).toEqual(expectedUpdatedProfile);
     });
+
+    //TODO Create a test for a non-default client
+    //Nightingale - eCW when isAvaliable is false
 
     it('show success message when able to save profile', async () => {
         withSavingProfileForFirstTime();

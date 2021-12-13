@@ -1,7 +1,7 @@
 import {ProfileClient} from "../shared/resource";
 import React, {useEffect, useState} from "react";
 import {Profile, ProfileSkill} from "skillset";
-import {Button, Dimmer, Form, Loader, Message} from "semantic-ui-react";
+import {Button, Checkbox, Dimmer, Form, Loader, Message} from "semantic-ui-react";
 import {EditSkills} from "./skills/EditSkills";
 import {ProfileEditState} from "./ProfileEditState";
 import {AuthenticatedUserService} from "../../shared/authentication/service/AuthenticatedUserService";
@@ -16,6 +16,8 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
     const authenticatedUser = authenticatedUserService.getAuthenticatedUser()!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
     const [profile, setProfile] = useState<Profile | undefined>();
     const [skills, setSkills] = useState<ProfileSkill[]>([]);
+    const [isAvailable, setIsAvailable] = useState<boolean>(false);
+    const [currentClient, setCurrentClient] = useState<string>("On the bench");
     const [profileEditState, setProfileEditState] = useState<ProfileEditState>(ProfileEditState.PERFORMING_NETWORK_REQUEST);
 
     useEffect(() => {
@@ -30,12 +32,16 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
     const updateForm = (profile: Profile) => {
         setProfile(profile);
         setSkills(profile.skills);
+        setIsAvailable(profile.isAvailable);
+        setCurrentClient(profile.currentClient);
     };
 
     const saveProfile = () => {
         setProfileEditState(ProfileEditState.PERFORMING_NETWORK_REQUEST);
         const updatedProfile = {
-            skills
+            skills,
+            isAvailable,
+            currentClient
         };
 
         profileClient
@@ -76,6 +82,14 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
             </Form.Group>
 
             <EditSkills skills={skills} onSkillsUpdated={updatedSkills => setSkills(updatedSkills)}/>
+
+            <Form.Group widths='equal'>
+                <Checkbox
+                    label='Are you currently available'
+                    checked={isAvailable}
+                    onClick={() => setIsAvailable(!isAvailable)}
+                />
+            </Form.Group>
 
             <div style={{marginTop: '3rem', textAlign: 'center'}}>
                 <Button size='huge' color='green' onClick={saveProfile}>Save</Button>
