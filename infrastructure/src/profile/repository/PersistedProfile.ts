@@ -1,22 +1,21 @@
-import {Profile, ProfileSkill} from "skillset";
+import {Profile, ProfileAvailability, ProfileSkill} from "skillset";
 
 export class PersistedProfile implements Profile {
-    currentClient: string;
+    name: string;
     email: string;
     imageUrl: string;
-    isAvailable: boolean;
-    name: string;
     role: string;
+    availability: ProfileAvailability;
     skills: ProfileSkill[];
 
+
     constructor(profile: Profile) {
-        this.currentClient = profile.currentClient;
+        this.name = profile.name;
         this.email = profile.email;
         this.imageUrl = profile.imageUrl;
-        this.isAvailable = profile.isAvailable;
-        this.name = profile.name;
         this.role = profile.role;
         this.skills = profile.skills;
+        this.availability = profile.availability;
     }
 
     public hasSkills(skills: string[]): boolean {

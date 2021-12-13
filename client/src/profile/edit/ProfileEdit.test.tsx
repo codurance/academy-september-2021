@@ -41,10 +41,12 @@ describe('editing a profile should', () => {
     it('save profile on save clicked', async () => {
         withSavingProfileForFirstTime();
         const expectedUpdatedProfile: UpdatedProfile = {
-            isAvailable: false,
-            currentClient: 'eCW - Nightingale',
             skills: [{name: 'React', level: 5}],
-            role: 'Software Craftsperson'
+            role: 'Software Craftsperson',
+            availability: {
+                isAvailable: false,
+                client: 'Best Company'
+            }
         };
         when(profileClient.save(anything())).thenResolve();
         renderProfileEdit();
@@ -52,19 +54,12 @@ describe('editing a profile should', () => {
         selectDropdownValue('Select Level', '5');
         clickInput('Add Skill');
         selectDropdownValue('Select Role', 'Software Craftsperson');
-        typeValueIntoInputByLabel('Current Client','eCW - Nightingale');
+        toggleAvailability();
+        inputText('Current Client','Best Company');
         await saveProfile();
 
         const capturedUpdatedProfile = capture(profileClient.save).last()[0];
         expect(capturedUpdatedProfile).toEqual(expectedUpdatedProfile);
-    });
-
-    it('block changes to current client when user is available', async () => {
-        withSavingProfileForFirstTime();
-        renderProfileEdit();
-        toggleIsAvailable();
-
-        expect(screen.queryByText('Current Client')).not.toBeInTheDocument();
     });
 
     it('show success message when able to save profile', async () => {
@@ -125,15 +120,6 @@ describe('editing a profile should', () => {
         expect(input).toHaveAttribute('readonly');
     };
 
-    const typeValueIntoInputByLabel = (label: string, value: string) => {
-        const labelElement = screen.getByText(label);
-        const field = labelElement.parentElement;
-        const input = field?.querySelector('input');
-
-        input && userEvent.clear(input);
-        input && userEvent.type(input, value);
-    };
-
     const selectDropdownValue = (dropdownPlaceholder: string, selection: string) => {
         clickInput(dropdownPlaceholder);
         clickInput(selection);
@@ -144,15 +130,22 @@ describe('editing a profile should', () => {
         userEvent.click(input);
     };
 
+    const inputText = (label: string, value: string) => {
+        const labelElement = screen.getByText(label);
+        const field = labelElement.parentElement;
+        const input = field?.querySelector('input');
+        userEvent.type(input!, value); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    };
+
+    const toggleAvailability = () => {
+        const label = screen.getByText('I am able available to be placed onto a client');
+        const checkbox = label.parentElement;
+        userEvent.click(checkbox!); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    };
+
     const saveProfile = async () => {
         const saveButton = await screen.findByText('Save');
         saveButton.click();
-    };
-
-    const toggleIsAvailable = () => {
-        const isAvailableLabel = screen.getByText('Tick this checkbox if you are currently available to be placed onto a client');
-        const isAvailableCheckbox = isAvailableLabel.parentElement!;
-        userEvent.click(isAvailableCheckbox);
     };
 
 });

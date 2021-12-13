@@ -32,11 +32,16 @@ export const ProfileCard: React.FC<Props> = ({profile}: Props) => {
             </Card.Content>
 
             <Card.Content extra>
-                {profile.isAvailable
+                {profile.availability.isAvailable
                     ? <Icon className={"check circle green"}/>
                     : <Icon className={"minus circle red"}/>
                 }
-                <span>{profile.currentClient}</span>
+                <span>
+                    {profile.availability.isAvailable
+                        ? 'Available'
+                        : profile.availability.client
+                    }
+                </span>
             </Card.Content>
         </Card>
     );

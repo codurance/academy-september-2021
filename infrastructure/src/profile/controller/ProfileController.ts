@@ -47,13 +47,11 @@ export class ProfileController {
     async save(event: SaveProfileEvent): Promise<Response> {
         const authorisedUser = JSON.parse(event.requestContext.authorizer.authorisedUser) as AuthorisedUser;
         const updatedProfile = JSON.parse(event.body) as UpdatedProfile;
-        if (updatedProfile.isAvailable) updatedProfile.currentClient = "Available";
         const profile: Profile = {
             email: authorisedUser.email,
             name: authorisedUser.name,
             imageUrl: authorisedUser.profileImageUrl,
             ...updatedProfile,
-            role: 'Software Craftsperson in Training'
         };
 
         await this.profileRepository.save(profile);

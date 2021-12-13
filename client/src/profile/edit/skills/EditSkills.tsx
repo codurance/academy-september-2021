@@ -31,7 +31,7 @@ export const EditSkills: React.FC<Props> = ({skills, onSkillsUpdated}) => {
 
     return (
         <>
-            <div style={{padding: '2em 0 2em 0'}}>
+            <div style={{paddingTop: '2em'}}>
                 {skills.map(skill =>
                     <Container textAlign={"center"} key={skill.name}>
                         <Segment>
@@ -43,7 +43,7 @@ export const EditSkills: React.FC<Props> = ({skills, onSkillsUpdated}) => {
                 )}
             </div>
 
-            <Form.Group widths='equal'>
+            <Form.Group widths='equal' style={{paddingTop: '2em'}}>
                 <SkillSelector onSkillAdded={addSkill} addedSkills={skills}/>
             </Form.Group>
         </>

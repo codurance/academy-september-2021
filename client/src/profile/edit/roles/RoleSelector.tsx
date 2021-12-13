@@ -18,7 +18,6 @@ export const RoleSelector: React.FC<Props> = ({onRoleUpdate}: Props) => {
     };
 
     return <>
-        <Form>
             <Form.Field>
                 <Dropdown className="selection" placeholder='Select Role' text={role}>
                     <Dropdown.Menu>
@@ -32,6 +31,5 @@ export const RoleSelector: React.FC<Props> = ({onRoleUpdate}: Props) => {
                 <Form.Input fluid label='Custom Role' value={inputRole}
                             onChange={e => {onRoleUpdate(e.target.value); setInputRole(e.target.value);}}/>
             </Form.Group>}
-        </Form>
     </>;
 };

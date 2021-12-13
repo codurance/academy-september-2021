@@ -2,11 +2,10 @@ declare module 'skillset' {
     export interface Profile {
         name: string;
         email: string;
+        imageUrl: string;
         role: string;
         skills: ProfileSkill[];
-        imageUrl: string;
-        isAvailable: boolean;
-        currentClient?: string;
+        availability: ProfileAvailability;
     }
 
     export interface ProfileSearchQuery {
@@ -19,10 +18,14 @@ declare module 'skillset' {
         level: number;
     }
 
-    export interface UpdatedProfile {
+    export interface ProfileAvailability {
         isAvailable: boolean;
-        currentClient?: string;
+        client?: string;
+    }
+
+    export interface UpdatedProfile {
         role: string;
         skills: ProfileSkill[];
+        availability: ProfileAvailability;
     }
 }

@@ -37,9 +37,7 @@ describe('profile search results', () => {
             query: {
                 skills: ['Java']
             },
-            results: [
-                {name: 'Jordan Steele', skills: ['Java', 'Kotlin']}
-            ]
+            results: []
         };
 
         navigateToResults(state);
@@ -55,8 +53,11 @@ describe('profile search results', () => {
             role: 'Software Craftsperson',
             imageUrl: "http://localhost:3000/profile/jordan.steele.png",
             skills: [{name: 'Java', level: 4}, {name: 'Kotlin', level: 3}],
-            currentClient: 'Client',
-            isAvailable: false
+            availability: {
+                isAvailable: false,
+                client: "Best Company"
+            }
+
         };
         const state = {
             query: {skills: ['Java']},
@@ -69,7 +70,7 @@ describe('profile search results', () => {
         expect(await screen.findByAltText('User profile: Jordan Steele')).toHaveAttribute('src', 'http://localhost:3000/profile/jordan.steele.png');
         expect(await screen.findByText('Software Craftsperson')).toBeInTheDocument();
         expect(await screen.findByText('Java, Kotlin')).toBeInTheDocument();
-        expect(await screen.findByText('Client')).toBeInTheDocument();
+        expect(await screen.findByText('Best Company')).toBeInTheDocument();
     });
 
     it('should show no results when no search results found', async () => {

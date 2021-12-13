@@ -1,11 +1,12 @@
 import {ProfileClient} from "../shared/resource";
 import React, {useEffect, useState} from "react";
-import {Profile, ProfileSkill} from "skillset";
-import {Button, Checkbox, Dimmer, Form, Loader, Message} from "semantic-ui-react";
+import {Profile, ProfileAvailability, ProfileSkill} from "skillset";
+import {Button, Dimmer, Form, Loader, Message} from "semantic-ui-react";
 import {EditSkills} from "./skills/EditSkills";
 import {ProfileEditState} from "./ProfileEditState";
 import {AuthenticatedUserService} from "../../shared/authentication/service/AuthenticatedUserService";
 import {RoleSelector} from "./roles/RoleSelector";
+import {EditAvailability} from "./availability/EditAvailability";
 
 type Props = {
     profileClient: ProfileClient;
@@ -16,10 +17,12 @@ type Props = {
 export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserService, windowView}) => {
     const authenticatedUser = authenticatedUserService.getAuthenticatedUser()!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
     const [profile, setProfile] = useState<Profile | undefined>();
+    const [availability, setAvailability] = useState<ProfileAvailability>({
+        isAvailable: true,
+        client: undefined
+    });
     const [skills, setSkills] = useState<ProfileSkill[]>([]);
     const [role, setRole] = useState<string>('');
-    const [isAvailable, setIsAvailable] = useState<boolean>(false);
-    const [currentClient, setCurrentClient] = useState<string | undefined>(undefined);
     const [profileEditState, setProfileEditState] = useState<ProfileEditState>(ProfileEditState.PERFORMING_NETWORK_REQUEST);
 
     useEffect(() => {
@@ -35,8 +38,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
         setProfile(profile);
         setSkills(profile.skills);
         setRole(profile.role);
-        setIsAvailable(profile.isAvailable);
-        setCurrentClient(profile.currentClient);
+        setAvailability(profile.availability);
     };
 
     const saveProfile = () => {
@@ -44,8 +46,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
         const updatedProfile = {
             skills,
             role,
-            isAvailable,
-            currentClient
+            availability
         };
 
         profileClient
@@ -88,21 +89,14 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
                 <Form.Input fluid label='Name' value={profile?.name ?? authenticatedUser.name} readOnly/>
                 <Form.Input fluid label='Email' value={profile?.email ?? authenticatedUser.email} readOnly/>
             </Form.Group>
-            <RoleSelector onRoleUpdate={onRoleUpdate} />
+
+            <RoleSelector onRoleUpdate={onRoleUpdate}/>
+
+            <EditAvailability availability={availability}
+                              onAvailabilityUpdated={updatedAvailability => setAvailability(updatedAvailability)}/>
+
             <EditSkills skills={skills} onSkillsUpdated={updatedSkills => setSkills(updatedSkills)}/>
-            <Form.Group style={{paddingLeft: "7px"}}>
-                <Checkbox
-                    label='Tick this checkbox if you are currently available to be placed onto a client'
-                    checked={isAvailable}
-                    onClick={() => {setIsAvailable(!isAvailable); !isAvailable && setCurrentClient(undefined);}}
-                />
-            </Form.Group>
-            { !isAvailable &&
-                <Form.Group widths='equal'>
-                    <Form.Input fluid label='Current Client' value={isAvailable ? "On the bench" : currentClient}
-                                onChange={e => setCurrentClient(e.target.value)} readOnly={isAvailable}/>
-                </Form.Group>
-            }
+
             <div style={{marginTop: '3rem', textAlign: 'center'}}>
                 <Button size='huge' color='green' onClick={saveProfile}>Save</Button>
             </div>

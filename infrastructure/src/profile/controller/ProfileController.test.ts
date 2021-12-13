@@ -65,7 +65,7 @@ describe('profile controller should', () => {
 
     test('save updated profile', async () => {
         const event = {
-            body: '{"skills": [{"name": "React", "level": 5}], "isAvailable": false, "currentClient": "Academy"}',
+            body: '{"skills": [{"name": "React", "level": 5}], "role": "Software Craftsperson in Training", "availability": {"isAvailable": false}}',
             requestContext: {
                 authorizer: {
                     authorisedUser: '{"name":"Best User","email":"best.user@codurance.com","profileImageUrl":"http://codurance.com/best-user/profile-image.png"}',
@@ -80,10 +80,12 @@ describe('profile controller should', () => {
             email: "best.user@codurance.com",
             name: "Best User",
             imageUrl: "http://codurance.com/best-user/profile-image.png",
+            role: 'Software Craftsperson in Training',
             skills: [{name: 'React', level: 5}],
-            currentClient: 'Academy',
-            isAvailable: false,
-            role: 'Software Craftsperson in Training'
+            availability: {
+                isAvailable: false,
+                client: undefined
+            }
         });
     });
 

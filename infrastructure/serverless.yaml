@@ -10,7 +10,7 @@ custom:
     deletionPolicy:
       dev: Delete
       staging: Delete
-      production: Retain
+      production: Delete
     seed:
       domain:
         sources:
