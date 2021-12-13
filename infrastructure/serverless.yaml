@@ -3,12 +3,19 @@ service: skillset-infrastructure
 custom:
   profilesTable: 'profilesTable-${sls:stage}'
   dynamodb:
+    start:
+      seed: true
     stages:
       - dev
     deletionPolicy:
       dev: Delete
       staging: Delete
       production: Retain
+    seed:
+      domain:
+        sources:
+          - table: ${self:custom.profilesTable}
+            sources: [ ./src/profile/repository/profiles.json ]
   seed:
     profiles:
       table: ${self:custom.profilesTable}
