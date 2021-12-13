@@ -148,7 +148,7 @@ describe('editing a profile should', () => {
     };
 
     const toggleIsAvailable = () => {
-        const isAvailableLabel = screen.getByText('Are you currently available');
+        const isAvailableLabel = screen.getByText('Are you currently available?');
         const isAvailableCheckbox = isAvailableLabel.parentElement!;
         userEvent.click(isAvailableCheckbox);
     };
