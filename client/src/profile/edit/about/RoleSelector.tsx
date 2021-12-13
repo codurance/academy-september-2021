@@ -1,5 +1,5 @@
 import React, {SyntheticEvent} from "react";
-import {Dropdown, DropdownItemProps, Form} from "semantic-ui-react";
+import {Dropdown, DropdownItemProps} from "semantic-ui-react";
 import {roles} from "./ProfileRole";
 
 type Props = {
