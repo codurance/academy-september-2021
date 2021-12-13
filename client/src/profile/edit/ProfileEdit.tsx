@@ -1,7 +1,7 @@
 import {ProfileClient} from "../shared/resource";
 import React, {useEffect, useState} from "react";
 import {Profile, ProfileAvailability, ProfileSkill} from "skillset";
-import {Button, Dimmer, Form, Loader, Message} from "semantic-ui-react";
+import {Button, Dimmer, Form, Header, Loader, Message} from "semantic-ui-react";
 import {EditSkills} from "./skills/EditSkills";
 import {ProfileEditState} from "./ProfileEditState";
 import {AuthenticatedUserService} from "../../shared/authentication/service/AuthenticatedUserService";
@@ -82,10 +82,13 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
             <Message negative>Unable to save profile, please try again</Message>
             }
 
-            <Form.Group widths='equal'>
-                <Form.Input fluid label='Name' value={profile?.name ?? authenticatedUser.name} readOnly/>
-                <Form.Input fluid label='Email' value={profile?.email ?? authenticatedUser.email} readOnly/>
-            </Form.Group>
+            <div className="section">
+                <Header as="h3">My Profile</Header>
+                <Form.Group widths='equal'>
+                    <Form.Input fluid label='Name' value={profile?.name ?? authenticatedUser.name} readOnly/>
+                    <Form.Input fluid label='Email' value={profile?.email ?? authenticatedUser.email} readOnly/>
+                </Form.Group>
+            </div>
 
             <div className="section">
                 <EditAbout role={role} onRoleSelected={updatedRole => setRole(updatedRole)}/>

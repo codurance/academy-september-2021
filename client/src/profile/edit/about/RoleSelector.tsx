@@ -14,12 +14,12 @@ export const RoleSelector: React.FC<Props> = ({role, onRoleSelected}: Props) => 
     };
 
     return (
-        <Form.Dropdown className="selection" placeholder='Select Role' text={role}>
+        <Dropdown className="selection" placeholder='Select Role' text={role}>
             <Dropdown.Menu>
                 {roles.map(role =>
                     <Dropdown.Item key={role} text={role} value={role} onClick={updateRole}/>
                 )}
             </Dropdown.Menu>
-        </Form.Dropdown>
+        </Dropdown>
     );
 };
