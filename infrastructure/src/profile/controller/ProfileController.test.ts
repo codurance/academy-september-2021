@@ -65,7 +65,7 @@ describe('profile controller should', () => {
 
     test('save updated profile', async () => {
         const event = {
-            body: '{"skills": [{"name": "React", "level": 5}]}',
+            body: '{"skills": [{"name": "React", "level": 5}], "isAvailable": false, "currentClient": "Academy"}',
             requestContext: {
                 authorizer: {
                     authorisedUser: '{"name":"Best User","email":"best.user@codurance.com","profileImageUrl":"http://codurance.com/best-user/profile-image.png"}',

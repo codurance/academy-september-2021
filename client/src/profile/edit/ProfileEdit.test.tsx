@@ -62,8 +62,8 @@ describe('editing a profile should', () => {
         renderProfileEdit();
         toggleIsAvailable();
 
-        await expectReadOnlyInputToHaveValue('Current client', 'On the bench');
-    })
+        await expectReadOnlyInputToHaveValue('Current Client', 'On the bench');
+    });
 
     it('show success message when able to save profile', async () => {
         withSavingProfileForFirstTime();
