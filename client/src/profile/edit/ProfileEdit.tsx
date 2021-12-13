@@ -84,6 +84,9 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
             <EditSkills skills={skills} onSkillsUpdated={updatedSkills => setSkills(updatedSkills)}/>
 
             <Form.Group widths='equal'>
+                <Form.Input fluid label='Current Client' value={isAvailable ? "On the bench" : currentClient} onChange={e => setCurrentClient(e.target.value)} readOnly={isAvailable}/>
+            </Form.Group>
+            <Form.Group style={{paddingLeft: "7px"}}>
                 <Checkbox
                     label='Are you currently available'
                     checked={isAvailable}

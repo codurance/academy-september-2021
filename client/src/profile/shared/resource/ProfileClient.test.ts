@@ -31,7 +31,9 @@ describe('profile client should', () => {
 
     it('update profile on save', async () => {
         const updatedProfile: UpdatedProfile = {
-            skills: [ { name: 'React', level: 5 } ]
+            skills: [ { name: 'React', level: 5 } ],
+            isAvailable: false,
+            currentClient: "best client"
         };
 
        await profileClient.save(updatedProfile);

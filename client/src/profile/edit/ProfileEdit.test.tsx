@@ -41,8 +41,8 @@ describe('editing a profile should', () => {
     it('save profile on save clicked', async () => {
         withSavingProfileForFirstTime();
         const expectedUpdatedProfile: UpdatedProfile = {
-            isAvailable: true,
-            currentClient: "On the bench",
+            isAvailable: false,
+            currentClient: "eCW - Nightingale",
             skills: [{name: 'React', level: 5}]
         };
         when(profileClient.save(anything())).thenResolve();
@@ -50,18 +50,20 @@ describe('editing a profile should', () => {
         selectDropdownValue('Select Skill', 'React');
         selectDropdownValue('Select Level', '5');
         clickInput('Add Skill');
-
-        const availabilityCheckbox = screen.getByLabelText('Are you currently available');
-        availabilityCheckbox.click();
-
+        typeValueIntoInputByLabel('Current Client','eCW - Nightingale');
         await saveProfile();
 
         const capturedUpdatedProfile = capture(profileClient.save).last()[0];
         expect(capturedUpdatedProfile).toEqual(expectedUpdatedProfile);
     });
 
-    //TODO Create a test for a non-default client
-    //Nightingale - eCW when isAvaliable is false
+    it('block changes to current client when user is available', async () => {
+        withSavingProfileForFirstTime();
+        renderProfileEdit();
+        toggleIsAvailable();
+
+        await expectReadOnlyInputToHaveValue('Current client', 'On the bench');
+    })
 
     it('show success message when able to save profile', async () => {
         withSavingProfileForFirstTime();
@@ -121,6 +123,15 @@ describe('editing a profile should', () => {
         expect(input).toHaveAttribute('readonly');
     };
 
+    const typeValueIntoInputByLabel = async (label: string, value: string) => {
+        const labelElement = screen.getByText(label);
+        const field = labelElement.parentElement;
+        const input = field?.querySelector('input');
+
+        input && userEvent.clear(input);
+        input && userEvent.type(input, value);
+    };
+
     const selectDropdownValue = (dropdownPlaceholder: string, selection: string) => {
         clickInput(dropdownPlaceholder);
         clickInput(selection);
@@ -134,6 +145,12 @@ describe('editing a profile should', () => {
     const saveProfile = async () => {
         const saveButton = await screen.findByText('Save');
         saveButton.click();
+    };
+
+    const toggleIsAvailable = () => {
+        const isAvailableLabel = screen.getByText('Are you currently available');
+        const isAvailableCheckbox = isAvailableLabel.parentElement!;
+        userEvent.click(isAvailableCheckbox);
     };
 
 });
