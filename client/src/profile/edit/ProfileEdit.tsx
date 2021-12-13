@@ -90,7 +90,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
                 <Checkbox
                     label='Are you currently available'
                     checked={isAvailable}
-                    onClick={() => setIsAvailable(!isAvailable)}
+                    onClick={() => {setIsAvailable(!isAvailable); isAvailable && setCurrentClient('On the bench');}}
                 />
             </Form.Group>
 
