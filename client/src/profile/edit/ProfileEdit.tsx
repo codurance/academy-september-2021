@@ -82,12 +82,6 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
             </Form.Group>
 
             <EditSkills skills={skills} onSkillsUpdated={updatedSkills => setSkills(updatedSkills)}/>
-            { !isAvailable &&
-                <Form.Group widths='equal'>
-                    <Form.Input fluid label='Current Client' value={isAvailable ? "On the bench" : currentClient}
-                                onChange={e => setCurrentClient(e.target.value)} readOnly={isAvailable}/>
-                </Form.Group>
-            }
             <Form.Group style={{paddingLeft: "7px"}}>
                 <Checkbox
                     label='Are you currently available'
@@ -95,7 +89,12 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
                     onClick={() => {setIsAvailable(!isAvailable); !isAvailable && setCurrentClient(undefined);}}
                 />
             </Form.Group>
-
+            { !isAvailable &&
+                <Form.Group widths='equal'>
+                    <Form.Input fluid label='Current Client' value={isAvailable ? "On the bench" : currentClient}
+                                onChange={e => setCurrentClient(e.target.value)} readOnly={isAvailable}/>
+                </Form.Group>
+            }
             <div style={{marginTop: '3rem', textAlign: 'center'}}>
                 <Button size='huge' color='green' onClick={saveProfile}>Save</Button>
             </div>
