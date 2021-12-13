@@ -52,8 +52,6 @@ export class ProfileController {
             name: authorisedUser.name,
             imageUrl: authorisedUser.profileImageUrl,
             ...updatedProfile,
-            currentClient: 'Academy',
-            isAvailable: false,
             role: 'Software Craftsperson in Training'
         };
 
