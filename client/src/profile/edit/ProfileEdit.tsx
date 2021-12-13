@@ -5,6 +5,7 @@ import {Button, Checkbox, Dimmer, Form, Loader, Message} from "semantic-ui-react
 import {EditSkills} from "./skills/EditSkills";
 import {ProfileEditState} from "./ProfileEditState";
 import {AuthenticatedUserService} from "../../shared/authentication/service/AuthenticatedUserService";
+import {RoleSelector} from "./roles/RoleSelector";
 
 type Props = {
     profileClient: ProfileClient;
@@ -16,6 +17,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
     const authenticatedUser = authenticatedUserService.getAuthenticatedUser()!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
     const [profile, setProfile] = useState<Profile | undefined>();
     const [skills, setSkills] = useState<ProfileSkill[]>([]);
+    const [role, setRole] = useState<string>('');
     const [isAvailable, setIsAvailable] = useState<boolean>(false);
     const [currentClient, setCurrentClient] = useState<string | undefined>(undefined);
     const [profileEditState, setProfileEditState] = useState<ProfileEditState>(ProfileEditState.PERFORMING_NETWORK_REQUEST);
@@ -32,6 +34,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
     const updateForm = (profile: Profile) => {
         setProfile(profile);
         setSkills(profile.skills);
+        setRole(profile.role);
         setIsAvailable(profile.isAvailable);
         setCurrentClient(profile.currentClient);
     };
@@ -40,6 +43,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
         setProfileEditState(ProfileEditState.PERFORMING_NETWORK_REQUEST);
         const updatedProfile = {
             skills,
+            role,
             isAvailable,
             currentClient
         };
@@ -51,6 +55,10 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
             .finally(() => {
                 windowView.scrollTo({top: 0, behavior: 'smooth'});
             });
+    };
+
+    const onRoleUpdate = (role: string) => {
+        setRole(role);
     };
 
     return (
@@ -80,11 +88,11 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
                 <Form.Input fluid label='Name' value={profile?.name ?? authenticatedUser.name} readOnly/>
                 <Form.Input fluid label='Email' value={profile?.email ?? authenticatedUser.email} readOnly/>
             </Form.Group>
-
+            <RoleSelector onRoleUpdate={onRoleUpdate} />
             <EditSkills skills={skills} onSkillsUpdated={updatedSkills => setSkills(updatedSkills)}/>
             <Form.Group style={{paddingLeft: "7px"}}>
                 <Checkbox
-                    label='Are you currently available?'
+                    label='Tick this checkbox if you are currently available to be placed onto a client'
                     checked={isAvailable}
                     onClick={() => {setIsAvailable(!isAvailable); !isAvailable && setCurrentClient(undefined);}}
                 />

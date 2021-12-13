@@ -42,14 +42,16 @@ describe('editing a profile should', () => {
         withSavingProfileForFirstTime();
         const expectedUpdatedProfile: UpdatedProfile = {
             isAvailable: false,
-            currentClient: "eCW - Nightingale",
-            skills: [{name: 'React', level: 5}]
+            currentClient: 'eCW - Nightingale',
+            skills: [{name: 'React', level: 5}],
+            role: 'Software Craftsperson'
         };
         when(profileClient.save(anything())).thenResolve();
         renderProfileEdit();
         selectDropdownValue('Select Skill', 'React');
         selectDropdownValue('Select Level', '5');
         clickInput('Add Skill');
+        selectDropdownValue('Select Role', 'Software Craftsperson');
         typeValueIntoInputByLabel('Current Client','eCW - Nightingale');
         await saveProfile();
 
@@ -123,7 +125,7 @@ describe('editing a profile should', () => {
         expect(input).toHaveAttribute('readonly');
     };
 
-    const typeValueIntoInputByLabel = async (label: string, value: string) => {
+    const typeValueIntoInputByLabel = (label: string, value: string) => {
         const labelElement = screen.getByText(label);
         const field = labelElement.parentElement;
         const input = field?.querySelector('input');
@@ -148,7 +150,7 @@ describe('editing a profile should', () => {
     };
 
     const toggleIsAvailable = () => {
-        const isAvailableLabel = screen.getByText('Are you currently available?');
+        const isAvailableLabel = screen.getByText('Tick this checkbox if you are currently available to be placed onto a client');
         const isAvailableCheckbox = isAvailableLabel.parentElement!;
         userEvent.click(isAvailableCheckbox);
     };
