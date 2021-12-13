@@ -48,6 +48,7 @@ describe('edit skills should', () => {
 
     const renderEditSkills = () => {
         render(<EditSkills skills={skills} onSkillsUpdated={updateSkills}/>);
+        clickInput('My Skills');
     };
 
     const addSkill = (name: string, level: string) => {

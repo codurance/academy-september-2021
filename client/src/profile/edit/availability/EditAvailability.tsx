@@ -24,7 +24,7 @@ export const EditAvailability: React.FC<Props> = ({availability, onAvailabilityU
 
     return (
         <>
-            <Header as="h3">My Availabilty</Header>
+            <Header as="h3">My Availability</Header>
             <Form.Group inline widths="equal">
                 <Form.Field>
                     <Form.Checkbox

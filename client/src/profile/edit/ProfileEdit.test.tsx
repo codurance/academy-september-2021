@@ -17,7 +17,11 @@ describe('editing a profile should', () => {
         const profile: Profile = {
             name: 'Retrieved Best User',
             email: 'retrieved.best.user@codurance.com',
-            skills: [] as ProfileSkill[]
+            skills: [] as ProfileSkill[],
+            role: 'Software Craftsperson',
+            availability: {
+                isAvailable: false
+            }
         } as Profile;
         when(profileClient.getProfile('local.best.user@codurance.com')).thenResolve(profile);
 
@@ -50,6 +54,7 @@ describe('editing a profile should', () => {
         };
         when(profileClient.save(anything())).thenResolve();
         renderProfileEdit();
+        clickInput('My Skills');
         selectDropdownValue('Select Skill', 'React');
         selectDropdownValue('Select Level', '5');
         clickInput('Add Skill');

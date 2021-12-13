@@ -5,8 +5,9 @@ import {Button, Dimmer, Form, Loader, Message} from "semantic-ui-react";
 import {EditSkills} from "./skills/EditSkills";
 import {ProfileEditState} from "./ProfileEditState";
 import {AuthenticatedUserService} from "../../shared/authentication/service/AuthenticatedUserService";
-import {RoleSelector} from "./roles/RoleSelector";
 import {EditAvailability} from "./availability/EditAvailability";
+import {EditAbout} from "./about/EditAbout";
+import "./ProfileEdit.css";
 
 type Props = {
     profileClient: ProfileClient;
@@ -58,10 +59,6 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
             });
     };
 
-    const onRoleUpdate = (role: string) => {
-        setRole(role);
-    };
-
     return (
         <Form>
             <Dimmer inverted active={profileEditState === ProfileEditState.PERFORMING_NETWORK_REQUEST}>
@@ -90,14 +87,20 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
                 <Form.Input fluid label='Email' value={profile?.email ?? authenticatedUser.email} readOnly/>
             </Form.Group>
 
-            <RoleSelector onRoleUpdate={onRoleUpdate}/>
+            <div className="section">
+                <EditAbout role={role} onRoleSelected={updatedRole => setRole(updatedRole)}/>
+            </div>
 
-            <EditAvailability availability={availability}
-                              onAvailabilityUpdated={updatedAvailability => setAvailability(updatedAvailability)}/>
+            <div className="section">
+                <EditAvailability availability={availability}
+                                  onAvailabilityUpdated={updatedAvailability => setAvailability(updatedAvailability)}/>
+            </div>
 
-            <EditSkills skills={skills} onSkillsUpdated={updatedSkills => setSkills(updatedSkills)}/>
+            <div className="section">
+                <EditSkills skills={skills} onSkillsUpdated={updatedSkills => setSkills(updatedSkills)}/>
+            </div>
 
-            <div style={{marginTop: '3rem', textAlign: 'center'}}>
+            <div className="section" style={{textAlign: 'center'}}>
                 <Button size='huge' color='green' onClick={saveProfile}>Save</Button>
             </div>
         </Form>
