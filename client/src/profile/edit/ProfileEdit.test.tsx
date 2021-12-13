@@ -62,7 +62,7 @@ describe('editing a profile should', () => {
         renderProfileEdit();
         toggleIsAvailable();
 
-        await expectReadOnlyInputToHaveValue('Current Client', 'On the bench');
+        expect(screen.queryByText('Current Client')).not.toBeInTheDocument();
     });
 
     it('show success message when able to save profile', async () => {

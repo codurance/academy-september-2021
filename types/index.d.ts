@@ -6,7 +6,7 @@ declare module 'skillset' {
         skills: ProfileSkill[];
         imageUrl: string;
         isAvailable: boolean;
-        currentClient: string;
+        currentClient?: string;
     }
 
     export interface ProfileSearchQuery {
@@ -21,7 +21,7 @@ declare module 'skillset' {
 
     export interface UpdatedProfile {
         isAvailable: boolean;
-        currentClient: string;
+        currentClient?: string;
         skills: ProfileSkill[];
     }
 }

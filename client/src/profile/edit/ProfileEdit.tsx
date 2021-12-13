@@ -17,7 +17,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
     const [profile, setProfile] = useState<Profile | undefined>();
     const [skills, setSkills] = useState<ProfileSkill[]>([]);
     const [isAvailable, setIsAvailable] = useState<boolean>(false);
-    const [currentClient, setCurrentClient] = useState<string>("On the bench");
+    const [currentClient, setCurrentClient] = useState<string | undefined>(undefined);
     const [profileEditState, setProfileEditState] = useState<ProfileEditState>(ProfileEditState.PERFORMING_NETWORK_REQUEST);
 
     useEffect(() => {
@@ -82,15 +82,17 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
             </Form.Group>
 
             <EditSkills skills={skills} onSkillsUpdated={updatedSkills => setSkills(updatedSkills)}/>
-
-            <Form.Group widths='equal'>
-                <Form.Input fluid label='Current Client' value={isAvailable ? "On the bench" : currentClient} onChange={e => setCurrentClient(e.target.value)} readOnly={isAvailable}/>
-            </Form.Group>
+            { !isAvailable &&
+                <Form.Group widths='equal'>
+                    <Form.Input fluid label='Current Client' value={isAvailable ? "On the bench" : currentClient}
+                                onChange={e => setCurrentClient(e.target.value)} readOnly={isAvailable}/>
+                </Form.Group>
+            }
             <Form.Group style={{paddingLeft: "7px"}}>
                 <Checkbox
                     label='Are you currently available'
                     checked={isAvailable}
-                    onClick={() => {setIsAvailable(!isAvailable); !isAvailable && setCurrentClient('On the bench');}}
+                    onClick={() => {setIsAvailable(!isAvailable); !isAvailable && setCurrentClient(undefined);}}
                 />
             </Form.Group>
 

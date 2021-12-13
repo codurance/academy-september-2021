@@ -47,6 +47,7 @@ export class ProfileController {
     async save(event: SaveProfileEvent): Promise<Response> {
         const authorisedUser = JSON.parse(event.requestContext.authorizer.authorisedUser) as AuthorisedUser;
         const updatedProfile = JSON.parse(event.body) as UpdatedProfile;
+        if (updatedProfile.currentClient === undefined) updatedProfile.currentClient = "Available";
         const profile: Profile = {
             email: authorisedUser.email,
             name: authorisedUser.name,
