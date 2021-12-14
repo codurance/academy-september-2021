@@ -31,7 +31,8 @@ describe('editing a profile should', () => {
             availability: {
                 isAvailable: false,
                 client: 'Best Company'
-            }
+            },
+            location: 'London'
         };
         when(profileClient.save(anything())).thenResolve();
         renderProfileEdit();
@@ -40,6 +41,7 @@ describe('editing a profile should', () => {
         selectDropdownValue('Select Level', '5');
         clickInput('Add Skill');
         selectDropdownValue('Select Role', 'Software Craftsperson');
+        selectDropdownValue('Select Location', 'London');
         toggleAvailability();
         inputText('Current Client', 'Best Company');
         await saveProfile();

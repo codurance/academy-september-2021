@@ -4,6 +4,7 @@ declare module 'skillset' {
         email: string;
         imageUrl: string;
         role: string;
+        location: string;
         skills: ProfileSkill[];
         availability: ProfileAvailability;
     }
@@ -26,6 +27,7 @@ declare module 'skillset' {
     export interface UpdatedProfile {
         role: string;
         skills: ProfileSkill[];
+        location: string;
         availability: ProfileAvailability;
     }
 }

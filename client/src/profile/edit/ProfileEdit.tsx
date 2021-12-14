@@ -25,6 +25,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
     });
     const [skills, setSkills] = useState<ProfileSkill[]>([]);
     const [role, setRole] = useState<string>('');
+    const [location, setLocation] = useState<string>('');
 
     useEffect(() => {
         profileClient
@@ -39,6 +40,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
     const updateForm = (profile: Profile) => {
         setSkills(profile.skills);
         setRole(profile.role);
+        setLocation(profile.location);
         setAvailability(profile.availability);
         setProfileEditState(ProfileEditState.PROFILE_EDIT_READY);
     };
@@ -48,7 +50,8 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
         const updatedProfile = {
             skills,
             role,
-            availability
+            availability,
+            location
         };
 
         profileClient
@@ -77,7 +80,12 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
             </div>
 
             <div className="section">
-                <EditAbout role={role} onRoleSelected={updatedRole => setRole(updatedRole)}/>
+                <EditAbout
+                    role={role}
+                    onRoleSelected={updatedRole => setRole(updatedRole)}
+                    location={location}
+                    onLocationSelected={updatedLocation => setLocation(updatedLocation)}
+                />
             </div>
 
             <div className="section">
