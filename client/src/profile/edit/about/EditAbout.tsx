@@ -1,4 +1,4 @@
-import {Form, Header, Input} from "semantic-ui-react";
+import {Form, Header} from "semantic-ui-react";
 import React from "react";
 import {RoleSelector} from "./RoleSelector";
 import {LocationSelector} from "./LocationSelector";
