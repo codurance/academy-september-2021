@@ -1,24 +1,21 @@
 import React, {useState} from 'react';
 import { Button, Header, Image, Modal } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import {ProfileCard} from "./ProfileCard";
 import {Profile} from "skillset";
 
 type Props = {
     profile: Profile,
+    isVisible: boolean,
+    setIsVisible: (isVisible: boolean) => void;
 };
 
-export const ProfileModal: React.FC<Props> = ({profile}: Props) => {
-    const [open, setOpen] = useState<boolean>(false);
+export const ProfileModal: React.FC<Props> = ({profile, isVisible, setIsVisible}: Props) => {
+    const [open, setOpen] = useState<boolean>(isVisible);
 
     return (
-        <div>
-            <div onClick={() => setOpen(!open)}>
-            <ProfileCard profile={profile} />
-            </div>
         <Modal
-            onClose={() => setOpen(false)}
-            onOpen={() => setOpen(true)}
+            onClose={() => setIsVisible(false)}
+            onOpen={() => setIsVisible(true)}
             open={open}
         >
             <Modal.Header>{profile.name}</Modal.Header>
@@ -35,6 +32,5 @@ export const ProfileModal: React.FC<Props> = ({profile}: Props) => {
                 </Button>
             </Modal.Actions>
         </Modal>
-        </div>
     );
 };
