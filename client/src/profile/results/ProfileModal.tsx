@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Button, Header, Image, Modal } from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
 import {ProfileCard} from "./ProfileCard";
 import {Profile} from "skillset";
 
@@ -8,7 +9,7 @@ type Props = {
 };
 
 export const ProfileModal: React.FC<Props> = ({profile}: Props) => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState<boolean>(false);
 
     return (
         <Modal
