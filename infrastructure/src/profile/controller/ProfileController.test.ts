@@ -12,7 +12,7 @@ describe('profile controller should', () => {
 
     it('search with parsed query', async () => {
         const event = {
-            queryStringParameters: {'skills[0]': 'React', 'skills[1]': 'Typescript', 'skills[2]': 'Serverless', 'hasRequestedAvailableOnly': 'true'}
+            queryStringParameters: {'skills[0]': 'React', 'skills[1]': 'Typescript', 'skills[2]': 'Serverless', 'hasRequestedAvailableOnly': 'true',  'hasRequestedExactMatches': 'false'}
         };
         when(profileRepository.search(anything())).thenResolve([]);
 
@@ -21,7 +21,8 @@ describe('profile controller should', () => {
         const capturedQuery: ProfileSearchQuery = capture(profileRepository.search).last()[0];
         expect(capturedQuery).toEqual({
             skills: ['React', 'Typescript', 'Serverless'],
-            hasRequestedAvailableOnly: true
+            hasRequestedAvailableOnly: true,
+            hasRequestedExactMatches: false
         });
     });
 
