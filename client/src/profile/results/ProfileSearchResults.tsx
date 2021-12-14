@@ -4,7 +4,6 @@ import {useLocation} from "react-router-dom";
 import {Profile, ProfileSearchQuery} from "skillset";
 import logo from "../../shared/ui/logo.svg";
 import {Grid, Header, Image} from "semantic-ui-react";
-import {ProfileCard} from "./ProfileCard";
 import {ProfileFeatureNavigator} from "../shared/navigation";
 import {ProfileModal} from "./ProfileModal";
 
@@ -50,7 +49,7 @@ export const ProfileSearchResults: React.FC<Props> = ({profileFeatureNavigator, 
 
                     {results?.map(profile => (
                         <Grid.Column mobile={16} tablet={8} computer={4} key={profile.name}>
-                            <ProfileModal profileCard={<ProfileCard profile={profile}/>} profile={profile} />
+                            <ProfileModal profile={profile} />
                         </Grid.Column>
                     ))}
                 </Grid.Row>

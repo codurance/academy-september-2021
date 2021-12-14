@@ -1,14 +1,13 @@
-import React, {ReactElement} from 'react';
+import React from 'react';
 import { Button, Header, Image, Modal } from 'semantic-ui-react';
 import {ProfileCard} from "./ProfileCard";
 import {Profile} from "skillset";
 
 type Props = {
-    profileCard: ReactElement<typeof ProfileCard>,
     profile: Profile
 };
 
-export const ProfileModal: React.FC<Props> = ({profileCard, profile}: Props) => {
+export const ProfileModal: React.FC<Props> = ({profile}: Props) => {
     const [open, setOpen] = React.useState(false);
 
     return (
@@ -16,7 +15,7 @@ export const ProfileModal: React.FC<Props> = ({profileCard, profile}: Props) => 
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
-            trigger={profileCard}
+            trigger={<ProfileCard profile={profile}/>}
         >
             <Modal.Header>{profile.name}</Modal.Header>
             <Modal.Content image>
