@@ -65,7 +65,7 @@ describe('profile controller should', () => {
 
     test('save updated profile', async () => {
         const event = {
-            body: '{"skills": [{"name": "React", "level": 5}], "role": "Software Craftsperson in Training", "availability": {"isAvailable": false}}',
+            body: '{"skills": [{"name": "React", "level": 5}], "role": "Software Craftsperson in Training", "availability": {"isAvailable": false}, "location": "London"}',
             requestContext: {
                 authorizer: {
                     authorisedUser: '{"name":"Best User","email":"best.user@codurance.com","profileImageUrl":"http://codurance.com/best-user/profile-image.png"}',
@@ -81,6 +81,7 @@ describe('profile controller should', () => {
             name: "Best User",
             imageUrl: "http://codurance.com/best-user/profile-image.png",
             role: 'Software Craftsperson in Training',
+            location: 'London',
             skills: [{name: 'React', level: 5}],
             availability: {
                 isAvailable: false,

@@ -5,9 +5,9 @@ export class PersistedProfile implements Profile {
     email: string;
     imageUrl: string;
     role: string;
+    location: string;
     availability: ProfileAvailability;
     skills: ProfileSkill[];
-
 
     constructor(profile: Profile) {
         this.name = profile.name;
@@ -16,6 +16,7 @@ export class PersistedProfile implements Profile {
         this.role = profile.role;
         this.skills = profile.skills;
         this.availability = profile.availability;
+        this.location = profile.location;
     }
 
     public hasSkills(skills: string[]): boolean {
