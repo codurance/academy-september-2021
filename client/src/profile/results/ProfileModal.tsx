@@ -12,8 +12,6 @@ export const ProfileModal: React.FC<Props> = ({profileCard, profile}: Props) => 
     const [open, setOpen] = React.useState(false);
 
     return (
-        <div>
-            {profileCard}
         <Modal
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
@@ -34,6 +32,5 @@ export const ProfileModal: React.FC<Props> = ({profileCard, profile}: Props) => 
                 </Button>
             </Modal.Actions>
         </Modal>
-        </div>
     );
 };
