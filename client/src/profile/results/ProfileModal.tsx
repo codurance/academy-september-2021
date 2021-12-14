@@ -1,5 +1,5 @@
-import React, {ReactElement} from 'react'
-import { Button, Header, Image, Modal } from 'semantic-ui-react'
+import React, {ReactElement} from 'react';
+import { Button, Header, Image, Modal } from 'semantic-ui-react';
 import {ProfileCard} from "./ProfileCard";
 import {Profile} from "skillset";
 
@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const ProfileModal: React.FC<Props> = ({profileCard, profile}: Props) => {
-    const [open, setOpen] = React.useState(false)
+    const [open, setOpen] = React.useState(false);
 
     return (
         <div>
@@ -35,5 +35,5 @@ export const ProfileModal: React.FC<Props> = ({profileCard, profile}: Props) => 
             </Modal.Actions>
         </Modal>
         </div>
-    )
+    );
 };
