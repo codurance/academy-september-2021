@@ -17,25 +17,22 @@ export const ProfileModal: React.FC<Props> = ({profile, isVisible, setIsVisible}
             onClose={() => setIsVisible(false)}
             onOpen={() => setIsVisible(true)}
             open={isVisible}
+            style={{backgroundImage: `url(${profileCardBackground})`, backgroundSize: 'cover'}}
         >
-            <div style={{backgroundImage: `url(${profileCardBackground})`, backgroundSize: 'cover'}}>
             <Modal.Header>{profile.name}</Modal.Header>
             <Modal.Content image>
-                <div style={{display: 'flex', flexDirection: 'column'}}>
-                <Image size='small' src={profile.imageUrl} wrapped />
+                <Image size='tiny' src={profile.imageUrl} wrapped />
+                {profile.availability.isAvailable
+                    ? <Icon className={"check circle green"}/>
+                    : <Icon className={"minus circle red"}/>
+                }
                 <span>
-                    {profile.availability.isAvailable
-                        ? <Icon className={"check circle green"}/>
-                        : <Icon className={"minus circle red"}/>
-                    }
-                    <span> </span>
                     {profile.availability.isAvailable
                         ? 'Available'
                         : profile.availability.client
                     }
                 </span>
                 <span>{profile.email}</span>
-                </div>
                 <Modal.Description>
                     <Header>About me</Header>
                     <span>{`${profile.role} - ${profile.location}`}</span>
@@ -46,7 +43,6 @@ export const ProfileModal: React.FC<Props> = ({profile, isVisible, setIsVisible}
                     Close
                 </Button>
             </Modal.Actions>
-            </div>
         </Modal>
     );
 };
