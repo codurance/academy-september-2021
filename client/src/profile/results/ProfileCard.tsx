@@ -2,6 +2,7 @@ import {Profile} from "skillset";
 import {Card, Icon, Image} from "semantic-ui-react";
 import React from "react";
 import profileCardBackground from "./profile-card-background.svg";
+import {ProfileModal} from "./ProfileModal";
 
 type Props = {
     profile: Profile
@@ -14,6 +15,7 @@ export const ProfileCard: React.FC<Props> = ({profile}: Props) => {
         .replace(/, ([^,]*)$/, ', $1');
 
     return (
+        <div>
         <Card style={{backgroundImage: `url(${profileCardBackground})`, backgroundSize: 'cover'}}>
             <Card.Content>
                 <Card.Meta textAlign="center">
@@ -44,5 +46,6 @@ export const ProfileCard: React.FC<Props> = ({profile}: Props) => {
                 </span>
             </Card.Content>
         </Card>
+        </div>
     );
 };
