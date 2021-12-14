@@ -13,16 +13,19 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
     const [hasSearchError, setHasSearchError] = useState(false);
     const [skills, setSkills] = useState('');
     const [hasRequestedAvailableOnly, setHasRequestedAvailableOnly] = useState(false);
+    const [hasRequestedExactMatches, setHasRequestedExactMatches] = useState(false);
 
     useEffect(() => {
         const previousSkills = query?.skills.join(', ') ?? '';
         const hasRequestedAvailableOnly = query?.hasRequestedAvailableOnly ?? false;
+        const hasRequestedExactMatches = query?.hasRequestedExactMatches ?? false;
         setSkills(previousSkills);
         setHasRequestedAvailableOnly(hasRequestedAvailableOnly);
+        setHasRequestedExactMatches(hasRequestedExactMatches);
     }, [query]);
 
     async function search(): Promise<void> {
-        const query: ProfileSearchQuery = {skills: parseSkills(), hasRequestedAvailableOnly: hasRequestedAvailableOnly};
+        const query: ProfileSearchQuery = {skills: parseSkills(), hasRequestedAvailableOnly: hasRequestedAvailableOnly, hasRequestedExactMatches: hasRequestedExactMatches};
         setIsLoadingSearch(true);
 
         await profileSearchService
@@ -59,6 +62,13 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
                         label='Only show available consultants'
                         checked={hasRequestedAvailableOnly}
                         onClick={() => setHasRequestedAvailableOnly(!hasRequestedAvailableOnly)}
+                    />
+                </Form.Field>
+                <Form.Field style={{textAlign: 'left'}}>
+                    <Checkbox
+                        label='Only show exact matches'
+                        checked={hasRequestedExactMatches}
+                        onClick={() => setHasRequestedExactMatches(!hasRequestedExactMatches)}
                     />
                 </Form.Field>
             </Form>

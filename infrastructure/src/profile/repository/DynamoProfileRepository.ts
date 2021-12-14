@@ -3,6 +3,7 @@ import {Profile, ProfileSearchQuery} from "skillset";
 import {PersistedProfile} from "./PersistedProfile";
 import AWS from "aws-sdk";
 import {DocumentClient} from "aws-sdk/clients/dynamodb";
+import {skills} from "../../../../client/src/profile/edit/ProfileSkill";
 
 export class DynamoProfileRepository implements ProfileRepository {
     private readonly client: DocumentClient;
@@ -10,7 +11,7 @@ export class DynamoProfileRepository implements ProfileRepository {
 
     constructor() {
         const connectionOptions = process.env.STAGE === 'dev'
-            ? { region: 'localhost', endpoint: 'http://localhost:8000' }
+            ? {region: 'localhost', endpoint: 'http://localhost:8000'}
             : undefined;
 
         this.client = new AWS.DynamoDB.DocumentClient(connectionOptions);
@@ -55,7 +56,13 @@ export class DynamoProfileRepository implements ProfileRepository {
         if (query.hasRequestedAvailableOnly) {
             filteredProfiles = filteredProfiles.filter(profile => profile.availability.isAvailable);
         }
+        if (query.hasRequestedExactMatches) {
+            return filteredProfiles.filter(profile => {
+                console.log(profile.isExactMatch(query.skills));
+                return profile.isExactMatch(query.skills);
+            });
+        }
 
-        return filteredProfiles.filter(profile => profile.hasSkills(query.skills));
-    }
+        return filteredProfiles.filter(profile => profile.hasSkills(query.skills))
+    };
 }

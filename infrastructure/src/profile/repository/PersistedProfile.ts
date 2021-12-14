@@ -20,8 +20,22 @@ export class PersistedProfile implements Profile {
     }
 
     public hasSkills(skills: string[]): boolean {
-        const formattedSkills = skills.map((skill: string) => skill.toLowerCase());
-        const formattedProfileSkills = this.skills.flatMap((skill: ProfileSkill) => skill.name.toLowerCase());
+        const formattedSkills = this.formatSkills(skills);
+        const formattedProfileSkills = this.formatProfileSkills();
         return formattedProfileSkills.some(profileSkill => formattedSkills.includes(profileSkill));
+    }
+
+    public isExactMatch(skills: string[]): boolean {
+        const formattedSkills = this.formatSkills(skills);
+        const formattedProfileSkills = this.formatProfileSkills();
+        return formattedSkills.every(skill => formattedProfileSkills.includes(skill));
+    }
+
+    private formatSkills(skills: string[]): string[] {
+        return skills.map((skill: string) => skill.toLowerCase());
+    }
+
+    private formatProfileSkills(): string[] {
+        return this.skills.flatMap((skill: ProfileSkill) => skill.name.toLowerCase());
     }
 }

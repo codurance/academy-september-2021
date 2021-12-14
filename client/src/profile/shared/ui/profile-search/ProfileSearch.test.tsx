@@ -19,7 +19,8 @@ describe('profile search', () => {
     it('should prefill search when query provided', () => {
         const query: ProfileSearchQuery = {
             skills: ['TypeScript', 'Python'],
-            hasRequestedAvailableOnly: false
+            hasRequestedAvailableOnly: false,
+            hasRequestedExactMatches: false
         };
 
         render(<ProfileSearch profileSearchService={instance(profileSearchService)} query={query}/>);
@@ -44,7 +45,7 @@ describe('profile search', () => {
 
         await submitSearch('React, TypeScript, Serverless');
 
-        const expectedQuery = {skills: ['React', 'TypeScript', 'Serverless'], hasRequestedAvailableOnly: false};
+        const expectedQuery = {skills: ['React', 'TypeScript', 'Serverless'], hasRequestedAvailableOnly: false, hasRequestedExactMatches: false};
         const capturedQuery = capture(profileSearchService.search).last()[0];
         expect(capturedQuery).toEqual(expectedQuery);
     });
@@ -77,10 +78,23 @@ describe('profile search', () => {
 
         await submitSearch('React, TypeScript, Serverless');
 
-        const expectedQuery = {skills: ['React', 'TypeScript', 'Serverless'], hasRequestedAvailableOnly: true};
+        const expectedQuery = {skills: ['React', 'TypeScript', 'Serverless'], hasRequestedAvailableOnly: true, hasRequestedExactMatches: false};
         const capturedQuery = capture(profileSearchService.search).last()[0];
         expect(capturedQuery).toEqual(expectedQuery);
     });
+
+    it('should perform boolean AND search when exact match checkbox selected', async () => {
+        when(profileSearchService.search(anything())).thenResolve();
+        renderProfileSearch();
+
+        toggleExactMatch();
+
+        await submitSearch('C#, Java');
+
+        const expectedQuery = {skills: ['C#', 'Java'], hasRequestedAvailableOnly: false, hasRequestedExactMatches: true};
+        const capturedQuery = capture(profileSearchService.search).last()[0];
+        expect(capturedQuery).toEqual(expectedQuery);
+    })
 
     const renderProfileSearch = () => {
         render(<ProfileSearch profileSearchService={instance(profileSearchService)}/>);
@@ -97,5 +111,11 @@ describe('profile search', () => {
         const isAvailableFilterLabel = screen.getByText('Only show available consultants');
         const isAvailableFilterCheckbox = isAvailableFilterLabel.parentElement!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
         userEvent.click(isAvailableFilterCheckbox);
+    };
+
+    const toggleExactMatch = () => {
+        const exactMatchLabel = screen.getByText('Only show exact matches');
+        const exactMatchFilterCheckbox = exactMatchLabel.parentElement!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+        userEvent.click(exactMatchFilterCheckbox);
     };
 });

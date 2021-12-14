@@ -8,7 +8,8 @@ export class ProfileSearchQueryParser {
 
         return  {
             skills: queryParameters.skills as string[],
-            hasRequestedAvailableOnly: (queryParameters.hasRequestedAvailableOnly as string) === 'true'
+            hasRequestedAvailableOnly: (queryParameters.hasRequestedAvailableOnly as string) === 'true',
+            hasRequestedExactMatches: (queryParameters.hasRequestedExactMatches as string) === 'true'
         };
     }
 

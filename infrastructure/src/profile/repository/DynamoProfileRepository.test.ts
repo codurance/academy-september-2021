@@ -13,7 +13,8 @@ describe('dynamo database profile repository', () => {
         const dynamoProfileRepository = new DynamoProfileRepository();
         const query: ProfileSearchQuery = {
             skills: ['TYPESCRIPT', 'ServerLess', 'kotlin'],
-            hasRequestedAvailableOnly: false
+            hasRequestedAvailableOnly: false,
+            hasRequestedExactMatches: false
         };
 
         const result = await dynamoProfileRepository.search(query);
@@ -31,13 +32,31 @@ describe('dynamo database profile repository', () => {
         const dynamoProfileRepository = new DynamoProfileRepository();
         const query: ProfileSearchQuery = {
             skills: ['TYPESCRIPT', 'ServerLess', 'kotlin'],
-            hasRequestedAvailableOnly: true
+            hasRequestedAvailableOnly: true,
+            hasRequestedExactMatches: false
         };
 
         const result = await dynamoProfileRepository.search(query);
 
         expect(result.length).toEqual(1);
         expect(result[0].name).toBe('Jordan Colgan');
+    });
+
+    test('find matching profiles with an exact match of skills', async () => {
+        AWSMock.mock('DynamoDB.DocumentClient', 'scan', (params: ScanInput, callback: Function) => { // eslint-disable-line @typescript-eslint/ban-types
+            callback(null, mockedProfileTable());
+        });
+        const dynamoProfileRepository = new DynamoProfileRepository();
+        const query: ProfileSearchQuery = {
+            skills: ['C#', 'jAVa'],
+            hasRequestedAvailableOnly: false,
+            hasRequestedExactMatches: true
+        };
+
+        const result = await dynamoProfileRepository.search(query);
+
+        expect(result.length).toEqual(1);
+        expect(result[0].name).toBe('Alexander Howson');
     });
 
     test('get one profile by email', async () => {
