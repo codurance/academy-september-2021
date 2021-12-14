@@ -77,3 +77,39 @@ The application has the following dependencies
 - AWS
 - serverless
 - dynamoDB
+
+### Extending Skills and Roles
+
+To extend the "Skills" dropdown found in the profile editor navigate to this file within the project.
+
+> ./client/src/profile/edit/ProfileSkill.ts
+
+From here add a skill to the hard coded array.
+
+> export const skills = [
+>
+> 'C#',
+> 
+> 'Java',
+> 
+> 'new skill here'
+> 
+> ];
+
+The same applies to roles found here.
+
+> ./client/src/profile/edit/about/ProfileRole.ts
+
+From here you can extend the roles in a similar way to before.
+
+> export const roles = [
+> 
+> 'Software Craftsperson In Training',
+> 
+> 'Software Craftsperson',
+> 
+> 'new role here'
+> 
+> ];
+
+Make sure to not add a trailing comma to the end of either array.
