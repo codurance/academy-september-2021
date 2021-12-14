@@ -3,7 +3,6 @@ import {Profile, ProfileSearchQuery} from "skillset";
 import {PersistedProfile} from "./PersistedProfile";
 import AWS from "aws-sdk";
 import {DocumentClient} from "aws-sdk/clients/dynamodb";
-import {skills} from "../../../../client/src/profile/edit/ProfileSkill";
 
 export class DynamoProfileRepository implements ProfileRepository {
     private readonly client: DocumentClient;
@@ -58,11 +57,10 @@ export class DynamoProfileRepository implements ProfileRepository {
         }
         if (query.hasRequestedExactMatches) {
             return filteredProfiles.filter(profile => {
-                console.log(profile.isExactMatch(query.skills));
                 return profile.isExactMatch(query.skills);
             });
         }
 
-        return filteredProfiles.filter(profile => profile.hasSkills(query.skills))
-    };
+        return filteredProfiles.filter(profile => profile.hasSkills(query.skills));
+    }
 }

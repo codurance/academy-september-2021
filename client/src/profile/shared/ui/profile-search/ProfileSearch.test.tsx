@@ -94,7 +94,7 @@ describe('profile search', () => {
         const expectedQuery = {skills: ['C#', 'Java'], hasRequestedAvailableOnly: false, hasRequestedExactMatches: true};
         const capturedQuery = capture(profileSearchService.search).last()[0];
         expect(capturedQuery).toEqual(expectedQuery);
-    })
+    });
 
     const renderProfileSearch = () => {
         render(<ProfileSearch profileSearchService={instance(profileSearchService)}/>);
