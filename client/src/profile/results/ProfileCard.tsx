@@ -2,7 +2,6 @@ import {Profile} from "skillset";
 import {Card, Icon, Image} from "semantic-ui-react";
 import React from "react";
 import profileCardBackground from "./profile-card-background.svg";
-import {ProfileModal} from "./ProfileModal";
 
 type Props = {
     profile: Profile
