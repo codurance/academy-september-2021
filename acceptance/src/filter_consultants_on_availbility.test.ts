@@ -1,5 +1,5 @@
 describe('performs search query based on availability', () => {
-    it('filters our available consultants', () => {
+    xit('filters our available consultants', () => {
         cy.loginToGoogleAccount();
         cy.visit('/');
 
