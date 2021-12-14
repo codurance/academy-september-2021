@@ -1,22 +1,22 @@
-describe('perform simple search queries', () => {
-    it('display relevant results when user searches for a skill', () => {
+describe('find profiles with any matching skills', () => {
+    it('displays relevant results for profiles that match', () => {
         cy.loginToGoogleAccount();
         cy.visit('/');
 
-        findPeopleWithKotlinSkill();
+        findPeopleWithCSharpSkill();
 
         findPeopleWithJavascriptSkill();
 
-        findPeopleWithKotlinAndJavascriptSkill();
+        findPeopleWithCSharpAndJavascriptSkill();
 
         findNoPeopleWithPythonSkill();
     });
 
-    const findPeopleWithKotlinSkill = () => {
-        searchForSkills('Kotlin');
+    const findPeopleWithCSharpSkill = () => {
+        searchForSkills('C#');
 
         cy
-            .contains('Jordan Colgan')
+            .contains('Alexander Howson')
             .should('exist');
 
         cy
@@ -28,7 +28,7 @@ describe('perform simple search queries', () => {
         searchForSkills('Javascript');
 
         cy
-            .contains('Jordan Colgan')
+            .contains('Simon Rosenberg')
             .should('not.exist');
 
         cy
@@ -36,11 +36,11 @@ describe('perform simple search queries', () => {
             .should('exist');
     };
 
-    const findPeopleWithKotlinAndJavascriptSkill = () => {
-        searchForSkills('Kotlin, Javascript');
+    const findPeopleWithCSharpAndJavascriptSkill = () => {
+        searchForSkills('C#, Javascript');
 
         cy
-            .contains('Jordan Colgan')
+            .contains('Alexander Howson')
             .should('exist');
 
         cy
