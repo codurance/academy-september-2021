@@ -1,5 +1,5 @@
-describe("user profile creation", () => {
-    xit("a user should be able to input their details and create a user profile", () => {
+describe("user profile updating", () => {
+    xit("a user should be able to input their details to update their user profile", () => {
         cy.loginToGoogleAccount();
         cy.visit('/profile');
 
@@ -59,7 +59,7 @@ describe("user profile creation", () => {
 
     const updateLocation = (location: string) => {
         cy
-            .contains('Location')
+            .contains('Select Location')
             .click();
 
         cy
@@ -69,7 +69,7 @@ describe("user profile creation", () => {
 
     const updateRole = (role: string) => {
         cy
-            .contains('Select role')
+            .contains('Select Role')
             .click();
 
         cy
