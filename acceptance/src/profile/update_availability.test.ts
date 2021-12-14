@@ -1,5 +1,6 @@
-describe("update current client on profile", () => {
-    xit("updated client appears when searching", () => {
+describe("update availability", () => {
+    it("appears when searching after update", () => {
+        cy.intercept('PUT', '*/profile').as('saveProfile');
         cy.loginToGoogleAccount();
 
         findPeopleWithJavaSkills();
@@ -29,7 +30,7 @@ describe("update current client on profile", () => {
     const checkCurrentClientInSearchResults = (client: string) => {
         cy
             .get('.card')
-            .contains('Sam Steele')
+            .contains('Jordan Colgan')
             .parents('.card')
             .within(() => {
                 cy
@@ -54,8 +55,6 @@ describe("update current client on profile", () => {
             .contains('Save')
             .click();
 
-        cy
-            .contains('Profile Saved')
-            .should('exist');
+        cy.wait('@saveProfile');
     };
 })

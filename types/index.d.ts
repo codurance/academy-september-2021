@@ -25,6 +25,8 @@ declare module 'skillset' {
     }
 
     export interface UpdatedProfile {
+        name: string;
+        imageUrl: string;
         role: string;
         skills: ProfileSkill[];
         location: string;
