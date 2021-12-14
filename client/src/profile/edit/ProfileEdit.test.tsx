@@ -3,7 +3,7 @@ import {anything, capture, instance, mock, when} from "ts-mockito";
 import {AuthenticatedUser} from "../../shared/authentication/persistence";
 import React from "react";
 import {ProfileClient} from "../shared/resource";
-import {Profile, ProfileSkill, UpdatedProfile} from "skillset";
+import {UpdatedProfile} from "skillset";
 import {ProfileEdit} from "./ProfileEdit";
 import userEvent from "@testing-library/user-event";
 import {AuthenticatedUserService} from "../../shared/authentication/service/AuthenticatedUserService";
@@ -13,26 +13,7 @@ describe('editing a profile should', () => {
     const authenticatedUserService = mock<AuthenticatedUserService>();
     const windowView = mock<Window>();
 
-    it('display retrieved profile when the user has saved a profile before', async () => {
-        const profile: Profile = {
-            name: 'Retrieved Best User',
-            email: 'retrieved.best.user@codurance.com',
-            skills: [] as ProfileSkill[],
-            role: 'Software Craftsperson',
-            availability: {
-                isAvailable: false
-            }
-        } as Profile;
-        when(profileClient.getProfile('local.best.user@codurance.com')).thenResolve(profile);
-
-        renderProfileEdit();
-
-        expect(await screen.queryByText('It looks like this is your first time creating a profile')).not.toBeInTheDocument();
-        await expectReadOnlyInputToHaveValue('Name', 'Retrieved Best User');
-        await expectReadOnlyInputToHaveValue('Email', 'retrieved.best.user@codurance.com');
-    });
-
-    it('display authenticated user when the user has not saved a profile before', async () => {
+    it('display authenticated user', async () => {
         withSavingProfileForFirstTime();
 
         renderProfileEdit();
@@ -60,7 +41,7 @@ describe('editing a profile should', () => {
         clickInput('Add Skill');
         selectDropdownValue('Select Role', 'Software Craftsperson');
         toggleAvailability();
-        inputText('Current Client','Best Company');
+        inputText('Current Client', 'Best Company');
         await saveProfile();
 
         const capturedUpdatedProfile = capture(profileClient.save).last()[0];

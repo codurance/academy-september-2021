@@ -1,13 +1,14 @@
 import {ProfileClient} from "../shared/resource";
 import React, {useEffect, useState} from "react";
 import {Profile, ProfileAvailability, ProfileSkill} from "skillset";
-import {Button, Dimmer, Form, Header, Loader, Message} from "semantic-ui-react";
+import {Button, Dimmer, Form, Header, Loader} from "semantic-ui-react";
 import {EditSkills} from "./skills/EditSkills";
 import {ProfileEditState} from "./ProfileEditState";
 import {AuthenticatedUserService} from "../../shared/authentication/service/AuthenticatedUserService";
 import {EditAvailability} from "./availability/EditAvailability";
 import {EditAbout} from "./about/EditAbout";
 import "./ProfileEdit.css";
+import {ProfileEditFeedback} from "./feedback/ProfileEditFeedback";
 
 type Props = {
     profileClient: ProfileClient;
@@ -17,29 +18,29 @@ type Props = {
 
 export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserService, windowView}) => {
     const authenticatedUser = authenticatedUserService.getAuthenticatedUser()!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
-    const [profile, setProfile] = useState<Profile | undefined>();
+    const [profileEditState, setProfileEditState] = useState<ProfileEditState>(ProfileEditState.PERFORMING_NETWORK_REQUEST);
     const [availability, setAvailability] = useState<ProfileAvailability>({
         isAvailable: true,
         client: undefined
     });
     const [skills, setSkills] = useState<ProfileSkill[]>([]);
     const [role, setRole] = useState<string>('');
-    const [profileEditState, setProfileEditState] = useState<ProfileEditState>(ProfileEditState.PERFORMING_NETWORK_REQUEST);
 
     useEffect(() => {
         profileClient
             .getProfile(authenticatedUser.email)
             .then(profile => {
                 if (profile) updateForm(profile);
+                else setProfileEditState(ProfileEditState.PROFILE_NOT_CREATED);
             })
-            .finally(() => setProfileEditState(ProfileEditState.PROFILE_EDIT_READY));
+            .catch(() => setProfileEditState(ProfileEditState.PROFILE_NOT_CREATED));
     }, []);
 
     const updateForm = (profile: Profile) => {
-        setProfile(profile);
         setSkills(profile.skills);
         setRole(profile.role);
         setAvailability(profile.availability);
+        setProfileEditState(ProfileEditState.PROFILE_EDIT_READY);
     };
 
     const saveProfile = () => {
@@ -65,28 +66,13 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
                 <Loader/>
             </Dimmer>
 
-            {!profile && profileEditState === ProfileEditState.PROFILE_EDIT_READY &&
-            <Message info>
-                <Message.Header>It looks like this is your first time creating a profile</Message.Header>
-                <p>Save your details below to be shown in search results</p>
-                <p>If you don&apos;t want to be shown in search results you do not need to save this form. You can still
-                    search for profiles.</p>
-            </Message>
-            }
+            <ProfileEditFeedback profileEditState={profileEditState}/>
 
-            {profileEditState === ProfileEditState.PROFILE_SAVED &&
-            <Message positive>Profile Saved</Message>
-            }
-
-            {profileEditState === ProfileEditState.NETWORK_ERROR &&
-            <Message negative>Unable to save profile, please try again</Message>
-            }
-
-            <div className="section">
+            <div className="section" style={{marginTop: 0}}>
                 <Header as="h3">My Profile</Header>
                 <Form.Group widths='equal'>
-                    <Form.Input fluid label='Name' value={profile?.name ?? authenticatedUser.name} readOnly/>
-                    <Form.Input fluid label='Email' value={profile?.email ?? authenticatedUser.email} readOnly/>
+                    <Form.Input fluid label='Name' value={authenticatedUser.name} readOnly/>
+                    <Form.Input fluid label='Email' value={authenticatedUser.email} readOnly/>
                 </Form.Group>
             </div>
 
