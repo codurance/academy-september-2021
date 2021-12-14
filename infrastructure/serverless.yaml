@@ -8,9 +8,9 @@ custom:
     stages:
       - dev
     deletionPolicy:
-      dev: Delete
-      staging: Delete
-      production: Delete
+      dev: 'Delete'
+      staging: 'Delete'
+      production: 'Delete'
     seed:
       domain:
         sources:
