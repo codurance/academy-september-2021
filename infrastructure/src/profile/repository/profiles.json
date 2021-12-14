@@ -108,8 +108,7 @@
       {"name": "React", "level": 4}
     ],
     "availability": {
-      "isAvailable": true,
-      "client": "On the bench"
+      "isAvailable": true
     }
   }
 ]
