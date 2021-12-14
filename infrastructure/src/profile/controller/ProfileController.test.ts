@@ -90,6 +90,33 @@ describe('profile controller should', () => {
         });
     });
 
+    test('use name and profile from updated profile when authenticated user is incomplete', async() => {
+        const event = {
+            body: '{"name": "Best User", "imageUrl":"http://codurance.com/best-user/profile-image.png", "skills": [{"name": "React", "level": 5}], "role": "Software Craftsperson in Training", "availability": {"isAvailable": false}, "location": "London"}',
+            requestContext: {
+                authorizer: {
+                    authorisedUser: '{"email":"best.user@codurance.com"}',
+                }
+            }
+        };
+
+        await profileController.save(event);
+
+        const updatedProfile = capture(profileRepository.save).last()[0];
+        expect(updatedProfile).toEqual({
+            email: "best.user@codurance.com",
+            name: "Best User",
+            imageUrl: "http://codurance.com/best-user/profile-image.png",
+            role: 'Software Craftsperson in Training',
+            location: 'London',
+            skills: [{name: 'React', level: 5}],
+            availability: {
+                isAvailable: false,
+                client: undefined
+            }
+        });
+    });
+
     test('return success response after updating profile', async () => {
         const event = {
             body: '{"skills": [{"name": "React", "level": 5}]}',

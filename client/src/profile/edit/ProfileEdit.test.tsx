@@ -26,13 +26,15 @@ describe('editing a profile should', () => {
     it('save profile on save clicked', async () => {
         withSavingProfileForFirstTime();
         const expectedUpdatedProfile: UpdatedProfile = {
-            skills: [{name: 'React', level: 5}],
+            name: 'Local Best User',
+            imageUrl: 'https://codurance.com/local-best-user.png',
             role: 'Software Craftsperson',
+            location: 'London',
             availability: {
                 isAvailable: false,
                 client: 'Best Company'
             },
-            location: 'London'
+            skills: [{name: 'React', level: 5}]
         };
         when(profileClient.save(anything())).thenResolve();
         renderProfileEdit();
@@ -88,7 +90,8 @@ describe('editing a profile should', () => {
     const renderProfileEdit = () => {
         const authenticatedUser = {
             name: 'Local Best User',
-            email: 'local.best.user@codurance.com'
+            email: 'local.best.user@codurance.com',
+            profileImageUrl: 'https://codurance.com/local-best-user.png'
         } as AuthenticatedUser;
         when(authenticatedUserService.getAuthenticatedUser()).thenReturn(authenticatedUser);
         render(<ProfileEdit profileClient={instance(profileClient)}

@@ -48,10 +48,10 @@ export class ProfileController {
         const authorisedUser = JSON.parse(event.requestContext.authorizer.authorisedUser) as AuthorisedUser;
         const updatedProfile = JSON.parse(event.body) as UpdatedProfile;
         const profile: Profile = {
-            email: authorisedUser.email,
-            name: authorisedUser.name,
-            imageUrl: authorisedUser.profileImageUrl,
             ...updatedProfile,
+            email: authorisedUser.email,
+            name: authorisedUser.name ?? updatedProfile.name,
+            imageUrl: authorisedUser.profileImageUrl ?? updatedProfile.imageUrl
         };
 
         await this.profileRepository.save(profile);

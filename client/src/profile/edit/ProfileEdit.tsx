@@ -1,6 +1,6 @@
 import {ProfileClient} from "../shared/resource";
 import React, {useEffect, useState} from "react";
-import {Profile, ProfileAvailability, ProfileSkill} from "skillset";
+import {Profile, UpdatedProfile} from "skillset";
 import {Button, Dimmer, Form, Header, Loader} from "semantic-ui-react";
 import {EditSkills} from "./skills/EditSkills";
 import {ProfileEditState} from "./ProfileEditState";
@@ -19,13 +19,17 @@ type Props = {
 export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserService, windowView}) => {
     const authenticatedUser = authenticatedUserService.getAuthenticatedUser()!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
     const [profileEditState, setProfileEditState] = useState<ProfileEditState>(ProfileEditState.PERFORMING_NETWORK_REQUEST);
-    const [availability, setAvailability] = useState<ProfileAvailability>({
-        isAvailable: true,
-        client: undefined
+    const [updatedProfile, setUpdatedProfile] = useState<UpdatedProfile>({
+        name: authenticatedUser.name,
+        imageUrl: authenticatedUser.profileImageUrl,
+        role: '',
+        location: '',
+        availability: {
+            isAvailable: true,
+            client: undefined
+        },
+        skills: []
     });
-    const [skills, setSkills] = useState<ProfileSkill[]>([]);
-    const [role, setRole] = useState<string>('');
-    const [location, setLocation] = useState<string>('');
 
     useEffect(() => {
         profileClient
@@ -38,21 +42,22 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
     }, []);
 
     const updateForm = (profile: Profile) => {
-        setSkills(profile.skills);
-        setRole(profile.role);
-        setLocation(profile.location);
-        setAvailability(profile.availability);
+        setUpdatedProfile({
+            ...updatedProfile,
+            ...profile
+        });
         setProfileEditState(ProfileEditState.PROFILE_EDIT_READY);
+    };
+
+    const updateProfile = (name: string, value: unknown) => {
+        setUpdatedProfile({
+            ...updatedProfile,
+            [name]: value
+        });
     };
 
     const saveProfile = () => {
         setProfileEditState(ProfileEditState.PERFORMING_NETWORK_REQUEST);
-        const updatedProfile = {
-            skills,
-            role,
-            availability,
-            location
-        };
 
         profileClient
             .save(updatedProfile)
@@ -81,20 +86,20 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
 
             <div className="section">
                 <EditAbout
-                    role={role}
-                    onRoleSelected={updatedRole => setRole(updatedRole)}
-                    location={location}
-                    onLocationSelected={updatedLocation => setLocation(updatedLocation)}
+                    role={updatedProfile.role}
+                    onRoleSelected={role => updateProfile('role', role)}
+                    location={updatedProfile.location}
+                    onLocationSelected={location => updateProfile('location', location)}
                 />
             </div>
 
             <div className="section">
-                <EditAvailability availability={availability}
-                                  onAvailabilityUpdated={updatedAvailability => setAvailability(updatedAvailability)}/>
+                <EditAvailability availability={updatedProfile.availability}
+                                  onAvailabilityUpdated={availability => updateProfile('availability', availability)}/>
             </div>
 
             <div className="section">
-                <EditSkills skills={skills} onSkillsUpdated={updatedSkills => setSkills(updatedSkills)}/>
+                <EditSkills skills={updatedProfile.skills} onSkillsUpdated={skills => updateProfile('skills', skills)}/>
             </div>
 
             <div className="section" style={{textAlign: 'center'}}>
