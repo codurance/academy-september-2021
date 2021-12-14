@@ -23,7 +23,7 @@ export const ProfileCard: React.FC<Props> = ({profile}: Props) => {
                 <Card.Header textAlign="center" as="h3" style={{margin: '0.5rem 0 0 0'}}>{profile.name}</Card.Header>
 
                 <Card.Meta textAlign="center">
-                    <span style={{fontSize: '1rem'}}>{profile.role}</span>
+                    <span style={{fontSize: '1rem'}}>{`${profile.role} - ${profile.location}`}</span>
                 </Card.Meta>
 
                 <Card.Description style={{margin: '1rem 0 0 0'}}>
