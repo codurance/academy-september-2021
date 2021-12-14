@@ -1,20 +1,24 @@
 import {Profile} from "skillset";
 import {Card, Icon, Image} from "semantic-ui-react";
-import React from "react";
+import React, {useState} from "react";
 import profileCardBackground from "./profile-card-background.svg";
+import {ProfileModal} from "./ProfileModal";
 
 type Props = {
     profile: Profile
 };
 
 export const ProfileCard: React.FC<Props> = ({profile}: Props) => {
+    const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
     const getNamedSkills = (profile: Profile) => profile.skills
         .flatMap(profile => profile.name)
         .join(', ')
         .replace(/, ([^,]*)$/, ', $1');
 
     return (
-        <Card style={{backgroundImage: `url(${profileCardBackground})`, backgroundSize: 'cover'}}>
+        <Card onClick={() => setIsModalVisible(!isModalVisible)} style={{backgroundImage: `url(${profileCardBackground})`, backgroundSize: 'cover'}}>
+            <ProfileModal profile={profile} isVisible={isModalVisible} setIsVisible={setIsModalVisible}/>
             <Card.Content>
                 <Card.Meta textAlign="center">
                     <Image src={profile.imageUrl} alt={`User profile: ${profile.name}`} size="small" rounded/>

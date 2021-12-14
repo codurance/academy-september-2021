@@ -6,7 +6,7 @@ import logo from "../../shared/ui/logo.svg";
 import {Grid, Header, Image} from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css';
 import {ProfileFeatureNavigator} from "../shared/navigation";
-import {ProfileModal} from "./ProfileModal";
+import {ProfileCard} from "./ProfileCard";
 
 type Props = {
     profileFeatureNavigator: ProfileFeatureNavigator,
@@ -50,7 +50,7 @@ export const ProfileSearchResults: React.FC<Props> = ({profileFeatureNavigator, 
 
                     {results?.map(profile => (
                         <Grid.Column mobile={16} tablet={8} computer={4} key={profile.name}>
-                            <ProfileModal profile={profile} />
+                            <ProfileCard profile={profile} />
                         </Grid.Column>
                     ))}
                 </Grid.Row>
