@@ -1,8 +1,17 @@
 export const skills = [
+    'C',
     'C#',
+    'Clojure',
     'Java',
     'JavaScript',
-    'Rust',
+    'Kotlin',
+    'Kubernetes',
+    'PHP',
+    'Python',
+    'Scala',
+    'SQL',
     'React',
-    'TypeScript'
+    'Rust',
+    'Terraform',
+    'TypeScript',
 ];

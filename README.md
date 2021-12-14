@@ -7,11 +7,11 @@ SkillSet is an internal tool for Codurance acting as an internal CV. This will a
 
 The production environment is hosted on this domain
 
->https://skillset-staging.codurance.io/
+https://skillset.codurance.io/
 
 The staging environment is hosted on this domain
 
->https://skillset.codurance.io/
+https://skillset-staging.codurance.io/
 
 The application supports the following browsers
 
