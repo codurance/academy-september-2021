@@ -51,6 +51,7 @@ describe('profile search results', () => {
             name: 'Jordan Steele',
             email: 'jordan.steele@codurance.com',
             role: 'Software Craftsperson',
+            location: 'Remote',
             imageUrl: "http://localhost:3000/profile/jordan.steele.png",
             skills: [{name: 'Java', level: 4}, {name: 'Kotlin', level: 3}],
             availability: {
@@ -68,7 +69,7 @@ describe('profile search results', () => {
 
         expect(await screen.findByText('Jordan Steele')).toBeInTheDocument();
         expect(await screen.findByAltText('User profile: Jordan Steele')).toHaveAttribute('src', 'http://localhost:3000/profile/jordan.steele.png');
-        expect(await screen.findByText('Software Craftsperson')).toBeInTheDocument();
+        expect(await screen.findByText('Software Craftsperson - Remote')).toBeInTheDocument();
         expect(await screen.findByText('Java, Kotlin')).toBeInTheDocument();
         expect(await screen.findByText('Best Company')).toBeInTheDocument();
     });
