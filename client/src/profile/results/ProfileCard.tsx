@@ -17,8 +17,7 @@ export const ProfileCard: React.FC<Props> = ({profile}: Props) => {
         .replace(/, ([^,]*)$/, ', $1');
 
     return (
-        <div onClick={() => setIsModalVisible(!isModalVisible)}>
-        <Card style={{backgroundImage: `url(${profileCardBackground})`, backgroundSize: 'cover'}}>
+        <Card onClick={() => setIsModalVisible(!isModalVisible)} style={{backgroundImage: `url(${profileCardBackground})`, backgroundSize: 'cover'}}>
             <ProfileModal profile={profile} isVisible={isModalVisible} setIsVisible={setIsModalVisible}/>
             <Card.Content>
                 <Card.Meta textAlign="center">
@@ -49,6 +48,5 @@ export const ProfileCard: React.FC<Props> = ({profile}: Props) => {
                 </span>
             </Card.Content>
         </Card>
-        </div>
     );
 };
