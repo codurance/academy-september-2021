@@ -1,5 +1,5 @@
 describe("update current client on profile", () => {
-    it("updated client appears when searching", () => {
+    xit("updated client appears when searching", () => {
         cy.loginToGoogleAccount();
 
         findPeopleWithJavaSkills();
