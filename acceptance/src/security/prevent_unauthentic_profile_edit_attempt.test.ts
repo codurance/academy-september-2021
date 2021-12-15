@@ -7,9 +7,9 @@ describe('prevent unauthentic profile edit attempt', () => {
         persistFakeUserWithToken(unauthenticToken);
 
         cy.visit('/profile');
-
         cy.wait('@getProfile');
 
+        cy.wait(3000);
         cy.location().should((location) => {
             expect(location.pathname).to.eq('/login');
         });
