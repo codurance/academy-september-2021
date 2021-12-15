@@ -218,6 +218,12 @@ These changes are run on pushes to the main branch with changes to ".tf" files f
 > 
 > terraform apply
 
+**AWS Specific Instructions**
+
+- After deploying the domain (manually or through the pipeline) the domain name configuration "skillset-staging.codurance.io" needs to use cloudfront distribution using simple routing.
+- The cloudfront ID can be found cloudfront/distributions/"skillset-staging.codurance.io".
+- Copy the distribution domain name which can be pasted within Route 53/record details.
+
 ### Future Developments
 
 Some future developments have been considered for this project
@@ -225,6 +231,8 @@ Some future developments have been considered for this project
 - Database migration needs to be considered as a priority for migrating data for any database changes on the production server https://www.npmjs.com/package/dynamodb-migrations this library can be considered. Currently the application has a retain policy for the production server whereby any modifications to the database would need to be manually migrated or (worse) deleted loosing data integrity.
 
 - For each of the input fields sanitised input needs to be considered from a 3rd party security input library. If this is not considered there is the potential for malicious actors within the application to gain unauthorised access. Simply removing all symbols in a sanitisation would mean things like searching for C# wouldn't work from within a search query.
+
+- Deploy domain action needs to automate the domain name configurations required after each domain deployment.
 
 - May want to consider semantic versioning for production releases https://semver.org/.
 
