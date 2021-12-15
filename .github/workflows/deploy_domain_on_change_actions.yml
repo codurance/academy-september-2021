@@ -4,13 +4,11 @@ on:
   push:
     branches: [ main ]
     paths:
-      - ./client/deployment/main.tf
-      - ./client/deployment/variables.tf
+      - '**.tf'
   pull_request:
     branches: [ main ]
     paths:
-      - ./client/deployment/main.tf
-      - ./client/deployment/variables.tf
+      - '**.tf'
 defaults:
   run:
     working-directory: ./client/deployment
