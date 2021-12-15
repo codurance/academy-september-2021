@@ -210,7 +210,7 @@ After this changes can be made within
 
 to the terraform files (main.tf etc...)
 
-These changes are run on pushes to the main branch within the github actions but should the need arise can be run with the following commands:
+These changes are run on pushes to the main branch with changes to ".tf" files from within the github actions but should the need arise can be run with the following commands:
 
 > terraform init
 > 
