@@ -1,8 +1,5 @@
-import * as jwt from "jsonwebtoken";
-
-describe('check access control to protected views', () => {
+describe('check basic client access control to protected views', () => {
     const protectedPages = ['/', '/results', '/profile'];
-    const protectedPagesOnLoad = ['/profile'];
 
     protectedPages.forEach(page => {
         it(`prevent users who have not logged in yet from accessing ${page}`, () => {
@@ -17,19 +14,6 @@ describe('check access control to protected views', () => {
     protectedPages.forEach(page => {
         it(`prevent users who have attempted fake login from accessing ${page}`, () => {
             persistFakeUserWithToken("fake-token");
-
-            cy.visit(page);
-
-            cy.location().should((location) => {
-                expect(location.pathname).to.eq('/login');
-            });
-        });
-    });
-
-    protectedPagesOnLoad.forEach(page => {
-        it(`prevent users who have attempted unauthentic login from accessing ${page}`, () => {
-            const unauthenticToken = jwt.sign({data: 'foobar'}, 'secret', {expiresIn: '1h'});
-            persistFakeUserWithToken(unauthenticToken);
 
             cy.visit(page);
 
