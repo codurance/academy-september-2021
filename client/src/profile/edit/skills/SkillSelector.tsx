@@ -1,7 +1,7 @@
 import {ProfileSkill} from "skillset";
 import {skills} from "../ProfileSkill";
 import React, {SyntheticEvent, useState} from "react";
-import {Dropdown, DropdownItemProps, Form} from "semantic-ui-react";
+import {Dropdown, DropdownItemProps, DropdownProps, Form} from "semantic-ui-react";
 import "./SkillSelector.css";
 import {LevelSelector} from "./LevelSelector";
 
@@ -15,6 +15,7 @@ export const SkillSelector: React.FC<Props> = ({onSkillAdded, addedSkills}) => {
     const [level, setLevel] = useState<number | undefined>();
 
     const updateName = (event: SyntheticEvent, data: DropdownItemProps) => setName(data.value as string);
+    const updateDropdownOnType = (event: SyntheticEvent<HTMLElement, Event>, data: DropdownProps) => setName(data.value as string);
 
     const updateLevel = (level: number) => setLevel(level);
 
@@ -42,6 +43,7 @@ export const SkillSelector: React.FC<Props> = ({onSkillAdded, addedSkills}) => {
                     className="selection"
                     placeholder='Select Skill'
                     text={name}
+                    onChange={updateDropdownOnType}
                     fluid
                     search
                     selection
