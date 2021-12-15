@@ -38,7 +38,14 @@ export const SkillSelector: React.FC<Props> = ({onSkillAdded, addedSkills}) => {
     return (
         <>
             <Form.Field>
-                <Dropdown className="selection" placeholder='Select Skill' text={name}>
+                <Dropdown
+                    className="selection"
+                    placeholder='Select Skill'
+                    text={name}
+                    fluid
+                    search
+                    selection
+                >
                     <Dropdown.Menu>
                         {getAvailableSkillNames().map(skill =>
                             <Dropdown.Item key={skill} text={skill} value={skill} onClick={updateName}/>
