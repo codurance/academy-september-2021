@@ -1,6 +1,6 @@
 import * as jwt from "jsonwebtoken";
 
-describe('check access control to protected views', () => {
+describe('check basic client access control to protected views', () => {
     const protectedPages = ['/', '/results', '/profile'];
     const protectedPagesOnLoad = ['/profile'];
 

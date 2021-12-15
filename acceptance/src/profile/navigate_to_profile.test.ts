@@ -14,7 +14,7 @@ describe('navigate to profile', () => {
             .contains('Profile')
             .click();
 
-        cy.wait('@getProfile')
+        cy.wait('@getProfile');
 
         expectInputToHaveValue('Name', 'Jordan Colgan');
         expectInputToHaveValue('Email', 'jordan.colgan@codurance.com');
