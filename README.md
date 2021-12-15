@@ -8,11 +8,11 @@ For Users
 
 ### Accessing SkillSet
 
-The production environment is hosted on this domain. User data is retained. USE THIS ONE AS A USER.
+The production environment is hosted on this domain. User data is retained. USE THIS HYPERLINK AS A USER.
 
 > https://skillset.codurance.io/
 
-The staging environment is hosted on this domain. User data is wiped and seeded on codebase changes. USE THIS ONE AS A DEVELOPER.
+The staging environment is hosted on this domain. User data is wiped and seeded on codebase changes. USE THIS HYPERLINK AS A DEVELOPER.
 
 > https://skillset-staging.codurance.io/
 
@@ -76,6 +76,14 @@ In cases where you wish to run infrastructure locally you will need to add an en
 > touch ./infrastructure/.env
 >
 > echo ENV=dev > ./infrastructure/.env
+
+**Running Client Locally**
+
+To run the front end locally on localhost the following command can be run:
+
+> npm install
+>
+> npm start
 
 **Running Serverless Locally**
 

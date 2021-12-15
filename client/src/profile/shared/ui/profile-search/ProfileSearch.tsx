@@ -25,7 +25,11 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
     }, [query]);
 
     async function search(): Promise<void> {
-        const query: ProfileSearchQuery = {skills: parseSkills(), hasRequestedAvailableOnly: hasRequestedAvailableOnly, hasRequestedExactMatches: hasRequestedExactMatches};
+        const query: ProfileSearchQuery = {
+            skills: parseSkills(),
+            hasRequestedAvailableOnly: hasRequestedAvailableOnly,
+            hasRequestedExactMatches: hasRequestedExactMatches
+        };
         setIsLoadingSearch(true);
 
         await profileSearchService
@@ -42,35 +46,38 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
     return (
         <>
             {hasSearchError &&
-            <Message error>
-                <Message.Header>Network Error, try again.</Message.Header>
-            </Message>
+                <Message error>
+                    <Message.Header>Network Error, try again.</Message.Header>
+                </Message>
             }
 
             <Form onSubmit={search}>
                 <Form.Field>
                     <Input icon placeholder='Java, TypeScript, React...'>
-                        <input type='text' required value={skills} onChange={e => setSkills(e.target.value)} disabled={isLoadingSearch}/>
+                        <input type='text' required value={skills} onChange={e => setSkills(e.target.value)}
+                               disabled={isLoadingSearch}/>
                         {isLoadingSearch
                             ? <Icon name='circle notch' aria-label='Loading' loading/>
                             : <Icon name='search' aria-label='Search' onClick={search} link/>
                         }
                     </Input>
                 </Form.Field>
-                <Form.Field style={{textAlign: 'left'}}>
-                    <Checkbox
-                        label='Only show available consultants'
-                        checked={hasRequestedAvailableOnly}
-                        onClick={() => setHasRequestedAvailableOnly(!hasRequestedAvailableOnly)}
-                    />
-                </Form.Field>
-                <Form.Field style={{textAlign: 'left'}}>
-                    <Checkbox
-                        label='Only show exact matches'
-                        checked={hasRequestedExactMatches}
-                        onClick={() => setHasRequestedExactMatches(!hasRequestedExactMatches)}
-                    />
-                </Form.Field>
+                <Form.Group>
+                    <Form.Field style={{textAlign: 'left'}}>
+                        <Checkbox
+                            label='Only show available consultants'
+                            checked={hasRequestedAvailableOnly}
+                            onClick={() => setHasRequestedAvailableOnly(!hasRequestedAvailableOnly)}
+                        />
+                    </Form.Field>
+                    <Form.Field style={{textAlign: 'left'}}>
+                        <Checkbox
+                            label='Only show exact matches'
+                            checked={hasRequestedExactMatches}
+                            onClick={() => setHasRequestedExactMatches(!hasRequestedExactMatches)}
+                        />
+                    </Form.Field>
+                </Form.Group>
             </Form>
         </>
     );
