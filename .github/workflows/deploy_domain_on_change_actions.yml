@@ -3,10 +3,10 @@ name: Deploy_Domain
 on:
   push:
     paths:
-      - './client/deployment'
+      - ./client/deployment
   pull_request:
     paths:
-      - './client/deployment'
+      - ./client/deployment
 defaults:
   run:
     working-directory: ./client/deployment
