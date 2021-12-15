@@ -157,6 +157,8 @@ This guide is for configuring and changing the application's infrastructure.
 
 The CICD pipeline currently executes on pushes to main.
 
+**Automated Staging**
+
 ![](readme/cicd.png)
 
 - Run checks runs linting, tests and performs a cached installation.
@@ -164,11 +166,21 @@ The CICD pipeline currently executes on pushes to main.
 - Deploy client stage deploys the current client build to a hosted store.
 - Acceptance tests are performed on the staging environment. This uses cyprus running electron to test main user stories.
 
+**Manual Deployment**
+
 ![](readme/deployment.png)
 
 - Deployment is currently run in a manual workflow. 
 - For this set the branch to main and set a version number then click run workflow. 
 - This will then deploy the latest changes in staging to production. Data within the database will be retained (but not migrated).
+
+**Domain Deployment**
+
+- Deployment of the domain runs when there has been a change within:
+
+> ./client/deployment
+
+- This deploys a domain name to a hosted store.
 
 ### Configuring Google Single Sign-On
 
