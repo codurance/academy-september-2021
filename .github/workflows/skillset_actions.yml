@@ -2,9 +2,9 @@ name: SkillSet_Pipeline
 
 on:
   push:
-    branches: [ main, env_pipline_fixes ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, env_pipline_fixes ]
+    branches: [ main ]
 
 jobs:
   checks:

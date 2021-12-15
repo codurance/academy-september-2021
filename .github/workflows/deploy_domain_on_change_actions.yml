@@ -2,9 +2,11 @@ name: Deploy_Domain
 
 on:
   push:
+    branches: [ main ]
     paths:
       - ./client/deployment
   pull_request:
+    branches: [ main ]
     paths:
       - ./client/deployment
 defaults:
