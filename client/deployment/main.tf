@@ -1,7 +1,5 @@
 module "website_with_cname" {
   source = "cloudposse/s3-website/aws"
-  # Cloud Posse recommends pinning every module to a specific version
-  # version = "x.x.x"
   namespace      = "skillset"
   stage          = "staging"
   name           = "skillset-staging-app"
@@ -24,7 +22,6 @@ terraform {
     key            = "academy-skillset-serverless/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
-#    dynamodb_table = "academy-walking-skeleton-sept-2021-tf-state-lock"
   }
 }
 
