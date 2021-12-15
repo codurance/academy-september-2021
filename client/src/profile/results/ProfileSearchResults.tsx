@@ -6,7 +6,7 @@ import logo from "../../shared/ui/logo.svg";
 import {Grid, Header, Image} from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css';
 import {ProfileFeatureNavigator} from "../shared/navigation";
-import {ProfileCard} from "./ProfileCard";
+import {ProfileCard} from "./card/ProfileCard";
 
 type Props = {
     profileFeatureNavigator: ProfileFeatureNavigator,
