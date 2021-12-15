@@ -192,7 +192,7 @@ The CICD pipeline currently executes on pushes to main.
 
 ### Configuring Google Single Sign-On
 
-DEVELOPMENT TOKEN IN BITWARDEN OR SOMETHING!
+DEVELOPMENT TOKEN IN BITWARDEN OR SOMETHING.
 
 ### Configuring AWS Credentials 
 
