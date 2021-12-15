@@ -1,7 +1,7 @@
 import {ProfileSkill} from "skillset";
 import {skills} from "../ProfileSkill";
 import React, {SyntheticEvent, useState} from "react";
-import {Dropdown, DropdownItemProps, DropdownProps, Form} from "semantic-ui-react";
+import {Dropdown, DropdownItemProps, DropdownProps, Form, Input} from "semantic-ui-react";
 import "./SkillSelector.css";
 import {LevelSelector} from "./LevelSelector";
 
@@ -14,8 +14,7 @@ export const SkillSelector: React.FC<Props> = ({onSkillAdded, addedSkills}) => {
     const [name, setName] = useState<string | undefined>();
     const [level, setLevel] = useState<number | undefined>();
 
-    const updateName = (event: SyntheticEvent, data: DropdownItemProps) => setName(data.value as string);
-    const updateDropdownOnType = (event: SyntheticEvent<HTMLElement, Event>, data: DropdownProps) => setName(data.value as string);
+    const updateName = (event: SyntheticEvent, data: DropdownProps) => setName(data.value as string);
 
     const updateLevel = (level: number) => setLevel(level);
 
@@ -31,29 +30,26 @@ export const SkillSelector: React.FC<Props> = ({onSkillAdded, addedSkills}) => {
     };
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
 
-    const getAvailableSkillNames = (): string[] => {
+    const getAvailableSkillSelectionDropdownOptions = (): {key: string, value: string, text: string}[] => {
         const addedSkillNames = addedSkills.flatMap(addedSkill => addedSkill.name);
-        return skills.filter(skill => !addedSkillNames.includes(skill));
+        return skills
+            .filter(skill => !addedSkillNames.includes(skill))
+            .map( skill => ({key: skill, value: skill, text: skill}));
     };
 
     return (
         <>
             <Form.Field>
                 <Dropdown
-                    className="selection"
                     placeholder='Select Skill'
                     text={name}
-                    onChange={updateDropdownOnType}
+                    value={name}
+                    onChange={updateName}
                     fluid
-                    search
                     selection
-                >
-                    <Dropdown.Menu>
-                        {getAvailableSkillNames().map(skill =>
-                            <Dropdown.Item key={skill} text={skill} value={skill} onClick={updateName}/>
-                        )}
-                    </Dropdown.Menu>
-                </Dropdown>
+                    search
+                    options={getAvailableSkillSelectionDropdownOptions()}
+                />
             </Form.Field>
 
             <Form.Field>

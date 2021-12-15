@@ -31,17 +31,6 @@ describe('skill selector should', () => {
         expect(skillAdded).toEqual({name: 'React', level: 5});
     });
 
-    it('clears dropdown menus upon adding selection', async () => {
-        render(<SkillSelector onSkillAdded={() => {/* do nothing */}} addedSkills={[]}/>);
-
-        selectDropdownValue('Select Skill', 'React');
-        selectDropdownValue('Select Level', '5');
-        clickInput('Add Skill');
-
-        expect(await screen.findByText('Select Skill')).toBeInTheDocument();
-        expect(await screen.findByText('Select Level')).toBeInTheDocument();
-    });
-
     it('removes skills already added from select skills dropdown menu', async () => {
         render(<SkillSelector onSkillAdded={() => {/* do nothing */}} addedSkills={[{name: 'React', level: 5}]}/>);
 
