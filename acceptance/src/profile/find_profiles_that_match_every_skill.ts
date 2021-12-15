@@ -1,6 +1,7 @@
 describe("perform boolean search", () => {
-    xit("show only consultants who match every skill searched for", () => {
-        cy.loginToGoogleAccount;
+    it("show only consultants who match every skill searched for", () => {
+        cy.loginToGoogleAccount();
+        cy.visit('/');
 
         toggleBooleanSearch();
 
@@ -11,15 +12,15 @@ describe("perform boolean search", () => {
 
     const toggleBooleanSearch = () => {
         cy
-            .contains('Boolean search')
+            .contains('Only show exact matches')
             .click();
     }
 
     const findPeopleWithKotlinAndJavascriptSkill = () => {
-        searchForSkills('Kotlin, Javascript');
+        searchForSkills('PHP, Javascript');
 
         cy
-            .contains('Jordan Colgan')
+            .contains('Sam Steele')
             .should('exist');
 
         cy

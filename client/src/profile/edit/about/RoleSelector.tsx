@@ -14,7 +14,7 @@ export const RoleSelector: React.FC<Props> = ({role, onRoleSelected}: Props) => 
     };
 
     return (
-        <Dropdown className="selection" placeholder='Select Role' text={role}>
+        <Dropdown className="selection role-selector" placeholder='Select Role' text={role}>
             <Dropdown.Menu>
                 {roles.map(role =>
                     <Dropdown.Item key={role} text={role} value={role} onClick={updateRole}/>

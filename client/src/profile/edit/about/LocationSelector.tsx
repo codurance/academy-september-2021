@@ -14,7 +14,7 @@ export const LocationSelector: React.FC<Props> = ({location, onLocationSelected}
     };
 
     return (
-        <Dropdown className="selection" placeholder='Select Location' text={location}>
+        <Dropdown className="selection location-selector" placeholder='Select Location' text={location}>
             <Dropdown.Menu>
                 {locations.map(location =>
                     <Dropdown.Item key={location} text={location} value={location} onClick={updateLocation}/>

@@ -1,28 +1,33 @@
 describe("user profile updating", () => {
-    xit("a user should be able to input their details to update their user profile", () => {
+    it("a user should be able to input their details to update their user profile", () => {
         cy.loginToGoogleAccount();
         cy.visit('/profile');
-
-        updateRole('Principal Craftsperson');
-
-        updateLocation('London');
+        cy.intercept('PUT', '*/profile').as('saveProfile');
 
         updateClient('EcW');
 
-        addNewSkill('Rust', 3);
+        updateRole('Principal Software Craftsperson');
+
+        updateLocation('London');
+
+        addNewSkill('Rust', 'I could lead a pairing session on this');
 
         saveProfile();
 
         findPeopleWithReactSkills();
 
-        checkRoleInSearchResults('Principal Craftsperson');
+        checkRoleInSearchResults('Principal Software Craftsperson');
 
         checkLocationInSearchResults('London');
 
         checkCurrentClientInSearchResults('EcW');
     })
 
-    const addNewSkill = (skill: string, level: number) => {
+    const addNewSkill = (skill: string, level: string) => {
+        cy
+            .contains('My Skills')
+            .click();
+
         cy
             .contains('Select Skill')
             .click();
@@ -59,27 +64,29 @@ describe("user profile updating", () => {
 
     const updateLocation = (location: string) => {
         cy
-            .contains('Select Location')
-            .click();
-
-        cy
-            .contains(location)
-            .click();
+            .contains('Location')
+            .parent()
+            .within(() => {
+                cy.get('.location-selector')
+                    .click()
+                    .contains(location)
+                    .click();
+            });
     }
 
     const updateRole = (role: string) => {
         cy
-            .contains('Select Role')
-            .click();
-
-        cy
-            .contains(role)
-            .click();
+            .contains('Role')
+            .parent()
+            .within(() => {
+                cy.get('.role-selector')
+                    .click()
+                    .contains(role)
+                    .click();
+            });
     }
 
     const updateClient = (client: string) => {
-        cy.visit('/profile');
-
         cy
             .contains('Current Client')
             .parent()
@@ -95,22 +102,17 @@ describe("user profile updating", () => {
             .contains('Save')
             .click();
 
+        cy.wait('@saveProfile');
+
         cy
             .contains('Profile Saved')
-            .should('exist');
-    }
-
-    const checkProfileExistsInSearchResults = () => {
-        cy
-            .get("div[class='ui container'")
-            .contains('Sam Steele')
             .should('exist');
     }
 
     const checkRoleInSearchResults = (role: string) => {
         cy
             .get('.card')
-            .contains('Sam Steele')
+            .contains('Jordan Colgan')
             .parents('.card')
             .within(() => {
                 cy
@@ -122,7 +124,7 @@ describe("user profile updating", () => {
     const checkCurrentClientInSearchResults = (client: string) => {
         cy
             .get('.card')
-            .contains('Sam Steele')
+            .contains('Jordan Colgan')
             .parents('.card')
             .within(() => {
                 cy
@@ -134,7 +136,7 @@ describe("user profile updating", () => {
     const checkLocationInSearchResults = (location: string) => {
         cy
             .get('.card')
-            .contains('Sam Steele')
+            .contains('Jordan Colgan')
             .parents('.card')
             .within(() => {
                 cy
