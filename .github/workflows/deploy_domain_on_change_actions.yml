@@ -2,11 +2,13 @@ name: Deploy_Domain
 
 on:
   push:
+    branches: [ main ]
     paths:
-      - './client/deployment'
+      - '**.tf'
   pull_request:
+    branches: [ main ]
     paths:
-      - './client/deployment'
+      - '**.tf'
 defaults:
   run:
     working-directory: ./client/deployment

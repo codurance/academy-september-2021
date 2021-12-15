@@ -1,4 +1,4 @@
-import {Form, Icon, Input, Message, Checkbox} from "semantic-ui-react";
+import {Form, Icon, Input, Message} from "semantic-ui-react";
 import React, {useEffect, useState} from "react";
 import {ProfileSearchService} from "./ProfileSearchService";
 import {ProfileSearchQuery} from "skillset";
@@ -25,7 +25,11 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
     }, [query]);
 
     async function search(): Promise<void> {
-        const query: ProfileSearchQuery = {skills: parseSkills(), hasRequestedAvailableOnly: hasRequestedAvailableOnly, hasRequestedExactMatches: hasRequestedExactMatches};
+        const query: ProfileSearchQuery = {
+            skills: parseSkills(),
+            hasRequestedAvailableOnly: hasRequestedAvailableOnly,
+            hasRequestedExactMatches: hasRequestedExactMatches
+        };
         setIsLoadingSearch(true);
 
         await profileSearchService
@@ -48,29 +52,36 @@ export const ProfileSearch: React.FC<Props> = ({profileSearchService, query}: Pr
             }
 
             <Form onSubmit={search}>
-                <Form.Field>
-                    <Input icon placeholder='Java, TypeScript, React...'>
-                        <input type='text' required value={skills} onChange={e => setSkills(e.target.value)} disabled={isLoadingSearch}/>
-                        {isLoadingSearch
-                            ? <Icon name='circle notch' aria-label='Loading' loading/>
-                            : <Icon name='search' aria-label='Search' onClick={search} link/>
-                        }
-                    </Input>
-                </Form.Field>
-                <Form.Field style={{textAlign: 'left'}}>
-                    <Checkbox
-                        label='Only show available consultants'
-                        checked={hasRequestedAvailableOnly}
-                        onClick={() => setHasRequestedAvailableOnly(!hasRequestedAvailableOnly)}
-                    />
-                </Form.Field>
-                <Form.Field style={{textAlign: 'left'}}>
-                    <Checkbox
-                        label='Only show exact matches'
-                        checked={hasRequestedExactMatches}
-                        onClick={() => setHasRequestedExactMatches(!hasRequestedExactMatches)}
-                    />
-                </Form.Field>
+                <Form.Group widths='equal'>
+                    <Form.Field>
+                        <Input icon placeholder='Java, TypeScript, React...'>
+                            <input type='text' required value={skills} onChange={e => setSkills(e.target.value)}
+                                   disabled={isLoadingSearch}/>
+                            {isLoadingSearch
+                                ? <Icon name='circle notch' aria-label='Loading' loading/>
+                                : <Icon name='search' aria-label='Search' onClick={search} link/>
+                            }
+                        </Input>
+                    </Form.Field>
+                </Form.Group>
+
+                <Form.Group widths={"equal"}>
+                    <Form.Field style={{textAlign: 'left'}}>
+                        <Form.Checkbox
+                            label='Only show exact matches'
+                            checked={hasRequestedExactMatches}
+                            onClick={() => setHasRequestedExactMatches(!hasRequestedExactMatches)}
+                        />
+                    </Form.Field>
+
+                    <Form.Field style={{textAlign: 'right'}}>
+                        <Form.Checkbox
+                            label='Only show available consultants'
+                            checked={hasRequestedAvailableOnly}
+                            onClick={() => setHasRequestedAvailableOnly(!hasRequestedAvailableOnly)}
+                        />
+                    </Form.Field>
+                </Form.Group>
             </Form>
         </>
     );

@@ -4,13 +4,11 @@ describe("user profile updating", () => {
         cy.visit('/profile');
         cy.intercept('PUT', '*/profile').as('saveProfile');
 
-        updateClient('EcW');
+        updateClient('Best Client Ever');
 
         updateRole('Principal Software Craftsperson');
 
         updateLocation('London');
-
-        addNewSkill('Rust', 'I could lead a pairing session on this');
 
         saveProfile();
 
@@ -20,34 +18,8 @@ describe("user profile updating", () => {
 
         checkLocationInSearchResults('London');
 
-        checkCurrentClientInSearchResults('EcW');
-    })
-
-    const addNewSkill = (skill: string, level: string) => {
-        cy
-            .contains('My Skills')
-            .click();
-
-        cy
-            .contains('Select Skill')
-            .click();
-
-        cy
-            .contains(skill)
-            .click();
-
-        cy
-            .contains('Select Level')
-            .click();
-
-        cy
-            .contains(level)
-            .click();
-
-        cy
-            .contains("Add Skill")
-            .click()
-    }
+        checkCurrentClientInSearchResults('Best Client Ever');
+    });
 
     const findPeopleWithReactSkills = () => {
         cy.visit('/');

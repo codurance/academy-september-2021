@@ -30,8 +30,8 @@ export const ProfileSearchResults: React.FC<Props> = ({profileFeatureNavigator, 
         <div style={{paddingBottom: '2rem'}}>
             <Grid verticalAlign='middle'>
                 <Grid.Row>
-                    <Grid.Column width={2} style={{paddingRight: 0}}>
-                        <Image src={logo} height={125} width={75} floated={"right"}/>
+                    <Grid.Column width={2} style={{paddingRight: 0, paddingBottom: '1.5em'}}>
+                        <Image src={logo} height={100} width={75} floated={"right"}/>
                     </Grid.Column>
                     <Grid.Column width={12}>
                         <ProfileSearch profileSearchService={profileSearchService} query={query}/>
@@ -50,7 +50,7 @@ export const ProfileSearchResults: React.FC<Props> = ({profileFeatureNavigator, 
 
                     {results?.map(profile => (
                         <Grid.Column mobile={16} tablet={8} computer={4} key={profile.name}>
-                            <ProfileCard profile={profile} />
+                            <ProfileCard profile={profile}/>
                         </Grid.Column>
                     ))}
                 </Grid.Row>

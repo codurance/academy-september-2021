@@ -8,11 +8,11 @@ For Users
 
 ### Accessing SkillSet
 
-The production environment is hosted on this domain. User data is retained. USE THIS ONE AS A USER.
+The production environment is hosted on this domain. User data is retained. USE THIS HYPERLINK AS A USER.
 
 > https://skillset.codurance.io/
 
-The staging environment is hosted on this domain. User data is wiped and seeded on codebase changes. USE THIS ONE AS A DEVELOPER.
+The staging environment is hosted on this domain. User data is wiped and seeded on codebase changes. USE THIS HYPERLINK AS A DEVELOPER.
 
 > https://skillset-staging.codurance.io/
 
@@ -76,6 +76,14 @@ In cases where you wish to run infrastructure locally you will need to add an en
 > touch ./infrastructure/.env
 >
 > echo ENV=dev > ./infrastructure/.env
+
+**Running Client Locally**
+
+To run the front end locally on localhost the following command can be run:
+
+> npm install
+>
+> npm start
 
 **Running Serverless Locally**
 
@@ -184,7 +192,7 @@ The CICD pipeline currently executes on pushes to main.
 
 ### Configuring Google Single Sign-On
 
-DEVELOPMENT TOKEN IN BITWARDEN OR SOMETHING!
+DEVELOPMENT TOKEN IN BITWARDEN OR SOMETHING.
 
 ### Configuring AWS Credentials 
 
@@ -202,13 +210,19 @@ After this changes can be made within
 
 to the terraform files (main.tf etc...)
 
-These changes are run on pushes to the main branch within the github actions but should the need arise can be run with the following commands:
+These changes are run on pushes to the main branch with changes to ".tf" files from within the github actions but should the need arise can be run with the following commands:
 
 > terraform init
 > 
 > terraform plan
 > 
 > terraform apply
+
+**AWS Specific Instructions**
+
+- After deploying the domain (manually or through the pipeline) the domain name configuration "skillset-staging.codurance.io" needs to use cloudfront distribution using simple routing.
+- The cloudfront ID can be found cloudfront/distributions/"skillset-staging.codurance.io".
+- Copy the distribution domain name which can be pasted within Route 53/record details.
 
 ### Future Developments
 
@@ -217,6 +231,8 @@ Some future developments have been considered for this project
 - Database migration needs to be considered as a priority for migrating data for any database changes on the production server https://www.npmjs.com/package/dynamodb-migrations this library can be considered. Currently the application has a retain policy for the production server whereby any modifications to the database would need to be manually migrated or (worse) deleted loosing data integrity.
 
 - For each of the input fields sanitised input needs to be considered from a 3rd party security input library. If this is not considered there is the potential for malicious actors within the application to gain unauthorised access. Simply removing all symbols in a sanitisation would mean things like searching for C# wouldn't work from within a search query.
+
+- Deploy domain action needs to automate the domain name configurations required after each domain deployment.
 
 - May want to consider semantic versioning for production releases https://semver.org/.
 
