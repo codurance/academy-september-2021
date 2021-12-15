@@ -1,7 +1,7 @@
 import * as jwt from "jsonwebtoken";
 
 describe('prevent unauthentic profile edit attempt', () => {
-    it('redirects to login for users who are using a token that is not genuine', () => {
+    xit('redirects to login for users who are using a token that is not genuine', () => {
         cy.intercept('GET', '*/profile/fake.user@codurance.com').as('getProfile');
         const unauthenticToken = jwt.sign({data: 'foobar'}, 'secret', {expiresIn: '1h'});
         persistFakeUserWithToken(unauthenticToken);
