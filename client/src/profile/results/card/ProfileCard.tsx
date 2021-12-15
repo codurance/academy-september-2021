@@ -1,20 +1,18 @@
 import {Profile} from "skillset";
-import {Card, Icon, Image} from "semantic-ui-react";
+import {Card, Image} from "semantic-ui-react";
 import React, {useState} from "react";
 import profileCardBackground from "./profile-card-background.svg";
 import {ProfileModal} from "./modal/ProfileModal";
+import {ProfileCardFooter} from "./ProfileCardFooter";
+import {ProfileCardSkills} from "./ProfileCardSkills";
 
 type Props = {
     profile: Profile
+    requestedSkills: string[]
 };
 
-export const ProfileCard: React.FC<Props> = ({profile}: Props) => {
+export const ProfileCard: React.FC<Props> = ({profile, requestedSkills}: Props) => {
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-
-    const getNamedSkills = (profile: Profile) => profile.skills
-        .flatMap(profile => profile.name)
-        .join(', ')
-        .replace(/, ([^,]*)$/, ', $1');
 
     return (
         <>
@@ -27,27 +25,19 @@ export const ProfileCard: React.FC<Props> = ({profile}: Props) => {
                         <Image src={profile.imageUrl} alt={`User profile: ${profile.name}`} size="small" rounded/>
                     </Card.Meta>
 
-                    <Card.Header textAlign="center" as="h3"
-                                 style={{margin: '0.5rem 0 0 0'}}>{profile.name}</Card.Header>
+                    <Card.Header textAlign="center" as="h3" style={{marginTop: '0.5rem'}}>{profile.name}</Card.Header>
 
                     <Card.Meta textAlign="center">
-                        <span style={{fontSize: '1rem'}}>{`${profile.role} - ${profile.location}`}</span>
+                        <span style={{fontSize: '1rem'}}>{profile.role}</span>
                     </Card.Meta>
 
                     <Card.Description style={{margin: '1rem 0 0 0'}}>
-                        {getNamedSkills(profile)}
+                        <ProfileCardSkills skills={profile.skills} requestedSkills={requestedSkills}/>
                     </Card.Description>
                 </Card.Content>
 
                 <Card.Content extra>
-                    {profile.availability.isAvailable
-                        ? <Icon className={"check circle green"}/>
-                        : <Icon className={"minus circle red"}/>}
-                    <span>
-                    {profile.availability.isAvailable
-                        ? 'Available'
-                        : profile.availability.client}
-                    </span>
+                    <ProfileCardFooter profile={profile}/>
                 </Card.Content>
             </Card>
         </>

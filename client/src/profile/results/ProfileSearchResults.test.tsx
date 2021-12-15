@@ -58,7 +58,6 @@ describe('profile search results', () => {
                 isAvailable: false,
                 client: "Best Company"
             }
-
         };
         const state = {
             query: {skills: ['Java']},
@@ -68,10 +67,6 @@ describe('profile search results', () => {
         navigateToResults(state);
 
         expect(await screen.findByText('Jordan Steele')).toBeInTheDocument();
-        expect(await screen.findByAltText('User profile: Jordan Steele')).toHaveAttribute('src', 'http://localhost:3000/profile/jordan.steele.png');
-        expect(await screen.findByText('Software Craftsperson - Remote')).toBeInTheDocument();
-        expect(await screen.findByText('Java, Kotlin')).toBeInTheDocument();
-        expect(await screen.findByText('Best Company')).toBeInTheDocument();
     });
 
     it('should show no results when no search results found', async () => {

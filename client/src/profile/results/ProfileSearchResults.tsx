@@ -50,7 +50,7 @@ export const ProfileSearchResults: React.FC<Props> = ({profileFeatureNavigator, 
 
                     {results?.map(profile => (
                         <Grid.Column mobile={16} tablet={8} computer={4} key={profile.name}>
-                            <ProfileCard profile={profile}/>
+                            <ProfileCard profile={profile} requestedSkills={query?.skills ?? []}/>
                         </Grid.Column>
                     ))}
                 </Grid.Row>
