@@ -10,9 +10,9 @@ type Props = {
 export const LevelSelector: React.FC<Props> = ({isDisabled, selectedLevel, onLevelSelected}) => {
     const availableLevels = [
         {value: 1, description: 'I\'ve just started learning this'},
-        {value: 2, description: 'I am able to do this without much reference material'},
+        {value: 2, description: 'I can do this without much reference material'},
         {value: 3, description: 'I could lead a pairing session on this'},
-        {value: 4, description: 'I would be comfortable being a technical lead on this'},
+        {value: 4, description: 'I\'m comfortable being a technical lead on this'},
         {value: 5, description: 'I could talk about this at a conference'}
     ];
 
