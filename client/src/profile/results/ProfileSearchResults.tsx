@@ -20,11 +20,19 @@ export const ProfileSearchResults: React.FC<Props> = ({profileFeatureNavigator, 
 
     useEffect(() => {
         const previousSearch = location.state;
-        if (!previousSearch) return profileFeatureNavigator.navigateToSearch();
+        if (!previousSearch || hasTimestampExpired(previousSearch.timestamp)) return profileFeatureNavigator.navigateToSearch();
 
         setQuery(previousSearch.query);
         setResults(previousSearch.results);
     }, [location.state, profileFeatureNavigator]);
+
+    const hasTimestampExpired = (timestamp: number): boolean =>  {
+        const now = new Date();
+        const previousHour = now.getHours() - 1;
+        const oneHourAgoTimestamp = now.setHours(previousHour);
+
+        return timestamp < oneHourAgoTimestamp;
+    };
 
     return (
         <div style={{paddingBottom: '2rem'}}>
@@ -57,4 +65,5 @@ export const ProfileSearchResults: React.FC<Props> = ({profileFeatureNavigator, 
             </Grid>
         </div>
     );
+
 };

@@ -1,6 +1,6 @@
 import {ProfileFeatureNavigator, ProfileFeatureRoute} from ".";
-import {Profile, ProfileSearchQuery} from "skillset";
 import {History} from "history";
+import {ProfileSearchState} from "../ui/profile-search/ProfileSearchState";
 
 export class BrowserHistoryProfileFeatureNavigator implements ProfileFeatureNavigator {
 
@@ -10,10 +10,10 @@ export class BrowserHistoryProfileFeatureNavigator implements ProfileFeatureNavi
         this.history = history;
     }
 
-    navigateToResults(query: ProfileSearchQuery, results: Profile[]): void {
+    navigateToResults(state: ProfileSearchState): void {
         this.history.push(
             ProfileFeatureRoute.RESULTS,
-            {query, results}
+            {...state}
         );
     }
 

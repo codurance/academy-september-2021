@@ -32,12 +32,31 @@ describe('profile search results', () => {
         });
     });
 
+    it('should navigate to search for outdated search results', () => {
+        const outdatedTimestamp = buildOutdatedTimestamp();
+
+        const state = {
+            query: {
+                skills: ['Java']
+            },
+            results: [],
+            timestamp: outdatedTimestamp
+        };
+
+        navigateToResults(state);
+
+        return waitFor(() => {
+            verify(profileFeatureNavigator.navigateToSearch()).called();
+        });
+    });
+
     it('should populate search query from previous search', () => {
         const state = {
             query: {
                 skills: ['Java']
             },
-            results: []
+            results: [],
+            timestamp: Date.now()
         };
 
         navigateToResults(state);
@@ -61,7 +80,8 @@ describe('profile search results', () => {
         };
         const state = {
             query: {skills: ['Java']},
-            results: [profile]
+            results: [profile],
+            timestamp: Date.now()
         };
 
         navigateToResults(state);
@@ -74,7 +94,8 @@ describe('profile search results', () => {
             query: {
                 skills: ['Python']
             },
-            results: []
+            results: [],
+            timestamp: Date.now()
         };
 
         navigateToResults(state);
@@ -101,4 +122,9 @@ describe('profile search results', () => {
         });
     };
 
+    const buildOutdatedTimestamp = (): number => {
+        const now = new Date();
+        const previousHour = now.getHours() - 1;
+        return now.setHours(previousHour);
+    };
 });

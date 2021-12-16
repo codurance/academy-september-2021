@@ -11,6 +11,7 @@ import {Layout} from "./shared/ui/layout/Layout";
 import {ProfileEdit} from "./edit/ProfileEdit";
 import {AuthenticatedUserService} from "../shared/authentication/service/AuthenticatedUserService";
 import {NotFound} from "../not-found/NotFound";
+import {DateProvider} from "./shared/ui/profile-search/DateProvider";
 
 type Props = {
     history: History;
@@ -21,7 +22,8 @@ export const ProfileModule: React.FC<Props> = ({history, authenticatedUserServic
     const resourceClient = new AuthorisedAxiosResourceClient(authenticatedUserService);
     const profileClient = new ProfileClient(resourceClient);
     const profileFeatureNavigator = new BrowserHistoryProfileFeatureNavigator(history);
-    const profileSearchService = new ProfileSearchService(profileClient, profileFeatureNavigator);
+    const dateProvider = new DateProvider();
+    const profileSearchService = new ProfileSearchService(profileClient, profileFeatureNavigator, dateProvider);
 
     return (
         <div>

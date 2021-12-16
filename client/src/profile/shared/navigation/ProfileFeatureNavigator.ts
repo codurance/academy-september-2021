@@ -1,8 +1,8 @@
-import {Profile, ProfileSearchQuery} from "skillset";
+import {ProfileSearchState} from "../ui/profile-search/ProfileSearchState";
 
 export interface ProfileFeatureNavigator {
 
-    navigateToResults(query: ProfileSearchQuery, results: Profile[]): void;
+    navigateToResults(state: ProfileSearchState): void;
 
     navigateToProfile(): void;
 
