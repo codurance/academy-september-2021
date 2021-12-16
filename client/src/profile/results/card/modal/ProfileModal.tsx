@@ -5,6 +5,7 @@ import {Profile} from "skillset";
 import {ProfileModalAbout} from "./ProfileModalAbout";
 import {ProfileModalSkills} from "./ProfileModalSkills";
 import profileModalBackground from "./profile-modal-background.svg";
+import {ProfileModalNotes} from "./ProfileModalNotes";
 
 type Props = {
     profile: Profile,
@@ -12,7 +13,7 @@ type Props = {
     onModalClosed: () => void;
 };
 
-export const ProfileModal: React.FC<Props> = ({profile, isVisible, onModalClosed}: Props) =>
+export const ProfileModal: React.FC<Props> = ({profile, isVisible, onModalClosed}) =>
     <Modal
         onClose={onModalClosed}
         open={isVisible}
@@ -41,7 +42,8 @@ export const ProfileModal: React.FC<Props> = ({profile, isVisible, onModalClosed
                     <ProfileModalAbout profile={profile}/>
                 </Grid.Column>
 
-                <Grid.Column width="12">
+                <Grid.Column width="12" style={{padding: '0 2rem'}}>
+                    <ProfileModalNotes notes={profile.notes}/>
                     <ProfileModalSkills skills={profile.skills}/>
                 </Grid.Column>
             </Grid.Row>

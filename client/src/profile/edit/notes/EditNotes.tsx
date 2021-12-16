@@ -46,7 +46,7 @@ export const EditNotes: React.FC<Props> = ({notes, onNotesUpdated}: Props) => {
                             </Form.TextArea>
                         </Grid.Column>
                         <Grid.Column width={8}>
-                            <Segment style={{overflow: 'auto', height: 200}} rows={30}>
+                            <Segment style={{overflow: 'auto', height: 200}}>
                                 <ReactMarkdown>{notes}</ReactMarkdown>
                             </Segment>
                         </Grid.Column>

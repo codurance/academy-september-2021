@@ -1,6 +1,11 @@
 import {Profile} from "skillset";
 import {render, screen} from "@testing-library/react";
 import {ProfileCard} from "./ProfileCard";
+import React from "react";
+
+jest.mock("react-markdown", () => (props: {children: unknown}) => { // eslint-disable-line react/display-name
+    return <>{props.children}</>;
+});
 
 describe('profile card should', () => {
     test('show skills on card with relevant skills to search showing first and remaining skills', () => {

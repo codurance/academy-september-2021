@@ -13,7 +13,7 @@ export const ProfileModalSkills: React.FC<Props> = ({skills}) => {
             <Grid padded verticalAlign={"middle"}>
                 <Grid.Row>
                     {skills?.map(skill => (
-                        <Grid.Column computer={8} key={skill.name} style={{padding: '2rem'}} verticalAlign="middle">
+                        <Grid.Column computer={8} key={skill.name} style={{padding: '1rem'}} verticalAlign="middle">
                             <Header as="h3">
                                 <Header.Content>{skill.name}</Header.Content>
                                 <Rating

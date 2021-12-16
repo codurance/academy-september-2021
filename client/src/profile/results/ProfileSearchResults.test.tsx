@@ -9,6 +9,10 @@ import {createBrowserHistory} from "history";
 import {Profile} from "skillset";
 import {ProfileFeatureNavigator} from "../shared/navigation";
 
+jest.mock("react-markdown", () => (props: {children: unknown}) => { // eslint-disable-line react/display-name
+    return <>{props.children}</>;
+});
+
 describe('profile search results', () => {
     const history = createBrowserHistory();
 
