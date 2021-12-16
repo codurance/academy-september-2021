@@ -104,7 +104,8 @@ describe('dynamo database profile repository', () => {
                 availability: {
                     isAvailable: false,
                     client: 'Academy'
-                }
+                },
+                notes: 'I love Greggs'
             },
             {
                 name: 'Amandeep Panesar',
@@ -121,7 +122,8 @@ describe('dynamo database profile repository', () => {
                 availability: {
                     isAvailable: false,
                     client: 'Academy'
-                }
+                },
+                notes: 'I haven\t had Greggs in a while'
             },
             {
                 name: 'Darío Fernández',
@@ -137,7 +139,8 @@ describe('dynamo database profile repository', () => {
                 availability: {
                     isAvailable: false,
                     client: 'Academy'
-                }
+                },
+                notes: 'I love donkeys, eating rabbits and S.O.L.I.D principles'
             },
             {
                 name: 'Jordan Colgan',
@@ -155,7 +158,8 @@ describe('dynamo database profile repository', () => {
                 availability: {
                     isAvailable: true,
                     client: undefined
-                }
+                },
+                notes: 'I love squats'
             },
             {
                 name: 'Simon Rosenberg',
@@ -170,7 +174,8 @@ describe('dynamo database profile repository', () => {
                 availability: {
                     isAvailable: false,
                     client: 'Academy'
-                }
+                },
+                notes: 'I love Semantic UI Grids'
             },
             {
                 name: 'Samuel Steele',
@@ -186,7 +191,8 @@ describe('dynamo database profile repository', () => {
                 availability: {
                     isAvailable: false,
                     client: 'Academy'
-                }
+                },
+                notes: 'I love TypeScript'
             },
             {
                 name: 'Niall Bambury',
@@ -202,7 +208,8 @@ describe('dynamo database profile repository', () => {
                 availability: {
                     isAvailable: true,
                     client: undefined
-                }
+                },
+                notes: 'I was the facilitator for the 2021 academy'
             }
         ],
         Count: 5,

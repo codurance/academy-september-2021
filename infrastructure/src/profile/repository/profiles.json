@@ -13,7 +13,8 @@
     "availability": {
       "isAvailable": false,
       "client": "Academy"
-    }
+    },
+    "notes": ""
   },
   {
     "name": "Amandeep Panesar",
@@ -31,7 +32,8 @@
     "availability": {
       "isAvailable": false,
       "client": "Academy"
-    }
+    },
+    "notes": ""
   },
   {
     "name": "Darío Fernández",
@@ -48,7 +50,8 @@
     "availability": {
       "isAvailable": false,
       "client": "Academy"
-    }
+    },
+    "notes": ""
   },
   {
     "name": "Jordan Colgan",
@@ -67,7 +70,8 @@
     "availability": {
       "isAvailable": false,
       "client": "Academy"
-    }
+    },
+    "notes": ""
   },
   {
     "name": "Simon Rosenberg",
@@ -83,7 +87,8 @@
     "availability": {
       "isAvailable": false,
       "client": "Academy"
-    }
+    },
+    "notes": ""
   },
   {
     "name": "Sam Steele",
@@ -100,7 +105,8 @@
     "availability": {
       "isAvailable": false,
       "client": "Academy"
-    }
+    },
+    "notes": ""
   },
   {
     "name": "Niall Bambury",
@@ -116,6 +122,7 @@
     ],
     "availability": {
       "isAvailable": true
-    }
+    },
+    "notes": ""
   }
 ]

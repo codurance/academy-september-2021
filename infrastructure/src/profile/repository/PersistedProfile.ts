@@ -8,6 +8,7 @@ export class PersistedProfile implements Profile {
     location: string;
     availability: ProfileAvailability;
     skills: ProfileSkill[];
+    notes: string;
 
     constructor(profile: Profile) {
         this.name = profile.name;
@@ -17,6 +18,7 @@ export class PersistedProfile implements Profile {
         this.skills = profile.skills;
         this.availability = profile.availability;
         this.location = profile.location;
+        this.notes = profile.notes;
     }
 
     public hasSkills(skills: string[]): boolean {
