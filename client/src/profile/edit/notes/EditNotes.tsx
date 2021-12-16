@@ -3,7 +3,7 @@ import React, {SyntheticEvent, useState} from "react";
 import ReactMarkdown from "react-markdown";
 
 type Props = {
-    notes: string,
+    notes?: string,
     onNotesUpdated: (notes: string) => void
 };
 
@@ -47,7 +47,7 @@ export const EditNotes: React.FC<Props> = ({notes, onNotesUpdated}: Props) => {
                         </Grid.Column>
                         <Grid.Column width={8}>
                             <Segment style={{overflow: 'auto', height: 200}}>
-                                <ReactMarkdown>{notes}</ReactMarkdown>
+                                <ReactMarkdown>{notes ?? ''}</ReactMarkdown>
                             </Segment>
                         </Grid.Column>
                     </Grid.Row>

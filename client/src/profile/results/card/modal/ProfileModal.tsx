@@ -43,7 +43,10 @@ export const ProfileModal: React.FC<Props> = ({profile, isVisible, onModalClosed
                 </Grid.Column>
 
                 <Grid.Column width="12" style={{padding: '0 2rem'}}>
+                    {profile.notes &&
                     <ProfileModalNotes notes={profile.notes}/>
+                    }
+
                     <ProfileModalSkills skills={profile.skills}/>
                 </Grid.Column>
             </Grid.Row>

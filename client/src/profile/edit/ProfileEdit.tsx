@@ -25,10 +25,8 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
         imageUrl: authenticatedUser.profileImageUrl,
         role: '',
         location: '',
-        notes: '',
         availability: {
-            isAvailable: true,
-            client: undefined
+            isAvailable: true
         },
         skills: []
     });
