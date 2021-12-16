@@ -1,13 +1,13 @@
 describe("display expanded profile view", () => {
-    xit("modal containing additional profile information opens when clicking card in results page", () => {
+    it("modal containing additional profile information opens when clicking card in results page", () => {
         cy.loginToGoogleAccount();
 
         findPeopleWithJavaSkills();
 
         openModalBelongingTo('Sam Steele');
 
-        checkSectionPresentInModal('Location');
-        checkSectionPresentInModal('About me');
+        checkSectionPresentInModal('Notes');
+        checkSectionPresentInModal('Skills');
     })
 
     const checkSectionPresentInModal = (heading: string) => {
@@ -37,9 +37,8 @@ describe("display expanded profile view", () => {
 
     const openModalBelongingTo = (consultant: string) => {
         cy
-            .get('.modal')
+            .get('.card')
             .contains(consultant)
-            .parents('.modal')
             .click();
     };
 })

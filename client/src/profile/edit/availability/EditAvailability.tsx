@@ -28,7 +28,7 @@ export const EditAvailability: React.FC<Props> = ({availability, onAvailabilityU
             <Form.Group inline widths="equal">
                 <Form.Field>
                     <Form.Checkbox
-                        label='I am able available to be placed onto a client'
+                        label='I am available to be placed onto a client'
                         checked={availability.isAvailable}
                         onClick={() => toggleAvailability()}/>
                 </Form.Field>

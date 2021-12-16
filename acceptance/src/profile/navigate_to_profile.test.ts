@@ -19,7 +19,7 @@ describe('navigate to profile', () => {
         expectInputToHaveValue('Name', 'Jordan Colgan');
         expectInputToHaveValue('Email', 'jordan.colgan@codurance.com');
         expectDropdownToHaveSelectedValue('Role', 'Software Craftsperson in Training');
-        expectCheckboxToHaveState('I am able available to be placed onto a client', false);
+        expectCheckboxToHaveState('I am available to be placed onto a client', false);
         expectInputToHaveValue('Current Client', 'Academy');
         expectSkillsToBeShown(['Angular', 'Kotlin', 'Android', 'TypeScript', 'React', 'Java']);
     });
