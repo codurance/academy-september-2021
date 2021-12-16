@@ -1,4 +1,4 @@
-import {Profile} from "skillset";
+import {Profile, ProfileSkill} from "skillset";
 import {render, screen} from "@testing-library/react";
 import {ProfileCard} from "./ProfileCard";
 import React from "react";
@@ -49,5 +49,19 @@ describe('profile card should', () => {
         expect(screen.getByText('Rust')).toBeInTheDocument();
         expect(screen.getByText(', C#, Java')).toBeInTheDocument();
         expect(screen.queryByText('+ 1 more')).not.toBeInTheDocument();
+    });
+
+    test('clips client when too long to display on card', () => {
+        const profile = {
+            skills: [] as ProfileSkill[],
+            availability: {
+                isAvailable: false,
+                client: 'Best Client Ever'
+            }
+        } as Profile;
+
+        render(<ProfileCard profile={profile} requestedSkills={[]} />);
+
+        expect(screen.getByText('Best Client...')).toBeInTheDocument();
     });
 });

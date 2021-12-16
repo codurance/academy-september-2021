@@ -6,7 +6,6 @@ describe("display expanded profile view", () => {
 
         openModalBelongingTo('Sam Steele');
 
-        checkSectionPresentInModal('Notes');
         checkSectionPresentInModal('Skills');
     })
 

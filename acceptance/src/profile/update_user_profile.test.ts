@@ -18,7 +18,7 @@ describe("user profile updating", () => {
 
         checkLocationInSearchResults('London');
 
-        checkCurrentClientInSearchResults('Best Client Ever');
+        checkCurrentClientInSearchResults('Best Client...');
     });
 
     const findPeopleWithReactSkills = () => {
