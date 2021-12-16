@@ -30,6 +30,7 @@ describe('editing a profile should', () => {
             imageUrl: 'https://codurance.com/local-best-user.png',
             role: 'Software Craftsperson',
             location: 'London',
+            notes: 'Hello',
             availability: {
                 isAvailable: false,
                 client: 'Best Company'
@@ -46,6 +47,7 @@ describe('editing a profile should', () => {
         selectDropdownValue('Select Location', 'London');
         toggleAvailability();
         inputText('Current Client', 'Best Company');
+        inputText('Notes', 'Hello');
         await saveProfile();
 
         const capturedUpdatedProfile = capture(profileClient.save).last()[0];

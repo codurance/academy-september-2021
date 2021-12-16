@@ -9,6 +9,7 @@ import {EditAvailability} from "./availability/EditAvailability";
 import {EditAbout} from "./about/EditAbout";
 import "./ProfileEdit.css";
 import {ProfileEditFeedback} from "./feedback/ProfileEditFeedback";
+import {EditNotes} from "./notes/EditNotes";
 
 type Props = {
     profileClient: ProfileClient;
@@ -24,6 +25,7 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
         imageUrl: authenticatedUser.profileImageUrl,
         role: '',
         location: '',
+        notes: '',
         availability: {
             isAvailable: true,
             client: undefined
@@ -100,6 +102,11 @@ export const ProfileEdit: React.FC<Props> = ({profileClient, authenticatedUserSe
 
             <div className="section">
                 <EditSkills skills={updatedProfile.skills} onSkillsUpdated={skills => updateProfile('skills', skills)}/>
+            </div>
+
+            <div className="section">
+                <EditNotes notes={updatedProfile.notes}
+                           onNotesUpdated={notes => updateProfile('notes', notes)} />
             </div>
 
             <div className="section" style={{textAlign: 'center'}}>

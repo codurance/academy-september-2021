@@ -4,6 +4,7 @@ declare module 'skillset' {
         email: string;
         imageUrl: string;
         role: string;
+        notes: string;
         location: string;
         skills: ProfileSkill[];
         availability: ProfileAvailability;
@@ -29,6 +30,7 @@ declare module 'skillset' {
         name: string;
         imageUrl: string;
         role: string;
+        notes: string;
         skills: ProfileSkill[];
         location: string;
         availability: ProfileAvailability;
