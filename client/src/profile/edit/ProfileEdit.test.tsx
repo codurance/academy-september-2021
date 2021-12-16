@@ -8,6 +8,10 @@ import {ProfileEdit} from "./ProfileEdit";
 import userEvent from "@testing-library/user-event";
 import {AuthenticatedUserService} from "../../shared/authentication/service/AuthenticatedUserService";
 
+jest.mock("react-markdown", () => (props: {children: unknown}) => { // eslint-disable-line react/display-name
+    return <>{props.children}</>;
+});
+
 describe('editing a profile should', () => {
     const profileClient = mock(ProfileClient);
     const authenticatedUserService = mock<AuthenticatedUserService>();
@@ -47,7 +51,7 @@ describe('editing a profile should', () => {
         selectDropdownValue('Select Location', 'London');
         toggleAvailability();
         inputText('Current Client', 'Best Company');
-        inputText('Notes', 'Hello');
+        inputTextByPlaceholder('Type notes here', 'Hello');
         await saveProfile();
 
         const capturedUpdatedProfile = capture(profileClient.save).last()[0];
@@ -128,6 +132,11 @@ describe('editing a profile should', () => {
         const field = labelElement.parentElement;
         const input = field?.querySelector('input');
         userEvent.type(input!, value); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    };
+
+    const inputTextByPlaceholder = (placeholder: string, value: string) => {
+        const input = screen.getByPlaceholderText(placeholder);
+        userEvent.type(input, value);
     };
 
     const toggleAvailability = () => {
