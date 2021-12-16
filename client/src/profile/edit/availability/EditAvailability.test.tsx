@@ -57,7 +57,7 @@ describe('edit availability should', () => {
     };
 
     const toggleAvailability = () => {
-        const label = screen.getByText('I am able available to be placed onto a client');
+        const label = screen.getByText('I am available to be placed onto a client');
         const checkbox = label.parentElement;
         userEvent.click(checkbox!); // eslint-disable-line @typescript-eslint/no-non-null-assertion
     };
