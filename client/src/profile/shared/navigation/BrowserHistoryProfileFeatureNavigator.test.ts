@@ -1,8 +1,9 @@
 import {act, waitFor} from "@testing-library/react";
-import {Profile, ProfileSearchQuery} from "skillset";
+import {Profile} from "skillset";
 import {BrowserHistoryProfileFeatureNavigator} from "./BrowserHistoryProfileFeatureNavigator";
 import {createBrowserHistory} from "history";
 import {FeatureRoute} from "../../../shared/navigation/FeatureRoute";
+import {ProfileSearchState} from "../ui/profile-search/ProfileSearchState";
 
 describe('react router profile feature navigator', () => {
     const history = createBrowserHistory();
@@ -10,20 +11,25 @@ describe('react router profile feature navigator', () => {
     const browserHistoryProfileFeatureNavigator = new BrowserHistoryProfileFeatureNavigator(history);
 
     it('should navigate to results with search query and results available in state', () => {
-        const query: ProfileSearchQuery = {
-            skills: ['Java']
+        const state: ProfileSearchState = {
+            query: {
+                skills: ['Java'],
+                hasRequestedAvailableOnly: false,
+                hasRequestedExactMatches: false
+            },
+            results: [
+                {name: 'Jordan Steele'} as Profile
+            ],
+            timestamp: Date.now()
         };
-        const results: Profile[] = [
-            {name: 'Jordan Steele'} as Profile
-        ];
 
         act(() => {
-            browserHistoryProfileFeatureNavigator.navigateToResults(query, results);
+            browserHistoryProfileFeatureNavigator.navigateToResults(state);
         });
 
         return waitFor(() => {
             expect(window.location.pathname).toEqual('/results');
-            expect(history.location.state).toEqual({query, results});
+            expect(history.location.state).toEqual(state);
         });
     });
 

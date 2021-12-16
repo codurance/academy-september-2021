@@ -13,8 +13,13 @@ export class ProfileSearchService {
     }
 
     public async search(query: ProfileSearchQuery): Promise<void> {
-        const result = await this.profileClient.search(query);
-        this.profileFeatureNavigator.navigateToResults(query, result);
+        const results = await this.profileClient.search(query);
+        const state = {
+            query,
+            results,
+            timestamp: Date.now()
+        };
+        this.profileFeatureNavigator.navigateToResults(state);
     }
 
 }
