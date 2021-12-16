@@ -10,6 +10,7 @@ import {AuthorisedAxiosResourceClient, ProfileClient} from "./shared/resource";
 import {Layout} from "./shared/ui/layout/Layout";
 import {ProfileEdit} from "./edit/ProfileEdit";
 import {AuthenticatedUserService} from "../shared/authentication/service/AuthenticatedUserService";
+import {NotFound} from "../not-found/NotFound";
 
 type Props = {
     history: History;
@@ -46,6 +47,8 @@ export const ProfileModule: React.FC<Props> = ({history, authenticatedUserServic
                         </AuthenticatedRouteGuard>
                     }/>
                 </Route>
+
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </div>
     );
