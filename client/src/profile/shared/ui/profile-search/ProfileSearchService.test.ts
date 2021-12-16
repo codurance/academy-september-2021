@@ -3,36 +3,31 @@ import {ProfileSearchService} from "./ProfileSearchService";
 import {ProfileFeatureNavigator} from "../../navigation";
 import {ProfileClient} from "../../resource";
 import {Profile, ProfileSearchQuery} from "skillset";
+import {DateProvider} from "./DateProvider";
 
 describe('profile search service', () => {
     const profileFeatureNavigator = mock<ProfileFeatureNavigator>();
     const profileClient = mock(ProfileClient);
+    const dateProvider = mock(DateProvider);
 
     const profileSearchService = new ProfileSearchService(
-        instance(profileClient), instance(profileFeatureNavigator)
+        instance(profileClient),
+        instance(profileFeatureNavigator),
+        instance(dateProvider)
     );
-
 
     it('should navigate to results page with profile search result', async () => {
         const query = {skills: ['Java']} as ProfileSearchQuery;
         const results = [{name: 'Jordan Steele'} as Profile, {name: 'Sam Colgan'} as Profile];
+        const now = Date.now();
         when(profileClient.search(query)).thenResolve(results);
+        when(dateProvider.currentTimestamp()).thenReturn(now);
 
         await profileSearchService.search(query);
 
         const capturedSearch = capture(profileFeatureNavigator.navigateToResults).last()[0];
         expect(capturedSearch.query).toEqual(query);
         expect(capturedSearch.results).toEqual(results);
-        expectRecentTimestampCreated(capturedSearch.timestamp);
+        expect(capturedSearch.timestamp).toEqual(now);
     });
-
-    const expectRecentTimestampCreated = (timestamp: number) => {
-        const date = new Date(timestamp);
-        const now = new Date();
-        expect(date.getUTCFullYear()).toEqual(now.getUTCFullYear());
-        expect(date.getUTCMonth()).toEqual(now.getUTCMonth());
-        expect(date.getUTCDay()).toEqual(now.getUTCDay());
-        expect(date.getUTCHours()).toEqual(now.getUTCHours());
-        expect(date.getUTCMinutes()).toEqual(now.getUTCMinutes());
-    };
 });
