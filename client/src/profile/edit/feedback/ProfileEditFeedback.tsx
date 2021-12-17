@@ -11,10 +11,12 @@ export const ProfileEditFeedback: React.FC<Props> = ({profileEditState}) => {
 
     useEffect(() => {
         setShowFeedback(true);
-        if (profileEditState !== ProfileEditState.PROFILE_NOT_CREATED) {
+        if (!hasProfileEditState(ProfileEditState.PERFORMING_NETWORK_REQUEST) && !hasProfileEditState(ProfileEditState.PROFILE_NOT_CREATED)) {
             setTimeout(() => setShowFeedback(false), 5000);
         }
     }, [profileEditState]);
+
+    const hasProfileEditState = (state: ProfileEditState) => profileEditState == state;
 
     if (!showFeedback) return null;
 

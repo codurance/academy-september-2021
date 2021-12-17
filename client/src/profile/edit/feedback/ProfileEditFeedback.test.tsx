@@ -28,4 +28,15 @@ describe('profile edit feedback should', () => {
         expect(await screen.queryByText('It looks like this is your first time creating a profile')).toBeInTheDocument();
         expect(setTimeout).not.toHaveBeenCalledWith(expect.any(Function), 5000);
     });
+
+    test('does not clear feedback when peforming network request', async () => {
+        jest.useFakeTimers();
+        render(<ProfileEditFeedback profileEditState={ProfileEditState.PERFORMING_NETWORK_REQUEST} />);
+
+        act(() => {
+            jest.runAllTimers();
+        });
+
+        expect(setTimeout).not.toHaveBeenCalledWith(expect.any(Function), 5000);
+    });
 });
